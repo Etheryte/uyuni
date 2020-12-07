@@ -60,7 +60,7 @@ describe("Table component", () => {
     );
 
     data.forEach(item => {
-      expect(screen.queryByText(item.value)).not.toBe(null);
+      expect(screen.queryByText(item.value + 'foo')).not.toBe(null);
     });
   });
 
