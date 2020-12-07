@@ -2,8 +2,6 @@ name: Javascript unit tests
 
 on:
   push:
-    branches:
-      - master
     paths:
       - 'web/html/src/**'
   pull_request:
