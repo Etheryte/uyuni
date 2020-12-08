@@ -14,25 +14,32 @@ jobs:
   javascript_unit_tests:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        node-version: [10.x]
+
     steps:
     - uses: actions/checkout@v2
 
-    - name: Use Node.js
+    - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
-        node-version: '10.x'
+        node-version: ${{ matrix.node-version }}
 
     # See: https://github.com/actions/cache/blob/main/examples.md#node---yarn
-    - name: Get Yarn cache directory
+    - name: Get cache directory
       id: yarn-cache-dir-path
       run: echo "::set-output name=dir::$(yarn cache dir)"
 
-    - name: Use Yarn cache
+    - name: Use cache
       uses: actions/cache@v2
       id: yarn-cache
       with:
-        path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+        # Originally, we didn't cache node_modules, but Yarn cache is almost as slow as fetching from scratch
+        path: |
+          ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          **/node_modules
+        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}-${{ matrix.node-version }}
         restore-keys: ${{ runner.os }}-yarn-
 
     # This step is required even on a cache hit or the cache won't hydrate node_modules.
