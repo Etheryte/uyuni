@@ -35,6 +35,9 @@ jobs:
         key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
         restore-keys: ${{ runner.os }}-yarn-
 
+    # This step is required even on a cache hit or the cache won't hydrate node_modules.
+    # `--prefer-offline` means we prefer the cache over fetching things from the network.
+    # See: https://stackoverflow.com/a/62244232/1470607
     - name: Install dependencies
       run: yarn --cwd susemanager-frontend install --frozen-lockfile --prefer-offline --verbose
 
