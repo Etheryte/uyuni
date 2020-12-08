@@ -36,7 +36,7 @@ jobs:
         restore-keys: ${{ runner.os }}-yarn-
 
     - name: Install dependencies
-      run: yarn --cwd susemanager-frontend install --frozen-lockfile
+      run: yarn --cwd susemanager-frontend install --frozen-lockfile --verbose
 
     - name: Run tests
       run: yarn --cwd web/html/src test --no-cache
