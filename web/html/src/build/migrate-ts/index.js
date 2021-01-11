@@ -37,18 +37,24 @@ const args = require("./args");
     }
 
     // Try and move files to correct paths with `git mv` to keep history in tact
+    console.log("moving files to preserve git history")
     const tsPaths = [];
+    const needsReview = [];
     for (const item of inputPaths) {
       const contents = await fs.promises.readFile(item, "utf-8");
       // Try and guess what we want to output
       let isJsx = true;
+      let needsReview = false;
       try {
         isJsx = detectJsx(contents)
       } catch {
-        // Do nothing, default to jsx since that's more likely
+        needsReview = true;
       }
 
       const newName = item.replace(/.jsx?$/, isJsx ? ".tsx" : ".ts");
+      if (needsReview) {
+        needsReview.push(newName);
+      }
       tsPaths.push(newName);
 
       // If this fails, we can't really reasonably recover
@@ -56,101 +62,63 @@ const args = require("./args");
       if (stderr) {
         throw new Error(stderr);
       }
+      if (isVerbose) {
+        console.log(`moved ${item} -> ${newName}`);
+      }
+    }
+    if (needsReview.length) {
+      console.log(`the following files need manual review:\n\t${needsReview.join("\n\t")}`);
     }
     const tsInputs = tsPaths.join(" ");
-    // This is no longer relevant
+    if (isVerbose) {
+      console.log(`got ts inputs:\n${tsPaths.join("\n")}`);
+      console.log(tsPaths.length === inputPaths.length ? "lengths match" : "lengths do not match");
+    }
+    // This is no longer relevant beyond this point
     inputPaths = null;
 
     // Run an automatic tool that performs basic syntax transforms
     console.log("migrate flow");
     await execAndLog(`yarn flow-to-ts ${tsInputs}`);
 
-
-    return;
-
-
-    // Find which files we failed to migrate and rename them so other matchers can work with them
-    console.log("finding orphans");
-    const needsReview = [];
-    for (const item of inputPaths) {
-      try {
-        // If the file exists, it needs to be renamed
-        await fs.promises.access(item);
-        // Blindly move to tsx, the content will need to be manually inspected anyway
-        const newName = item.replace(/.jsx?$/, ".tsx");
-        await fs.promises.rename(item, newName);
-        needsReview.push(newName);
-      } catch {
-        // File was already migrated to a new name, do nothing
-      }
-    }
-    if (needsReview.length) {
-      console.log(`the following files need manual review:\n\t${needsReview.join("\n\t")}`);
-    }
-
-    // At this point, our input paths are no longer correct since they're js or jsx files, but previous ops output ts or tsx files
-    console.log("finding outputs");
-    const TODOtsPaths = [];
-    for (const item of inputPaths) {
-      try {
-        // Check if we have a tsx file with a matching name, this is the most likely scenario
-        const tsxPath = item.replace(/.jsx?$/, ".tsx");
-        await fs.promises.access(tsxPath);
-        tsPaths.push(tsxPath);
-      } catch {
-        try {
-          // If no tsx is found, check for ts
-          const tsPath = item.replace(/.jsx?$/, ".ts");
-          await fs.promises.access(tsPath);
-          tsPaths.push(tsPath);
-        } catch (error) {
-          // If there's no match, give up on this one, but keep trying to work with the rest of the files
-          console.error(`failed to find output for: ${item}`);
-        }
-      }
-    }
-    if (isVerbose) {
-      console.log(`got ts inputs:\n${tsPaths.join("\n")}`);
-      console.log(tsPaths.length === inputPaths.length ? "lengths match" : "lengths do not match");
-    }
-    const TODOtsInputs = tsPaths.join(" ");
-
     /**
      * A collection of automatic fixes for some of the most prevalent issues across the whole codebase.
      * Most of these are semantic differences between Flow and TS, others are issues because TS is stricter with types than Flow is.
      */
 
+    const tempExtension = ".bak";
+
     // In Flow, the widest possible type is `Object`, in TS the equivalent type is `any`
     // const foo: Object -> const foo: any
     console.log("migrate object to any");
-    await execAndLog(`sed -i'' -e 's/: Object\\([^\\.]\\)/: any\\1/g' ${tsInputs}`);
+    await execAndLog(`sed -i'${tempExtension}' -e 's/: Object\\([^\\.]\\)/: any\\1/g' ${tsInputs}`);
 
     // React.useState(undefined) -> React.useState<any>(undefined)
     console.log("migrate untyped use state");
-    await execAndLog(`sed -i'' -e 's/React.useState(undefined)/React.useState<any>(undefined)/' ${tsInputs}`);
+    await execAndLog(`sed -i'${tempExtension}' -e 's/React.useState(undefined)/React.useState<any>(undefined)/' ${tsInputs}`);
 
     // React.ReactNode -> JSX.Element
     console.log("migrate React.ReactNode to JSX.Element");
-    await execAndLog(`sed -i'' -e 's/=> React.ReactNode/=> JSX.Element/' ${tsInputs}`);
-    await execAndLog(`sed -i'' -e 's/: React.ReactNode {/: JSX.Element {/' ${tsInputs}`);
+    await execAndLog(`sed -i'${tempExtension}' -e 's/=> React.ReactNode/=> JSX.Element/' ${tsInputs}`);
+    await execAndLog(`sed -i'${tempExtension}' -e 's/: React.ReactNode {/: JSX.Element {/' ${tsInputs}`);
 
     // Array<Object> -> Array<any>
     console.log("migrate object array to any array");
-    await execAndLog(`sed -i'' -e 's/Array<Object>/Array<any>/' ${tsInputs}`);
+    await execAndLog(`sed -i'${tempExtension}' -e 's/Array<Object>/Array<any>/' ${tsInputs}`);
 
     // In strict TS, an empty untyped object is of type `{}` and can't have keys added to it
     // let foo = {}; -> let foo: any = {};
     console.log("migrate untyped object initializations");
-    await execAndLog(`sed -i'' -e 's/let \\([a-zA-Z0-9]*\\) = {\\s*};/let \\1: any = {};/' ${tsInputs}`);
-    await execAndLog(`sed -i'' -e 's/const \\([a-zA-Z0-9]*\\) = {\\s*};/const \\1: any = {};/' ${tsInputs}`);
-    await execAndLog(`sed -i'' -e 's/var \\([a-zA-Z0-9]*\\) = {\\s*};/var \\1: any = {};/' ${tsInputs}`);
+    await execAndLog(`sed -i'${tempExtension}' -e 's/let \\([a-zA-Z0-9]*\\) = {\\s*};/let \\1: any = {};/' ${tsInputs}`);
+    await execAndLog(`sed -i'${tempExtension}' -e 's/const \\([a-zA-Z0-9]*\\) = {\\s*};/const \\1: any = {};/' ${tsInputs}`);
+    await execAndLog(`sed -i'${tempExtension}' -e 's/var \\([a-zA-Z0-9]*\\) = {\\s*};/var \\1: any = {};/' ${tsInputs}`);
 
     // In strict TS, an empty untyped array is of type `never[]` and you can't push to it without adding a type
     // let foo = []; -> let foo: any[] = [];
     console.log("migrate untyped array initializations");
-    await execAndLog(`sed -i'' -e 's/let \\([a-zA-Z0-9]*\\) = [\\s*];/let \\1: any[] = [];/' ${tsInputs}`);
-    await execAndLog(`sed -i'' -e 's/const \\([a-zA-Z0-9]*\\) = [\\s*];/const \\1: any[] = [];/' ${tsInputs}`);
-    await execAndLog(`sed -i'' -e 's/var \\([a-zA-Z0-9]*\\) = [\\s*];/var \\1: any[] = [];/' ${tsInputs}`);
+    await execAndLog(`sed -i'${tempExtension}' -e 's/let \\([a-zA-Z0-9]*\\) = [\\s*];/let \\1: any[] = [];/' ${tsInputs}`);
+    await execAndLog(`sed -i'${tempExtension}' -e 's/const \\([a-zA-Z0-9]*\\) = [\\s*];/const \\1: any[] = [];/' ${tsInputs}`);
+    await execAndLog(`sed -i'${tempExtension}' -e 's/var \\([a-zA-Z0-9]*\\) = [\\s*];/var \\1: any[] = [];/' ${tsInputs}`);
 
     // Find which imported files have type annotations but were not included in the migration
     console.log("finding untyped annotated imports");
@@ -164,6 +132,22 @@ const args = require("./args");
           `the following imported files have annotations but are not marked as typed:\n\t${paths.join("\n\t")}`
         );
         console.log(`to try and migrate them, run\n\tyarn migrate ${paths.join(" ")}`);
+      }
+    }
+
+    // Remove any temporary files
+    console.log("cleaning up");
+    for (const item in tsPaths) {
+      const tempPath = item + tempExtension;
+      try {
+        // This path might not exist at all
+        await fs.promises.access(tempPath);
+        await fs.promises.unlink(tempPath);
+        if (isVerbose) {
+          console.log(`deleted ${tempPath}`);
+        }
+      } catch {
+        // Do nothing
       }
     }
 
