@@ -13,11 +13,18 @@ module.exports = {
         default: false,
         describe: "Enable verbose logging",
       })
+      .option("f", {
+        alias: "force",
+        type: "boolean",
+        default: false,
+        describe: "Ignore safety checks",
+      })
       .help("h")
       .alias("h", "help");
 
     const argv = parser.argv;
     const isVerbose = !!argv.verbose;
+    const isForce = !!argv.force;
     // Everything after specified args
     const inputs = argv._;
 
@@ -32,6 +39,7 @@ module.exports = {
 
     return {
       isVerbose,
+      isForce,
       inputs,
     };
   },

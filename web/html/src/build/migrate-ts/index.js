@@ -8,7 +8,7 @@ const args = require("./args");
 
 (async () => {
   try {
-    const { inputs: rawInputs, isVerbose } = args.parse(process.argv);
+    const { inputs: rawInputs, isVerbose, isForce } = args.parse(process.argv);
 
     /** Execute shell command and log the output if verbose, always log errors */
     async function execAndLog(...args) {
@@ -27,6 +27,22 @@ const args = require("./args");
         console.log("trying to proceed anyway");
       }
       return result;
+    }
+
+    // Since we want to do things with git, check if everything is clean unless --force is specified
+    if (isForce) {
+      console.warn("ignoring current git state");
+    } else {
+      console.log("checking current git state");
+      const { stdout: branch } = await execAndLog('git branch --show-current');
+      if ((branch || '').trim() === 'master') {
+        throw new Error(`you're on branch master, please move to a new branch (use --force or -f to override)`);
+      }
+      // See https://unix.stackexchange.com/a/155077/22607
+      const { stdout: status } = await execAndLog('git status --porcelain');
+      if ((status || '').trim()) {
+        throw new Error(`git working directory is not clean, please commit or stash your changes before continuing (use --force or -f to override)`);
+      }
     }
 
     const cwd = process.cwd();
@@ -62,6 +78,7 @@ const args = require("./args");
       if (stderr) {
         throw new Error(stderr);
       }
+      await execAndLog(`git add ${newName}`);
       if (isVerbose) {
         console.log(`moved ${item} -> ${newName}`);
       }
@@ -74,6 +91,11 @@ const args = require("./args");
       console.log(`got ts inputs:\n${tsPaths.join("\n")}`);
       console.log(tsPaths.length === inputPaths.length ? "lengths match" : "lengths do not match");
     }
+
+    // Add git move results to keep history
+    console.log("creating 1 unpushed commit about file moves to keep git history");
+    await execAndLog(`git commit -m "Renaming files for Typescript migration"`);
+
     // This is no longer relevant beyond this point
     inputPaths = null;
 
