@@ -63,7 +63,7 @@ const args = require("./args");
 
     // Run an automatic tool that performs basic syntax transforms
     console.log("migrate flow");
-    await execAndLog(`yarn flow-to-ts ${inputs}`);
+    await execAndLog(`yarn flow-to-ts ${tsInputs}`);
 
 
     return;
@@ -90,7 +90,7 @@ const args = require("./args");
 
     // At this point, our input paths are no longer correct since they're js or jsx files, but previous ops output ts or tsx files
     console.log("finding outputs");
-    const tsPaths = [];
+    const TODOtsPaths = [];
     for (const item of inputPaths) {
       try {
         // Check if we have a tsx file with a matching name, this is the most likely scenario
@@ -113,7 +113,7 @@ const args = require("./args");
       console.log(`got ts inputs:\n${tsPaths.join("\n")}`);
       console.log(tsPaths.length === inputPaths.length ? "lengths match" : "lengths do not match");
     }
-    const tsInputs = tsPaths.join(" ");
+    const TODOtsInputs = tsPaths.join(" ");
 
     /**
      * A collection of automatic fixes for some of the most prevalent issues across the whole codebase.
