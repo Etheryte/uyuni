@@ -7,7 +7,6 @@ module.exports = {
 
   plugins: [
     "@typescript-eslint",
-    "flowtype-errors",
     "react-hooks",
   ],
 
@@ -22,9 +21,9 @@ module.exports = {
   },
 
   rules: {
-    "flowtype-errors/show-errors": "error",
-    "flowtype-errors/show-warnings": "warn",
     "react-hooks/rules-of-hooks": "error",
+    // TODO: This needs to be reworked with Typescript support in mind
+    "no-use-before-define": "off"
   },
 
   settings: {
