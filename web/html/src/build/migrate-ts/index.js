@@ -2,6 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const util = require("util");
 const exec = util.promisify(require("child_process").exec);
+const detectJsx = require('@khanacademy/flow-to-ts/src/detect-jsx');
 
 const args = require("./args");
 
@@ -30,15 +31,43 @@ const args = require("./args");
 
     const cwd = process.cwd();
     // Make all paths absolute to avoid any issues
-    const inputPaths = rawInputs.map(item => path.resolve(cwd, item));
-    const inputs = inputPaths.join(" ");
+    let inputPaths = rawInputs.map(item => path.resolve(cwd, item));
     if (isVerbose) {
       console.log(`got inputs:\n${inputPaths.join("\n")}`);
     }
 
+    // Try and move files to correct paths with `git mv` to keep history in tact
+    const tsPaths = [];
+    for (const item of inputPaths) {
+      const contents = await fs.promises.readFile(item, "utf-8");
+      // Try and guess what we want to output
+      let isJsx = true;
+      try {
+        isJsx = detectJsx(contents)
+      } catch {
+        // Do nothing, default to jsx since that's more likely
+      }
+
+      const newName = item.replace(/.jsx?$/, isJsx ? ".tsx" : ".ts");
+      tsPaths.push(newName);
+
+      // If this fails, we can't really reasonably recover
+      const { stderr } = await execAndLog(`git mv ${item} ${newName}`);
+      if (stderr) {
+        throw new Error(stderr);
+      }
+    }
+    const tsInputs = tsPaths.join(" ");
+    // This is no longer relevant
+    inputPaths = null;
+
     // Run an automatic tool that performs basic syntax transforms
     console.log("migrate flow");
     await execAndLog(`yarn flow-to-ts ${inputs}`);
+
+
+    return;
+
 
     // Find which files we failed to migrate and rename them so other matchers can work with them
     console.log("finding orphans");
