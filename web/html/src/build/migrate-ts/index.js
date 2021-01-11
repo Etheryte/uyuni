@@ -137,14 +137,14 @@ const args = require("./args");
 
     // Remove any temporary files
     console.log("cleaning up");
-    for (const item in tsPaths) {
+    for (const item of tsPaths) {
       const tempPath = item + tempExtension;
       try {
         // This path might not exist at all
         await fs.promises.access(tempPath);
         await fs.promises.unlink(tempPath);
         if (isVerbose) {
-          console.log(`deleted ${tempPath}`);
+          console.log(`deleted backup file ${tempPath}`);
         }
       } catch {
         // Do nothing
