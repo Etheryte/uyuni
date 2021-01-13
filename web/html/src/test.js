@@ -1,3 +1,1 @@
-/* eslint no-empty-pattern: 2 */
-
-const {}
+const foo = {};
