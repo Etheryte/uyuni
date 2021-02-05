@@ -237,7 +237,7 @@ const PackageStates = ({serverId}: PropsType) => {
               <TextField id="package-search" value={filter} placeholder={t("Search package")}
                          onChange={onSearchChange} onPressEnter={triggerSearch} className="form-control"/>
               <span className="input-group-btn">
-                <AsyncButton id="search" text={t("Search")} action={search} ref={searchRef} key={"searchButton"}/>
+                <AsyncButton id="search" className="spacewalk-button-filter" text={t("Search")} action={search} ref={searchRef} key={"searchButton"}/>
               </span>
             </div>
           </div>
