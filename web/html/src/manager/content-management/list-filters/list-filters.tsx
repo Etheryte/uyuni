@@ -16,12 +16,13 @@ import { isOrgAdmin } from "core/auth/auth.utils";
 import { getValue } from "utils/data";
 import useLifecycleActionsApi from "../shared/api/use-lifecycle-actions-api";
 import { Button } from "components/buttons";
+import { ServerMessageType } from "components/messages";
 
 type Props = {
   filters: Array<FilterServerType>;
-  openFilterId: number;
-  projectLabel: string;
-  flashMessage: string;
+  openFilterId?: number;
+  projectLabel?: string;
+  flashMessage?: ServerMessageType;
 };
 
 const ListFilters = (props: Props) => {

@@ -52,12 +52,12 @@ type FilterEditProps = {
   icon: string;
   buttonText: string;
   onChange: Function;
-  openFilterId: number;
-  projectLabel: string;
+  openFilterId?: number;
+  projectLabel?: string;
   editing?: boolean;
 };
 
-const redirectToProject = (projectLabel: string) => {
+const redirectToProject = (projectLabel?: string) => {
   window.pageRenderers?.spaengine?.navigate?.(`/rhn/manager/contentmanagement/project/${projectLabel || ""}`);
 };
 
@@ -183,7 +183,7 @@ const FilterEdit = (props: FilterEditProps) => {
                   handler={() => {
                     cancelAction();
                     if (!_isEmpty(props.projectLabel)) {
-                      redirectToProject(props.projectLabel);
+                      redirectToProject(props.projectLabel!);
                     } else {
                       closeDialog(modalNameId);
                     }
