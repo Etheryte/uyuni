@@ -15,8 +15,8 @@ describe("Highstate summary", () => {
   test("Render summary table", async () => {
     const data = [
       {
-        type: "INTERNAL"
-      }
+        type: "INTERNAL",
+      },
     ];
     server.mockGetJson(API_SUMMARY, data);
 
@@ -40,7 +40,7 @@ describe("Highstate summary", () => {
         type: "STATE",
         sourceId: 1,
         sourceName: "My system",
-        sourceType: "SYSTEM"
+        sourceType: "SYSTEM",
       },
       {
         id: 2,
@@ -48,7 +48,7 @@ describe("Highstate summary", () => {
         type: "FORMULA",
         sourceId: 2,
         sourceName: "My group",
-        sourceType: "GROUP"
+        sourceType: "GROUP",
       },
       {
         id: 3,
@@ -56,8 +56,8 @@ describe("Highstate summary", () => {
         type: "CONFIG",
         sourceId: 3,
         sourceName: "My org",
-        sourceType: "ORG"
-      }
+        sourceType: "ORG",
+      },
     ];
     server.mockGetJson(API_SUMMARY, data);
 
@@ -90,7 +90,7 @@ describe("Highstate output", () => {
     const { findByText, getByRole, getByText } = render(<HighstateSummary minionId={1000} />);
     await findByText("There are no entries to show.");
 
-    const highstateLink = getByRole("button", { name: "Show full highstate output" });
+    const highstateLink = getByRole("button", { name: "Show full highstate output" }) as HTMLButtonElement;
     expect(highstateLink.disabled).toBeFalsy();
     click(highstateLink);
     expect(highstateLink.disabled).toBeTruthy();
