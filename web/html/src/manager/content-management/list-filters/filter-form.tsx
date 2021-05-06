@@ -48,7 +48,8 @@ const FilterForm = (props: Props) => {
         })
       );
     }
-  }, [props.filter.type]);
+  // }, [props.filter.type]);
+  }, [editing, filter, localTime, onChange, props.filter.type]);
 
   const filterType = filter.type || "";
   const selectedFilter = findClmFilterByKey(filterType);

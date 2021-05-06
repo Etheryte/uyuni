@@ -28,6 +28,8 @@ export const {
   paste,
 } = userEvent;
 
+const asyncAnimationFrame = () => new Promise(resolve => window.requestAnimationFrame(() => resolve(undefined)));
+
 /**
  * This is a usable alternative for @testing-library/user-event's `type()`.
  * The library;s `type()` is non-deterministic without a delay and prohibitively
@@ -46,13 +48,24 @@ export const type = async <T extends HTMLElement>(elementOrPromiseOfElement: T |
    * `window.requestAnimationFrame` mandatory to ensure we don't proceed until
    * the UI has updated, expect non-deterministic results without this.
    */
-  return new Promise(resolve => window.requestAnimationFrame(() => resolve(undefined)));
+  return asyncAnimationFrame();
 };
 
 export * from "./forms";
 
-export const select = async (...[input, option, config]: Parameters<typeof selectEvent.select>) => {
-  return selectEvent.select(input, option, Object.assign({}, {container: document.body}, config));
+type SelectParams = Parameters<typeof selectEvent.select>;
+type InputType = SelectParams[0];
+type WrappedInputType = InputType | null | Promise<InputType | null>;
+type OptionType = SelectParams[1];
+type ConfigType = SelectParams[2];
+/** Select a given option in a react-select dropdown, e.g. `select(screen.getByLabelText(/Foo/), "Bar")` */
+export const select = async (elementOrPromiseOfElement: WrappedInputType, option: OptionType, config?: ConfigType) => {
+  const target = await elementOrPromiseOfElement;
+  if (!target) {
+    throw new TypeError("Found no target to select via " + target);
+  }
+  await selectEvent.select(target, option, Object.assign({}, {container: document.body}, config));
+  return asyncAnimationFrame();
 }
 
 const baseServer = setupServer();
