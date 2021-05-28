@@ -1,3 +1,5 @@
+- Fix dependency selection bug in SSM channels view
+
 -------------------------------------------------------------------
 Mon May 24 12:39:25 CEST 2021 - jgonzalez@suse.com
 
