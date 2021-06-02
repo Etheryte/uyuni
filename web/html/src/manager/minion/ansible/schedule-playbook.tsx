@@ -130,7 +130,7 @@ export default function SchedulePlaybook({ playbook, onBack }: SchedulePlaybookP
             <div className="form-horizontal">
               <div className="form-group">
                 <div className="col-sm-3 control-label">
-                  <label>{t("Inventory Path")}:</label>
+                  <label htmlFor="inventory-path-select">{t("Inventory Path")}:</label>
                 </div>
                 <div className="col-sm-6">
                   <Combobox
