@@ -33,9 +33,16 @@ function cancelable<T = any>(promise: Promise<T>, onCancel?: (arg0: Error | void
   return castRace;
 }
 
+/**
+ * @param dateString ISO datestring
+ */
 function dateWithTimezone(dateString: string): Date {
+  if (!dateString) {
+    throw new TypeError("No dateString passed to dateWithTimezone");
+  }
+
   const offsetNum =
-    dateString[dateString.length - 1].toUpperCase() === "Z"
+    dateString[dateString.length - 1]?.toUpperCase() === "Z"
       ? 0
       : parseInt(dateString.substring(dateString.length - 6).replace(":", ""), 10);
   const serverOffset = Math.trunc(offsetNum / 100) * 60 + (offsetNum % 100);

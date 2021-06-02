@@ -48,7 +48,6 @@ declare global {
   var moment: any;
 
   // Used by section-toolbar, defined in spacewalk-essentials.js
-  // TODO: Handle "ReferenceError: handleSst is not defined" in jest
   var handleSst: Function | undefined;
 
   // Used by cveaudit and spacewalk-checkall.js

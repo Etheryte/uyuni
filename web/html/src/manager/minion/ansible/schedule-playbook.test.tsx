@@ -9,9 +9,6 @@ import { PlaybookDetails } from "./accordion-path-content";
 const API_INVENTORIES = "/rhn/manager/api/systems/details/ansible/paths/inventory/1000";
 const API_PLAYBOOK_CONTENT = "/rhn/manager/api/systems/details/ansible/paths/playbook-contents";
 
-// TODO: Handle "ReferenceError: handleSst is not defined"
-window.handleSst = undefined;
-
 describe("Ansible playbooks", () => {
   test("Render playbook content", async () => {
     // Mock inventory list API endpoint

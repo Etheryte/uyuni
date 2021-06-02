@@ -83,7 +83,7 @@ export default function SchedulePlaybook({ playbook, onBack }: SchedulePlaybookP
     ).promise
       .then((res: JsonResult<number>) => res.success ? res.data : Promise.reject(res))
       .then(actionId =>
-        setMessages(MsgUtils.info(<ScheduleMessage id={actionId} actionChain={actionChain?.text} />)))
+        setMessages(MsgUtils.info(<ScheduleMessage id={actionId} actionChain={actionChain?.text}/>)))
       .catch(res =>
         setMessages(res.messages?.flatMap(MsgUtils.error) || Network.responseErrorMessage(res))
       );
@@ -130,7 +130,7 @@ export default function SchedulePlaybook({ playbook, onBack }: SchedulePlaybookP
             <div className="form-horizontal">
               <div className="form-group">
                 <div className="col-sm-3 control-label">
-                  <label htmlFor="inventory-path-select">{t("Inventory Path")}:</label>
+                  <label>{t("Inventory Path")}:</label>
                 </div>
                 <div className="col-sm-6">
                   <Combobox

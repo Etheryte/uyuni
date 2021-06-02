@@ -7,7 +7,7 @@ type Props = {
 
 export const SectionToolbar = ({ children }: Props) => {
   useEffect(() => {
-    handleSst?.();
+    window.handleSst?.();
   }, []);
 
   return <div className="spacewalk-section-toolbar">{children}</div>;

@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as UtilsFunctions from "utils/functions";
 
 // Mock the datetime picker to avoid it causing issues due to missing jQuery/Bootstrap parts
 jest.mock("components/datetimepicker", () => {
