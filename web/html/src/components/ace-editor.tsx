@@ -1,7 +1,7 @@
 import * as React from "react";
 import ReactDOM from "react-dom";
 
-type Props = {
+export type Props = {
   mode: string;
   minLines: number;
   maxLines: number;

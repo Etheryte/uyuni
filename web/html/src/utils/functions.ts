@@ -42,7 +42,7 @@ function dateWithTimezone(dateString: string): Date {
   }
 
   const offsetNum =
-    dateString[dateString.length - 1]?.toUpperCase() === "Z"
+    dateString[dateString.length - 1].toUpperCase() === "Z"
       ? 0
       : parseInt(dateString.substring(dateString.length - 6).replace(":", ""), 10);
   const serverOffset = Math.trunc(offsetNum / 100) * 60 + (offsetNum % 100);

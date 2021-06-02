@@ -77,7 +77,7 @@ describe("Ansible playbooks", () => {
     screen.getByText("/my/second/inventory");
     screen.getByText("/playbooks/my/inventory");
 
-    // Playbook contents (mocked up by AceEditor)
-    screen.getByText("My AceEditor mockup")
+    // Playbook contents
+    screen.getByText("My playbook content string")
   });
 });

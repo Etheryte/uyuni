@@ -1,12 +1,13 @@
 import * as React from "react";
-import * as UtilsFunctions from "utils/functions";
+
+import { Props as AceEditorProps } from "components/ace-editor";
 
 // Mock the datetime picker to avoid it causing issues due to missing jQuery/Bootstrap parts
 jest.mock("components/datetimepicker", () => {
   return {
     __esModule: true,
     DateTimePicker: () => {
-      return <div>DateTimePicker mockup</div>;
+      return <div className="input-group">DateTimePicker mockup</div>;
     },
   };
 });
@@ -15,8 +16,12 @@ jest.mock("components/datetimepicker", () => {
 jest.mock("components/ace-editor", () => {
   return {
     __esModule: true,
-    AceEditor: () => {
-      return <div>My AceEditor mockup</div>;
+    AceEditor: (props: AceEditorProps) => {
+      return (
+        <div className={props.className} id={props.id}>
+          {props.content}
+        </div>
+      );
     },
   };
 });
