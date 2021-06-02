@@ -33,15 +33,11 @@ describe("Ansible playbooks", () => {
     server.mockGetJson(API_INVENTORIES, response);
 
     // Mock playbook content API endpoint
-    server.use(
-      rest.post(API_PLAYBOOK_CONTENT, (req, res, ctx) =>
-        res(ctx.json({
-          success: true,
-          messages: [],
-          data: "My playbook content string"
-        }))
-      )
-    );
+    server.mockPostJson(API_PLAYBOOK_CONTENT, {
+      success: true,
+      messages: [],
+      data: "My playbook content string"
+    });
 
     // TODO: Setup automatically with datetimepicker
     server.use(
@@ -52,7 +48,7 @@ describe("Ansible playbooks", () => {
             maintenanceWindows: null
           }
         })))
-    )
+    );
 
     const playbook: PlaybookDetails = {
       path: {
@@ -64,7 +60,7 @@ describe("Ansible playbooks", () => {
       fullPath: "/playbooks/my/playbook",
       customInventory: "/playbooks/my/inventory",
       name: "my/playbook"
-    }
+    };
 
     render(<SchedulePlaybook playbook={playbook} onBack={() => { }} />);
     // TODO: Change after t() mockup is fixed

@@ -4,7 +4,7 @@ import { setupServer } from "msw/node";
 const baseServer = setupServer();
 const serverAddons = {
   /** Mock a GET request to `url` with a successful JSON response containing `response` */
-  mockGetJson(url: string, response: unknown) {
+  mockGetJson<T>(url: string, response: T) {
     return server.use(
       rest.get(url, (req, res, ctx) => {
         return res(ctx.json(response));
@@ -12,7 +12,7 @@ const serverAddons = {
     );
   },
   /** Mock a POST request to `url` with a successful JSON response containing `response` */
-  mockPostJson(url: string, response: unknown) {
+  mockPostJson<T>(url: string, response: T) {
     return server.use(
       rest.post(url, (req, res, ctx) => {
         return res(ctx.json(response));
