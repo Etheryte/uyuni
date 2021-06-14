@@ -49,7 +49,6 @@ const npmDependencies = [
   { name: "metal-uri", license: "BSD",  version: "2.4.0" }, 
   { name: "metal-useragent", license: "BSD",  version: "3.0.1" }, 
   { name: "moment", license: "MIT",  version: "2.29.1" }, 
-  { name: "moment-timezone", license: "MIT",  version: "0.5.33" }, 
   { name: "node-gettext", license: "MIT",  version: "3.0.0" }, 
   { name: "object-assign", license: "MIT",  version: "4.1.1" }, 
   { name: "process", license: "MIT",  version: "0.11.10" }, 
