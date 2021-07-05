@@ -1,4 +1,4 @@
-import { screen, queryHelpers } from "@testing-library/react";
+import { screen, queryHelpers, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as selectEvent from "react-select-event";
 
@@ -29,22 +29,8 @@ const asyncAnimationFrame = () => new Promise(resolve => window.requestAnimation
  * Instead we use the `paste()` method which inserts the full text in one go and
  * pretend there is no difference.
  */
-export const type = async <T extends HTMLElement>(
-  elementOrPromiseOfElement: T | Promise<T>,
-  text: string,
-  append = false
-) => {
-  const target = await elementOrPromiseOfElement;
-  if (!append) {
-    userEvent.clear(target);
-  }
-  userEvent.paste(target, text, undefined);
-
-  /**
-   * `window.requestAnimationFrame` mandatory to ensure we don't proceed until
-   * the UI has updated, expect non-deterministic results without this.
-   */
-  return asyncAnimationFrame();
+export const type = <T extends HTMLElement>(element: T, text: string) => {
+  fireEvent.change(element, { target: { value: text } });
 };
 
 type SelectParams = Parameters<typeof selectEvent.select>;
