@@ -61,7 +61,6 @@ async function renderWithNetwork(net=undefined) {
 
 describe("network properties rendering", () => {
 
-  /*
   test("Render with minimal properties", async () => {
     await renderWithNetwork();
     expect(fieldValuesByName("type")).toStrictEqual(["bridge"]);
@@ -81,10 +80,10 @@ describe("network properties rendering", () => {
 
     await renderWithNetwork();
     expect(fieldValuesByName("type")).toStrictEqual(["bridge"]);
-    await type(screen.getByLabelText(/^Name/), "bridge0");
-    await type(screen.getByLabelText(/^Bridge/), "br0");
+    type(screen.getByLabelText(/^Name/), "bridge0");
+    type(screen.getByLabelText(/^Bridge/), "br0");
     click(screen.getByLabelText("Start during virtual host boot"));
-    expect(screen.getByText("Submit").disabled).toBeFalsy();
+    await screen.findByText("Submit", { selector: ':not([disabled])' });
     click(screen.getByText("Submit"));
   });
 
@@ -108,19 +107,18 @@ describe("network properties rendering", () => {
 
     await renderWithNetwork();
     await select(screen.getByLabelText(/^Network type/), "nat")
-    await type(screen.getByLabelText(/^Name/), "nat0");
-    await type(screen.getByLabelText(/^Maximum Transmission Unit/), "7000");
+    type(screen.getByLabelText(/^Name/), "nat0");
+    type(screen.getByLabelText(/^Maximum Transmission Unit/), "7000");
     const ipv4_address = await screen.findByTitle("IPv4 Network address");
-    await type(ipv4_address, "192.168.10.0");
-    await type(screen.getByTitle("IPv4 Network address prefix"), "24");
-    await type(screen.getByTitle("NAT IPv4 range start"), "192.168.10.3");
-    await type(screen.getByTitle("NAT IPv4 range end"), "192.168.10.4");
-    await type(screen.getByTitle("NAT port range start"), "1234");
-    await type(screen.getByTitle("NAT port range end"), "1236");
-    expect(screen.getByText("Submit").disabled).toBeFalsy();
+    type(ipv4_address, "192.168.10.0");
+    type(screen.getByTitle("IPv4 Network address prefix"), "24");
+    type(screen.getByTitle("NAT IPv4 range start"), "192.168.10.3");
+    type(screen.getByTitle("NAT IPv4 range end"), "192.168.10.4");
+    type(screen.getByTitle("NAT port range start"), "1234");
+    type(screen.getByTitle("NAT port range end"), "1236");
+    await screen.findByText("Submit", { selector: ':not([disabled])' });
     click(screen.getByText("Submit"));
   });
-  */
 
   test("Create network with all addressing fields", async done => {
     const timer = new Timer(false);
@@ -227,17 +225,17 @@ describe("network properties rendering", () => {
     click(screen.getByText("Enable IPv6"));
     const ipv6_address = await screen.findByTitle("IPv6 Network address");
     timer.now("ipv6 rendered");
-    await type(ipv6_address, "2001:db8:ac10:fd01::");
-    await type(screen.getByTitle("IPv6 Network address prefix"), "64");
+    type(ipv6_address, "2001:db8:ac10:fd01::");
+    type(screen.getByTitle("IPv6 Network address prefix"), "64");
     click(screen.getByTitle("Add DHCPv6 Ranges"));
     const dhcpv6_range0 = await screen.findByTitle("DHCPv6 address range 0 start");
-    await type(dhcpv6_range0, "2001:db8:ac10:fd01::10");
-    await type(screen.getByTitle("DHCPv6 address range 0 end"), "2001:db8:ac10:fd01::20");
+    type(dhcpv6_range0, "2001:db8:ac10:fd01::10");
+    type(screen.getByTitle("DHCPv6 address range 0 end"), "2001:db8:ac10:fd01::20");
     click(screen.getByTitle("Add DHCPv6 Hosts"));
     const dhcpv6_host0 = await screen.findByTitle("DHCPv6 host 0 address");
-    await type(dhcpv6_host0, "2001:db8:ac10:fd01::2");
-    await type(screen.getByTitle("DHCPv6 host 0 DUID"), "0:3:0:1:0:16:3e:11:22:33");
-    await type(screen.getByTitle("DHCPv6 host 0 name"), "peter.xyz");
+    type(dhcpv6_host0, "2001:db8:ac10:fd01::2");
+    type(screen.getByTitle("DHCPv6 host 0 DUID"), "0:3:0:1:0:16:3e:11:22:33");
+    type(screen.getByTitle("DHCPv6 host 0 name"), "peter.xyz");
     timer.now("ipv6 done");
 
     // DNS fields checks
@@ -279,12 +277,11 @@ describe("network properties rendering", () => {
     type(screen.getByTitle("DNS TXT record 1 value"), "other value");
     timer.now("dns fields done");
 
-    await screen.findByText("Submit", { selector: '[disabled]' });
+    await screen.findByText("Submit", { selector: ':not([disabled])' });
     timer.now("submitting");
     click(screen.getByText("Submit"));
   }, 10000);
 
-  /*
   test("Create openVSwitch bridge network", async done => {
     onSubmit = ({definition}) => {
       expect(definition).toStrictEqual({
@@ -307,16 +304,16 @@ describe("network properties rendering", () => {
 
     await select(screen.getByLabelText(/^Virtual Port Type/), "open vSwitch");
     const iface_id = await screen.findByLabelText(/^Interface id/);
-    await type(iface_id, "09b11c53-8b5c-4eeb-8f00-d84eaa0aaa4f");
+    type(iface_id, "09b11c53-8b5c-4eeb-8f00-d84eaa0aaa4f");
     click(screen.getByTitle("Add VLANs"));
     const vlan0_tag = await screen.findByTitle("VLAN 0 tag");
-    await type(vlan0_tag, "42");
+    type(vlan0_tag, "42");
     click(screen.getByTitle("Add VLANs"));
     const vlan1_tag = await screen.findByTitle("VLAN 1 tag");
-    await type(vlan1_tag, "47");
+    type(vlan1_tag, "47");
     expect(screen.getByLabelText("VLAN tags trunking").checked).toBeTruthy();
 
-    expect(screen.getByText("Submit").disabled).toBeFalsy();
+    await screen.findByText("Submit", { selector: ':not([disabled])' });
     click(screen.getByText("Submit"));
   });
 
@@ -336,17 +333,17 @@ describe("network properties rendering", () => {
     await select(screen.getByLabelText(/^Network type/), "macvtap");
     const macvtap_mode = await screen.findByLabelText(/^Macvtap mode/);
     await select(macvtap_mode, "passthrough");
-    await type(screen.getByLabelText(/^Name/), "passthrough0");
+    type(screen.getByLabelText(/^Name/), "passthrough0");
 
     await select(screen.getByLabelText(/^Virtual Port Type/), "802.1Qbh");
     const profile_id = await screen.findByLabelText(/^Profile id/);
     expect(screen.getByLabelText("By profile id").checked).toBeTruthy();
-    await type(profile_id, "testprofile");
+    type(profile_id, "testprofile");
     expect(screen.getByLabelText("By interfaces").checked).toBeTruthy();
     await select(screen.getByLabelText(/^Interfaces/), "eth7");
     await select(screen.getByLabelText(/^Interfaces/), "eth8");
 
-    expect(screen.getByText("Submit").disabled).toBeFalsy();
+    await screen.findByText("Submit", { selector: ':not([disabled])' });
     click(screen.getByText("Submit"));
   });
 
@@ -369,7 +366,7 @@ describe("network properties rendering", () => {
     };
 
     await renderWithNetwork();
-    await type(screen.getByLabelText(/^Name/), "private0");
+    type(screen.getByLabelText(/^Name/), "private0");
     await select(screen.getByLabelText(/^Network type/), "macvtap");
     const macvtap_mode = await screen.findByLabelText(/^Macvtap mode/);
     await select(macvtap_mode, "private");
@@ -378,15 +375,15 @@ describe("network properties rendering", () => {
     const by_vsi = await screen.findByLabelText("Virtual Station Interface (VSI) parameters");
     click(by_vsi);
     const mgr_id = await screen.findByLabelText(/^VSI manager id/);
-    await type(mgr_id, "mgrid");
-    await type(screen.getByLabelText(/^VSI type id:/), "testtype");
-    await type(screen.getByLabelText(/^VSI type id version/), "testversion");
-    await type(screen.getByLabelText(/^VSI instance id/), "09b11c53-8b5c-4eeb-8f00-d84eaa0aaa4f");
+    type(mgr_id, "mgrid");
+    type(screen.getByLabelText(/^VSI type id:/), "testtype");
+    type(screen.getByLabelText(/^VSI type id version/), "testversion");
+    type(screen.getByLabelText(/^VSI instance id/), "09b11c53-8b5c-4eeb-8f00-d84eaa0aaa4f");
     click(screen.getByLabelText("By physical function"));
     const pf = await screen.getByLabelText(/^Physical Function/);
     await select(pf, "eth0");
 
-    expect(screen.getByText("Submit").disabled).toBeFalsy();
+    await screen.findByText("Submit", { selector: ':not([disabled])' });
     click(screen.getByText("Submit"));
   });
 
@@ -403,15 +400,15 @@ describe("network properties rendering", () => {
 
     await renderWithNetwork();
     await select(screen.getByLabelText(/^Network type/), "SR-IOV pool");
-    await type(screen.getByLabelText(/^Name/), "host0");
+    type(screen.getByLabelText(/^Name/), "host0");
 
     const by_vf = await screen.findByLabelText("By virtual functions");
     expect(by_vf.checked).toBeTruthy();
     await select(screen.getByLabelText(/^Virtual Functions/), "eth7");
     await select(screen.getByLabelText(/^Virtual Functions/), "eth8");
-    await type(screen.getByLabelText(/^VLAN tag/), "24");
+    type(screen.getByLabelText(/^VLAN tag/), "24");
 
-    expect(screen.getByText("Submit").disabled).toBeFalsy();
+    await screen.findByText("Submit", { selector: ':not([disabled])' });
     click(screen.getByText("Submit"));
   });
 });
@@ -469,7 +466,7 @@ describe("Network properties loading", () => {
     expect(screen.getByLabelText("Enable IPv6").checked).toBeFalsy();
 
     // Check that the form is valid
-    expect(screen.getByText("Submit").disabled).toBeFalsy();
+    await screen.findByText("Submit", { selector: ':not([disabled])' });
     click(screen.getByText("Submit"));
   });
 
@@ -602,7 +599,7 @@ describe("Network properties loading", () => {
     expect(screen.getByTitle("DNS TXT record 1 value").value).toStrictEqual("other value");
 
     // Check that the form is valid
-    expect(screen.getByText("Submit").disabled).toBeFalsy();
+    await screen.findByText("Submit", { selector: ':not([disabled])' });
     click(screen.getByText("Submit"));
   });
 
@@ -638,7 +635,7 @@ describe("Network properties loading", () => {
     expect(fieldValuesByName("vlans1_native")).toStrictEqual([""]);
 
     // Check that the form is valid
-    expect(screen.getByText("Submit").disabled).toBeFalsy();
+    await screen.findByText("Submit", { selector: ':not([disabled])' });
     click(screen.getByText("Submit"));
   });
 
@@ -667,7 +664,7 @@ describe("Network properties loading", () => {
     expect(fieldValuesByName("interfaces")).toStrictEqual(["eth7", "eth8"]);
 
     // Check that the form is valid
-    expect(screen.getByText("Submit").disabled).toBeFalsy();
+    await screen.findByText("Submit", { selector: ':not([disabled])' });
     click(screen.getByText("Submit"));
   });
 
@@ -704,7 +701,7 @@ describe("Network properties loading", () => {
     expect(fieldValuesByName("pf")).toStrictEqual(["eth0"]);
 
     // Check that the form is valid
-    expect(screen.getByText("Submit").disabled).toBeFalsy();
+    await screen.findByText("Submit", { selector: ':not([disabled])' });
     click(screen.getByText("Submit"));
   });
 
@@ -728,8 +725,8 @@ describe("Network properties loading", () => {
     expect(screen.getByLabelText(/^VLAN tag/).value).toStrictEqual("24");
 
     // Check that the form is valid
-    expect(screen.getByText("Submit").disabled).toBeFalsy();
+    await screen.findByText("Submit", { selector: ':not([disabled])' });
     click(screen.getByText("Submit"));
   });
-  */
+
 });

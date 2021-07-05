@@ -26,11 +26,31 @@ const asyncAnimationFrame = () => new Promise(resolve => window.requestAnimation
  * This is a usable alternative for @testing-library/user-event's `type()`.
  * The library's `type()` is non-deterministic without a delay and prohibitively
  * slow even if you use Number.MIN_VALUE as the delay value.
- * Instead we use the `paste()` method which inserts the full text in one go and
- * pretend there is no difference.
  */
 export const type = <T extends HTMLElement>(element: T, text: string) => {
+  if (element instanceof Promise) {
+    throw new TypeError("`type()` does not support async elements, if necessary, await prior");
+  }
   fireEvent.change(element, { target: { value: text } });
+};
+
+// Usually you'll want to use `type()`, but this is here for compatibility until we've convered all corner cases
+export const asyncType = async <T extends HTMLElement>(
+  elementOrPromiseOfElement: T | Promise<T>,
+  text: string,
+  append = false
+) => {
+  const target = await elementOrPromiseOfElement;
+  if (!append) {
+    userEvent.clear(target);
+  }
+  userEvent.paste(target, text, undefined);
+
+  /**
+   * `window.requestAnimationFrame` mandatory to ensure we don't proceed until
+   * the UI has updated, expect non-deterministic results without this.
+   */
+  return asyncAnimationFrame();
 };
 
 type SelectParams = Parameters<typeof selectEvent.select>;
