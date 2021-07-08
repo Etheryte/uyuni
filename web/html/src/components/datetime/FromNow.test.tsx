@@ -11,6 +11,6 @@ describe("FromNow component", () => {
         // Title is given in user's configured time zone
         const span = screen.getByTitle("2020-01-30 15:00 America/Los_Angeles");
         expect(span).toBeDefined();
-        expect((span.innerHTML || "").trim()).toBeDefined();
+        expect((span.innerHTML || "").trim()).not.toEqual("");
     });
 });
