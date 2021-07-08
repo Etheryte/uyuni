@@ -9,10 +9,13 @@ window.userTimeZone = "America/Los_Angeles"; // GMT-7
 
 declare global {
   interface Window {
-    /** The server time as an ISO string with offset intact, e.g. `"2020-01-31T08:00:00.000+09:00"` */
-    serverTime?: string;
     /** The server IANA time zone, e.g. `"Asia/Tokyo"` */
     serverTimeZone?: string;
+    /**
+     * The server time as an ISO string with offset intact, e.g. `"2020-01-31T08:00:00.000+09:00"`
+     * This is **not** used for calculations, only for sanity checks
+     */
+    serverTime?: string;
     /** The user's configured IANA time zone, e.g. `"Asia/Tokyo"` */
     userTimeZone?: string;
     userDateFormat?: string; // Optional
@@ -84,7 +87,7 @@ declare module "moment" {
     /** Get a localized time string in the user's time zone, e.g. `"13:00"` */
     toUserTimeString(): string;
 
-    /** TODO: This is redundant, stringifying a moment already makes it an ISO string */
+    /** TODO: This is redundant, JSON stringifying a moment already makes it an ISO string */
     toAPIValue(): string;
   }
 
