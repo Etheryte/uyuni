@@ -839,7 +839,7 @@ type ChannelChangeDto = {
 };
 
 type SsmScheduleChannelChangesJson = {
-  earliest: string;
+  earliest: moment.Moment;
   changes: Array<ChannelChangeDto>;
   actionChain?: any;
 };
@@ -1031,7 +1031,7 @@ class SsmChannelPage extends React.Component<SsmChannelProps, SsmChannelState> {
 
   onConfirm = () => {
     const req: SsmScheduleChannelChangesJson = {
-      earliest: this.state.earliest.toAPIValue(),
+      earliest: this.state.earliest,
       actionChain: this.state.actionChain ? this.state.actionChain.text : null,
       changes: this.state.finalChanges,
     };

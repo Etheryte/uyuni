@@ -6,7 +6,10 @@ describe("localizedMoment", () => {
   test("parses valid input", () => {
     const result = localizedMoment(validISOString);
     expect(result.isValid()).toEqual(true);
-    expect(result.toAPIValue()).toEqual(validISOString);
+  });
+
+  test("JSON.stringify() yields ISO strings in UTC", () => {
+    expect(JSON.stringify(localizedMoment(validISOString))).toEqual(JSON.stringify(validISOString));
   });
 
   test("displaying formats doesn't mutate the underlying instance", () => {
@@ -14,8 +17,6 @@ describe("localizedMoment", () => {
     result.toUserDateTimeString();
     expect(result.tz()).toEqual("UTC");
     result.toServerDateTimeString();
-    expect(result.tz()).toEqual("UTC");
-    result.toAPIValue();
     expect(result.tz()).toEqual("UTC");
   });
 

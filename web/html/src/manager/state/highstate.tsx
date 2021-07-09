@@ -51,7 +51,7 @@ class Highstate extends React.Component<HighstateProps, HighstateState> {
       "/rhn/manager/api/states/applyall",
       {
         ids: window.minions?.map(m => m.id),
-        earliest: this.state.earliest.toAPIValue(),
+        earliest: this.state.earliest,
         actionChain: this.state.actionChain ? this.state.actionChain.text : null,
         test: this.state.test,
       }

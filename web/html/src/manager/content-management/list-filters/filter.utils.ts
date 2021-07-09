@@ -35,7 +35,7 @@ export function mapFilterFormToRequest(
   if (filterForm.type === clmFilterOptions.ISSUE_DATE.key) {
     const formDateValue = filterForm[clmFilterOptions.ISSUE_DATE.key];
     requestForm.criteriaValue = formDateValue
-      ? localizedMoment(formDateValue).toAPIValue()
+      ? localizedMoment(formDateValue)
       : "";
   } else if (filterForm.type === clmFilterOptions.NEVRA.key) {
     // UI filter NEVRA form can map either into nevr or nevra

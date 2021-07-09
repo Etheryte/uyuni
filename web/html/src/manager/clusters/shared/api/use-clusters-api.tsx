@@ -232,7 +232,7 @@ const useClustersApi = () => {
   ): Promise<number> => {
     return Network.post(`/rhn/manager/api/cluster/${clusterId}/remove-node`, {
       earliest,
-      serverIds: serverIds,
+      serverIds,
       formula: removeFormula,
     })
       .then((data: JsonResult<number>) => {

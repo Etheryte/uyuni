@@ -349,7 +349,7 @@ class SystemChannels extends React.Component<SystemChannelsProps, SystemChannels
       {
         base: this.state.selectedBase,
         children: selectedChildrenList,
-        earliest: this.state.earliest.toAPIValue(),
+        earliest: this.state.earliest,
         actionChain: this.state.actionChain ? this.state.actionChain.text : null,
       }
     )

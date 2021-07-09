@@ -86,9 +86,6 @@ declare module "moment" {
     toUserDateString(): string;
     /** Get a localized time string in the user's time zone, e.g. `"13:00"` */
     toUserTimeString(): string;
-
-    /** TODO: This is redundant, JSON stringifying a moment already makes it an ISO string */
-    toAPIValue(): string;
   }
 
   const serverTimeZone: string;
@@ -142,13 +139,6 @@ moment.fn.toUserTimeString = function(this: moment.Moment): string {
   return moment(this)
     .tz(userTimeZone)
     .format(userTimeFormat);
-};
-
-// TODO: This is obsolete after the API update PR is merged
-moment.fn.toAPIValue = function(this: moment.Moment): string {
-  return moment(this)
-    .tz("UTC")
-    .toISOString(false);
 };
 
 Object.defineProperties(moment, {
