@@ -49,7 +49,7 @@ const userTimeFormat = window.userTimeFormat || "HH:mm";
 if (window.serverTime) {
   const diff = localizedMomentConstructor(window.serverTime).diff(localizedMomentConstructor(), "minutes");
   if (Math.abs(diff) > 10) {
-    Loggerhead.error(`Server and browser disagree on what the time is (offset by ${diff} minutes)`);
+    Loggerhead.error(`Server and browser disagree on what the time is despite accounting for time zones, offset is ${diff} minutes`);
   }
 } else {
   Loggerhead.error("Server time not available");
