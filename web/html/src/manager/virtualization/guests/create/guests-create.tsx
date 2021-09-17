@@ -47,7 +47,7 @@ class GuestsCreate extends React.Component<Props, State> {
       },
       nics.length !== 0 ? { interfaces: nics } : undefined,
       disks.length !== 0 ? { disks } : undefined,
-      { earliest: Formats.LocalDateTime(model.earliest) }
+      { earliest: model.earliest }
     );
   }
 

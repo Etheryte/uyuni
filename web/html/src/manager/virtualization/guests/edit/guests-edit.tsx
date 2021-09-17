@@ -73,7 +73,7 @@ class GuestsEdit extends React.Component<Props> {
       },
       nicsParams,
       disksParams,
-      { earliest: Formats.LocalDateTime(model.earliest) }
+      { earliest: model.earliest }
     );
   }
 
