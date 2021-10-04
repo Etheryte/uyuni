@@ -47,8 +47,6 @@ jobs:
 
     # See https://github.com/marketplace/actions/add-commit
     - name: Commit changes
-      uses: EndBug/add-and-commit@v7
+      uses: stefanzweifel/git-auto-commit-action@v4
       with:
-        add: 'web/html/src'
-        default_author: github_actions
-        message: 'Fix lint issues'
+        commit_message: Fix lint issues
