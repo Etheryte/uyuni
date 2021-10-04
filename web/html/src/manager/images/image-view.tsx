@@ -692,14 +692,14 @@ class ImageViewList extends React.Component<ImageViewListProps, ImageViewListSta
             }}
           />
         </Table>
-        {window.osImageStoreUrl &&
+        {window.osImageStoreUrl && (
           <div>
             <a href={window.osImageStoreUrl} target="_blank" rel="noopener noreferrer">
-              <i className="fa fa-folder-open"/>
+              <i className="fa fa-folder-open" />
               Go to OS image directory listing
             </a>
           </div>
-        }
+        )}
         <DeleteDialog
           id="delete-modal"
           title={t("Delete Image")}

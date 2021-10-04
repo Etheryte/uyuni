@@ -79,11 +79,11 @@ const ListProjects = (props: Props) => {
 
   const renderDate = (date: Date | null) => {
     if (date === null) {
-      return <span>{t("never")}</span>
+      return <span>{t("never")}</span>;
     }
     const lmDate = localizedMoment(date);
-    return <span title={lmDate.toUserDateTimeString()}>{lmDate.fromNow()}</span>
-  }
+    return <span title={lmDate.toUserDateTimeString()}>{lmDate.fromNow()}</span>;
+  };
 
   return (
     <TopPanel

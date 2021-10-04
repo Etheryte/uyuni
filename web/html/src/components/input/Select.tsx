@@ -50,7 +50,7 @@ type CommonSelectProps = (SingleMode | MultiMode) & {
 type SelectProps = CommonSelectProps & {
   /** Select options */
   options: Array<Object | string>;
-}
+};
 
 type AsyncSelectProps = Omit<CommonSelectProps, "value" | "defaultValue"> & {
   // 'value' and 'defaultValue' are not currently supported with the async Select
@@ -64,7 +64,7 @@ type AsyncSelectProps = Omit<CommonSelectProps, "value" | "defaultValue"> & {
    */
   loadOptions: (inputValue: string, callback: (options: Array<Object>) => undefined) => Promise<any> | undefined;
   cacheOptions?: boolean;
-}
+};
 
 export function Select(props: SelectProps | AsyncSelectProps) {
   const {
@@ -82,7 +82,7 @@ export function Select(props: SelectProps | AsyncSelectProps) {
   const formContext = React.useContext(FormContext);
   const isAsync = (props: SelectProps | AsyncSelectProps): props is AsyncSelectProps => {
     return (props as AsyncSelectProps).loadOptions !== undefined;
-  }
+  };
 
   const bootstrapStyles = {
     control: (styles: {}) => ({
@@ -119,8 +119,12 @@ export function Select(props: SelectProps | AsyncSelectProps) {
   useEffect(() => {
     const value = (formContext.model || {})[props.name || ""];
     // Since defaultValueOption is not bound to the model, ensure sanity
-    if (isAsync(props) && typeof defaultValueOption !== 'undefined' && getOptionValue(defaultValueOption) !== value) {
-      console.error(`Mismatched defaultValueOption for async select for form field "${props.name}": expected ${getOptionValue(defaultValueOption)}, got ${value}`);
+    if (isAsync(props) && typeof defaultValueOption !== "undefined" && getOptionValue(defaultValueOption) !== value) {
+      console.error(
+        `Mismatched defaultValueOption for async select for form field "${props.name}": expected ${getOptionValue(
+          defaultValueOption
+        )}, got ${value}`
+      );
     }
   }, []);
 
@@ -152,7 +156,7 @@ export function Select(props: SelectProps | AsyncSelectProps) {
           styles: bootstrapStyles,
           isMulti: props.isMulti,
           menuPortalTarget: document.body,
-          classNamePrefix: `class-${props.name}`
+          classNamePrefix: `class-${props.name}`,
         };
 
         if (isAsync(props)) {
@@ -164,9 +168,9 @@ export function Select(props: SelectProps | AsyncSelectProps) {
               aria-label={props.title}
               defaultValue={defaultValueOption}
               {...commonProps}
-            />);
-        }
-        else {
+            />
+          );
+        } else {
           const convertedOptions = (props.options || []).map(item =>
             typeof item === "string" ? { label: item, value: item } : item
           );
@@ -206,5 +210,5 @@ Select.defaultProps = {
   invalidHint: undefined,
   onChange: undefined,
   isMulti: false,
-  cacheOptions: false
+  cacheOptions: false,
 };

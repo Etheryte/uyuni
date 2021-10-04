@@ -28,26 +28,20 @@ const usePackageStatesApi = () => {
             console.log("Cannot save empty object.");
           }
         }
-        return Network.post(
-          "/rhn/manager/api/states/packages/save",
-          {
-            sid: action.serverId,
-            packageStates: toSave,
-          }
-        ).then((data: Array<Package>) => {
+        return Network.post("/rhn/manager/api/states/packages/save", {
+          sid: action.serverId,
+          packageStates: toSave,
+        }).then((data: Array<Package>) => {
           updateAfterSave(data, changed);
           setMessages(MessagesUtils.info(t("Package states have been saved.")));
         });
       }
       case "Apply": {
-        return Network.post(
-          "/rhn/manager/api/states/apply",
-          {
-            id: action.serverId,
-            type: "SERVER",
-            states: ["packages"],
-          }
-        ).then(data => {
+        return Network.post("/rhn/manager/api/states/apply", {
+          id: action.serverId,
+          type: "SERVER",
+          states: ["packages"],
+        }).then(data => {
           setMessages(
             MessagesUtils.info(
               <span>
@@ -61,11 +55,9 @@ const usePackageStatesApi = () => {
         });
       }
       case "GetServerPackages": {
-        return Network.get("/rhn/manager/api/states/packages?sid=" + action.serverId).then(
-          (data: Array<Package>) => {
-            updateAfterServerGetPackages(data);
-          }
-        );
+        return Network.get("/rhn/manager/api/states/packages?sid=" + action.serverId).then((data: Array<Package>) => {
+          updateAfterServerGetPackages(data);
+        });
       }
       case "Search": {
         return Network.get(

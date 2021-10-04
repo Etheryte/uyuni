@@ -15,7 +15,7 @@ type Props = {
   initialModel: any | null | undefined;
   validationChecks: Array<{ check: (model: any) => boolean; message: MessageType }>;
   messages: Array<MessageType>;
-  children: (props: { model: any, changeModel: any }) => JSX.Element | JSX.Element[];
+  children: (props: { model: any; changeModel: any }) => JSX.Element | JSX.Element[];
   localTime: string;
   timezone: string;
   actionChains: Array<ActionChain>;
@@ -23,7 +23,7 @@ type Props = {
 
 type State = {
   model: {
-    earliest: moment.Moment
+    earliest: moment.Moment;
   } & any;
   isInvalid: boolean;
   actionChain: ActionChain | null | undefined;

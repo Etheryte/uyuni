@@ -203,14 +203,13 @@ class BootstrapMinions extends React.Component<Props, State> {
             loading: false,
           });
         } catch (err) {
-          var errMessages =
-            DEPRECATED_unsafeEquals(xhr.status, 0)
-              ? [
-                  t(
-                    "Request interrupted or invalid response received from the server. Please check if your minion was bootstrapped correctly."
-                  ),
-                ]
-              : [Network.errorMessageByStatus(xhr.status)];
+          var errMessages = DEPRECATED_unsafeEquals(xhr.status, 0)
+            ? [
+                t(
+                  "Request interrupted or invalid response received from the server. Please check if your minion was bootstrapped correctly."
+                ),
+              ]
+            : [Network.errorMessageByStatus(xhr.status)];
           this.setState({
             success: false,
             messages: errMessages,
@@ -458,7 +457,8 @@ class BootstrapMinions extends React.Component<Props, State> {
                   <option key={p.id} value={p.id}>
                     {p.name}
                     {p.path.reduce(
-                      (acc, val, idx) => acc + "\u2192 " + val + (DEPRECATED_unsafeEquals(idx, p.path.length - 1) ? "" : " "),
+                      (acc, val, idx) =>
+                        acc + "\u2192 " + val + (DEPRECATED_unsafeEquals(idx, p.path.length - 1) ? "" : " "),
                       ""
                     )}
                   </option>

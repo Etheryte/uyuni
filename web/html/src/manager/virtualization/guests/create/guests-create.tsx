@@ -46,7 +46,7 @@ class GuestsCreate extends React.Component<Props, State> {
         earliest: model.earliest,
       },
       nics.length !== 0 ? { interfaces: nics } : undefined,
-      disks.length !== 0 ? { disks } : undefined,
+      disks.length !== 0 ? { disks } : undefined
     );
   }
 

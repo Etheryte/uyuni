@@ -80,7 +80,7 @@ const MaintenanceScheduleDetails = (props: MaintenanceScheduleDetailsProps) => {
 };
 
 type OverviewProps = {
-  id: number,
+  id: number;
   name: string; // Name of the maintenance schedule
   eventNames: Array<string>;
   calendarName: string | undefined;
@@ -105,12 +105,10 @@ const MaintenanceScheduleOverview = (props: OverviewProps) => {
           <Column columnKey="right" cell={row => row.right} />
         </Table>
       </BootstrapPanel>
-      { props.calendarName &&
+      {props.calendarName && (
         <div className="panel panel-default">
           <div className="panel-heading">
-            <h4>
-              {props.name}
-            </h4>
+            <h4>{props.name}</h4>
           </div>
           <div className="panel-body">
             <WebCalendar
@@ -123,7 +121,7 @@ const MaintenanceScheduleOverview = (props: OverviewProps) => {
             />
           </div>
         </div>
-      }
+      )}
     </div>
   );
 };
@@ -146,10 +144,10 @@ const SystemPicker = (props: SystemPickerProps) => {
   }, [props.scheduleId]);
 
   const onAssign = () => {
-    return Network.post(
-      `/rhn/manager/api/maintenance/schedule/${props.scheduleId}/setsystems`,
-      { systemIds: selectedSystems, cancelActions: isCancelActions }
-    )
+    return Network.post(`/rhn/manager/api/maintenance/schedule/${props.scheduleId}/setsystems`, {
+      systemIds: selectedSystems,
+      cancelActions: isCancelActions,
+    })
       .then(() =>
         props.onMessage(
           MessagesUtils.success(t("Maintenance schedule has been assigned to {0} system(s)", selectedSystems.length))

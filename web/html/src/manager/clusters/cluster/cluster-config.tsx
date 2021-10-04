@@ -74,7 +74,7 @@ const ManagementSettings = (props: Props) => {
             <div className="action-button-wrapper">
               <div className="btn-group">
                 <FormulaFormContext.Consumer>
-                  {({ validate, clearValues }: { validate: any; clearValues: any; }) => (
+                  {({ validate, clearValues }: { validate: any; clearValues: any }) => (
                     <React.Fragment>
                       <Button
                         id="btn-save"
@@ -90,7 +90,9 @@ const ManagementSettings = (props: Props) => {
                         icon="fa-eraser"
                         text="Clear values"
                         className="btn-default"
-                        handler={() => clearValues?.(() => window.confirm("Are you sure you want to clear all values?"))}
+                        handler={() =>
+                          clearValues?.(() => window.confirm("Are you sure you want to clear all values?"))
+                        }
                       />
                     </React.Fragment>
                   )}

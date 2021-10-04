@@ -5,10 +5,10 @@ import * as React from "react";
 import { Panel } from "components/panels/Panel";
 import { Text } from "components/input/Text";
 import { Select } from "components/input/Select";
-import { Check } from 'components/input/Check';
+import { Check } from "components/input/Check";
 import Validation from "components/validation";
 import { Messages } from "components/messages";
-import { Utils as MessagesUtils } from 'components/messages';
+import { Utils as MessagesUtils } from "components/messages";
 import { Loading } from "components/utils/Loading";
 import { guestNicsPanel } from "./properties/guest-nics-panel";
 import { GuestDisksPanel } from "./properties/GuestDisksPanel";
@@ -189,23 +189,19 @@ export function GuestProperties(props: Props) {
                                       .filter((item, index, array) => array.indexOf(item) === index)}
                                   />
                                 )}
-                                <Check
-                                  name="uefi"
-                                  label={t('Enable UEFI')}
-                                  divClass="col-md-6 col-md-offset-3"
-                                />
+                                <Check name="uefi" label={t("Enable UEFI")} divClass="col-md-6 col-md-offset-3" />
                                 {model["uefi"] && (
                                   <>
                                     <Text
                                       name="uefiLoader"
-                                      label={t('UEFI firmware path')}
+                                      label={t("UEFI firmware path")}
                                       required={model["uefi"] && !props.host.uefiAutoLoader}
                                       labelClass="col-md-3"
                                       divClass="col-md-6"
                                     />
                                     <Text
                                       name="nvramTemplate"
-                                      label={t('NVRAM template path')}
+                                      label={t("NVRAM template path")}
                                       required={model["uefi"] && !props.host.uefiAutoLoader}
                                       labelClass="col-md-3"
                                       divClass="col-md-6"
@@ -240,53 +236,50 @@ export function GuestProperties(props: Props) {
                                     />
                                   </>
                                 )}
-                                { initialModel.name === undefined && props.host.inCluster && (
-                                    <>
-                                      {
-                                        !props.host.raCanStartResources && (
-                                          <Messages
-                                            items={MessagesUtils.warning(
-                                              t('Cluster support is disabled since VirtualDomain resource agent ' +
-                                                'does not support the start_resources parameter.')
-                                            )}
-                                          />)
-                                      }
-                                      <Check
-                                        name="in_cluster"
-                                        label={t('Define as a cluster resource')}
-                                        divClass="col-md-6 col-md-offset-3"
-                                        disabled={!props.host.raCanStartResources}
+                                {initialModel.name === undefined && props.host.inCluster && (
+                                  <>
+                                    {!props.host.raCanStartResources && (
+                                      <Messages
+                                        items={MessagesUtils.warning(
+                                          t(
+                                            "Cluster support is disabled since VirtualDomain resource agent " +
+                                              "does not support the start_resources parameter."
+                                          )
+                                        )}
                                       />
-                                      <Text
-                                        name="cluster_definitions"
-                                        label={t('Path to the cluster shared folder for VM definitions')}
-                                        labelClass="col-md-3"
-                                        divClass="col-md-6"
-                                        disabled={!model["in_cluster"] || !props.host.raCanStartResources}
-                                        required={model["in_cluster"]}
-                                      />
-                                    </>
-                                  )
-                                }
-                                { initialModel.name === undefined && props.host.templates && (
-                                    <Select
+                                    )}
+                                    <Check
+                                      name="in_cluster"
+                                      label={t("Define as a cluster resource")}
+                                      divClass="col-md-6 col-md-offset-3"
+                                      disabled={!props.host.raCanStartResources}
+                                    />
+                                    <Text
+                                      name="cluster_definitions"
+                                      label={t("Path to the cluster shared folder for VM definitions")}
                                       labelClass="col-md-3"
                                       divClass="col-md-6"
-                                      name="template"
-                                      label={t("Template")}
-                                      options={props.host.templates}
-                                      formatOptionLabel={
-                                        ({value}) => {
-                                          const description = TemplatesMessages[value];
-                                           if (description != null) {
-                                             return `${value} - ${description}`;
-                                           }
-                                           return value;
-                                        }
-                                      }
+                                      disabled={!model["in_cluster"] || !props.host.raCanStartResources}
+                                      required={model["in_cluster"]}
                                     />
-                                  )
-                                }
+                                  </>
+                                )}
+                                {initialModel.name === undefined && props.host.templates && (
+                                  <Select
+                                    labelClass="col-md-3"
+                                    divClass="col-md-6"
+                                    name="template"
+                                    label={t("Template")}
+                                    options={props.host.templates}
+                                    formatOptionLabel={({ value }) => {
+                                      const description = TemplatesMessages[value];
+                                      if (description != null) {
+                                        return `${value} - ${description}`;
+                                      }
+                                      return value;
+                                    }}
+                                  />
+                                )}
                               </Panel>,
                               <GuestDisksPanel
                                 changeModel={changeModel}

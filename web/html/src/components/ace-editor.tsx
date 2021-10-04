@@ -10,7 +10,7 @@ type Props = {
   className: string;
   id: string;
   content: React.ReactNode;
-}
+};
 
 class AceEditor extends React.Component<Props> {
   componentDidMount() {

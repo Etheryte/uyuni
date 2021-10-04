@@ -39,14 +39,14 @@ export default (props: FilterFormProps & { template: Template }) => {
 
   return (
     <Select
-        name="channelId"
-        label={t("Channel")}
-        labelClass="col-md-3"
-        divClass="col-md-6"
-        required
-        options={channels}
-        getOptionValue={channel => channel.id}
-        getOptionLabel={channel => channel.name}
-      />
+      name="channelId"
+      label={t("Channel")}
+      labelClass="col-md-3"
+      divClass="col-md-6"
+      required
+      options={channels}
+      getOptionValue={channel => channel.id}
+      getOptionLabel={channel => channel.name}
+    />
   );
 };

@@ -1,5 +1,5 @@
 import * as React from "react";
-import validator from 'validator';
+import validator from "validator";
 import { useState, useEffect, forwardRef, useImperativeHandle } from "react";
 import { Check } from "components/input/Check";
 import { Form } from "components/input/Form";
@@ -94,7 +94,7 @@ const MaintenanceCalendarEdit = forwardRef((props: CalendarEditProps, ref) => {
     if (urlIn.trim() === "") {
       return true;
     }
-    return validator.isURL(urlIn, {protocols: ["http", "https"]});
+    return validator.isURL(urlIn, { protocols: ["http", "https"] });
   };
 
   useImperativeHandle(ref, () => ({

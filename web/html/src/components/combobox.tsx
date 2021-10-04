@@ -63,7 +63,7 @@ export class Combobox extends React.Component<ComboboxProps, ComboboxState> {
       }),
       menuPortal: (styles: {}) => ({
         ...styles,
-        zIndex: 9999
+        zIndex: 9999,
       }),
     };
 

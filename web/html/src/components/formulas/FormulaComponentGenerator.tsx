@@ -34,14 +34,14 @@ export type ElementDefinition = {
 };
 
 type Context = {
-  scope: any | null,
-  layout: any,
-  values: any,
-  onFormulaChange?: any | null,
-  getCleanValues?: any | null,
-  clearValues: any | null,
-  validate: any | null,
-}
+  scope: any | null;
+  layout: any;
+  values: any;
+  onFormulaChange?: any | null;
+  getCleanValues?: any | null;
+  clearValues: any | null;
+  validate: any | null;
+};
 
 export const FormulaFormContext = React.createContext<Context>({
   scope: null,
@@ -982,7 +982,7 @@ export class FormulaFormContextProvider extends React.Component<
         let value: any = null;
         let element = layout[key];
         let elementId;
-        if (prototypeParentId && typeof elementIndex !== 'undefined' && elementIndex !== null) {
+        if (prototypeParentId && typeof elementIndex !== "undefined" && elementIndex !== null) {
           elementId = prototypeParentId + "#" + elementIndex + "#" + element.$id;
         } else {
           elementId = (layout.$id ? layout.$id + "#" : "") + element.$id;

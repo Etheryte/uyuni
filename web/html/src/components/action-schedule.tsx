@@ -76,7 +76,8 @@ class ActionSchedule extends React.Component<ActionScheduleProps, ActionSchedule
         systemIds: this.state.systemIds,
         actionType: this.state.actionType,
       };
-      Network.post("/rhn/manager/api/maintenance/upcoming-windows", postData).then(data => {
+      Network.post("/rhn/manager/api/maintenance/upcoming-windows", postData)
+        .then(data => {
           const multiMaintWindows = data.data.maintenanceWindowsMultiSchedules;
           const maintenanceWindows = data.data.maintenanceWindows;
 
@@ -137,11 +138,15 @@ class ActionSchedule extends React.Component<ActionScheduleProps, ActionSchedule
   };
 
   onSelectMaintenanceWindow = (event: any) => {
-    this.onMaintenanceWindowChanged(this.state.maintenanceWindows.filter(mw => DEPRECATED_unsafeEquals(mw.id, event.target.value))[0]);
+    this.onMaintenanceWindowChanged(
+      this.state.maintenanceWindows.filter(mw => DEPRECATED_unsafeEquals(mw.id, event.target.value))[0]
+    );
   };
 
   onFocusMaintenanceWindow = (event: any) => {
-    this.onMaintenanceWindowChanged(this.state.maintenanceWindows.filter(mw => DEPRECATED_unsafeEquals(mw.id, event.target.value))[0]);
+    this.onMaintenanceWindowChanged(
+      this.state.maintenanceWindows.filter(mw => DEPRECATED_unsafeEquals(mw.id, event.target.value))[0]
+    );
   };
 
   onActionChainChanged = (selectedItem: ActionChain) => {
@@ -197,9 +202,7 @@ class ActionSchedule extends React.Component<ActionScheduleProps, ActionSchedule
   };
 
   renderDatePicker = () => {
-    return (
-      <DateTimePicker onChange={this.onDateTimeChanged} value={this.state.earliest} />
-    );
+    return <DateTimePicker onChange={this.onDateTimeChanged} value={this.state.earliest} />;
   };
 
   renderMaintWindowPicker = () => {

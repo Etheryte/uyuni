@@ -16,7 +16,7 @@ type Props = {
   buttonClass?: string;
   buttonText?: React.ReactNode;
   onDeleteSuccess?: (...args: any[]) => any;
-}
+};
 
 type State = {
   messages: any[];

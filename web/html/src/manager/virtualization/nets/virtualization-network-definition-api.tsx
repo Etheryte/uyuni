@@ -21,9 +21,7 @@ export function VirtualizationNetworkDefinitionApi(props: Props) {
   const [definition, setDefinition] = React.useState(null);
 
   React.useEffect(() => {
-    Network.get(
-      `/rhn/manager/api/systems/details/virtualization/nets/${props.hostid}/net/${props.networkName}`,
-    ).then(
+    Network.get(`/rhn/manager/api/systems/details/virtualization/nets/${props.hostid}/net/${props.networkName}`).then(
       response => {
         setDefinition(response);
       },

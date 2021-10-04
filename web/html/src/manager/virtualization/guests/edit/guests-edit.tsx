@@ -72,7 +72,7 @@ class GuestsEdit extends React.Component<Props> {
         earliest: model.earliest,
       },
       nicsParams,
-      disksParams,
+      disksParams
     );
   }
 

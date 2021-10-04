@@ -24,7 +24,7 @@ type Model = {
   type?: string;
   calendarName?: string;
   strategy: boolean;
-}
+};
 
 const MaintenanceScheduleEdit = forwardRef((props: ScheduleEditProps, ref) => {
   const [model, setModel] = useState<Model>({

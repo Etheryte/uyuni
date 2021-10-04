@@ -370,7 +370,9 @@ export function PoolsList(props: Props) {
                   </div>
                   <h2>{t("Virtual Storage Pools and Volumes")}</h2>
                   <p>{t("This is the list of storage pools defined on this host containing virtual guests disks.")}</p>
-                  <Messages items={([] as MessageType[]).concat(messages, refreshError || [], getCreationActionMessages())} />
+                  <Messages
+                    items={([] as MessageType[]).concat(messages, refreshError || [], getCreationActionMessages())}
+                  />
                   <CustomDataHandler
                     data={getPoolsAndVolumes(tree)}
                     identifier={raw => raw.id}

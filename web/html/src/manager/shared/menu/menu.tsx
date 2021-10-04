@@ -21,7 +21,7 @@ type NodeProps = {
   label: string;
   isSearchActive?: boolean;
   isOpen?: boolean;
-}
+};
 
 class Node extends React.Component<NodeProps> {
   handleClick = event => {

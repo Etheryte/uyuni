@@ -23,7 +23,7 @@ type ModalDataType = {
   row: boolean;
   canForce?: boolean;
   forceName?: string;
-  modalCreator?: (id: string, selection: any[], onClose: () => void) => React.ReactNode,
+  modalCreator?: (id: string, selection: any[], onClose: () => void) => React.ReactNode;
 };
 
 type CreateModalButtonType = (actionType: string, actionData: Array<ModalDataType>, row: any) => React.ReactNode;
@@ -132,42 +132,41 @@ export function ListTab(props: Props) {
         forceName={action.forceName}
         onClose={() => {
           // Mark the corresponding modal hidden
-          setOpenedModals(Object.assign({}, openedModals, {[id]: false}));
+          setOpenedModals(Object.assign({}, openedModals, { [id]: false }));
           onClose();
         }}
         isOpen={openedModals[id] || false}
       />
     );
     const modalCreator = action.modalCreator || defaultModalCreator;
-    return ([
-      action.row && modalCreator(
-        `${action.type}-modal`,
-        [selected].filter(item => item),
-        () => setSelected({}),
-      ),
-      action.bulk && modalCreator(
-        `${action.type}-selected-modal`,
-        selectedItems,
-        () => {},
-      ),
-    ]);
+    return [
+      action.row &&
+        modalCreator(
+          `${action.type}-modal`,
+          [selected].filter(item => item),
+          () => setSelected({})
+        ),
+      action.bulk && modalCreator(`${action.type}-selected-modal`, selectedItems, () => {}),
+    ];
   };
 
   const createSelectedModalButton = (action: any) => {
-    return action.bulk && (
-      <Button
-        key={`${action.type}-selected-button`}
-        id={`${action.type}-selected`}
-        icon={action.icon}
-        className="btn-default"
-        text={action.name}
-        title={t("{0} selected", action.name)}
-        disabled={selectedItems.length === 0}
-        handler={() => {
-          // Mark the corresponding bulk modal as shown
-          setOpenedModals(Object.assign({}, openedModals, { [`${action.type}-selected-modal`]: true }));
-        }}
-      />
+    return (
+      action.bulk && (
+        <Button
+          key={`${action.type}-selected-button`}
+          id={`${action.type}-selected`}
+          icon={action.icon}
+          className="btn-default"
+          text={action.name}
+          title={t("{0} selected", action.name)}
+          disabled={selectedItems.length === 0}
+          handler={() => {
+            // Mark the corresponding bulk modal as shown
+            setOpenedModals(Object.assign({}, openedModals, { [`${action.type}-selected-modal`]: true }));
+          }}
+        />
+      )
     );
   };
 

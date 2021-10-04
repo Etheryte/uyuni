@@ -21,7 +21,6 @@ type Props = {
 };
 
 const ScheduleClusterAction = (props: Props) => {
-
   const [actionChain, setActionChain] = useState<ActionChain | null>(null);
   const [earliest, setEarliest] = useState(localizedMoment());
   const [disableSchedule, setDisableSchedule] = useState(false);

@@ -111,7 +111,11 @@ describe("Table component", () => {
   test("loading indicator for tables using SimpleDataProvider", async () => {
     const data = [{ value: "Value 0" }];
 
-    const { rerender } = render(<Table {...baseProps} loading={true}>{null}</Table>);
+    const { rerender } = render(
+      <Table {...baseProps} loading={true}>
+        {null}
+      </Table>
+    );
 
     // Check if loading indicator appears
     expect(screen.queryByText(baseProps.loadingText)).not.toBe(null);
