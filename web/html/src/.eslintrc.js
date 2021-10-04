@@ -15,11 +15,11 @@ module.exports = {
   env: {
     "browser": true,
   },
-  globals: {
-    "t": true,
-    "module": true,
-    "jQuery": true,
-  },
+    globals: {
+      "t": true,
+      "module": true,
+      "jQuery": true,
+    },
   rules: {
     "prettier/prettier": "warn",
     "jsx-a11y/anchor-is-valid": "error",
