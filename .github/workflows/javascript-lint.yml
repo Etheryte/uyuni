@@ -5,13 +5,11 @@ on:
     branches:
       - master
     paths:
-      - 'web/html/src/**/*jsx?'
-      - 'web/html/src/**/*tsx?'
+      - 'web/html/src/**'
       - 'susemanager-frontend/**'
   pull_request:
     paths:
-      - 'web/html/src/**/*jsx?'
-      - 'web/html/src/**/*tsx?'
+      - 'web/html/src/**'
       - 'susemanager-frontend/**'
 
 jobs:
@@ -44,5 +42,13 @@ jobs:
     - name: Install dependencies
       run: yarn --cwd susemanager-frontend install --frozen-lockfile --prefer-offline
 
-    - name: Run lint
-      run: yarn --cwd web/html/src lint
+    - name: Run lint with fix
+      run: yarn --cwd web/html/src lint:fix
+
+    # See https://github.com/marketplace/actions/add-commit
+    - name: Commit changes
+      uses: EndBug/add-and-commit@v7
+      with:
+        add: 'web/html/src'
+        default_author: github_actions
+        message: 'Fix lint issues'
