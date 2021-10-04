@@ -138,7 +138,7 @@ export function FormMultiInput(props: Props) {
         />
       }
     >
-      { props.header }
+      {props.header}
       {items.map(index => {
         const removeButton = (
           <Button

@@ -16,7 +16,7 @@ import { DEPRECATED_unsafeEquals } from "utils/legacy";
 
 declare global {
   interface JQuery {
-      select2: (...args: any[]) => JQuery;
+    select2: (...args: any[]) => JQuery;
   }
 }
 
@@ -139,7 +139,11 @@ class NotificationMessages extends React.Component<Props, State> {
       })
       .catch(response => {
         currentObject.setState({
-          error: DEPRECATED_unsafeEquals(response.status, 401) ? "authentication" : response.status >= 500 ? "general" : null,
+          error: DEPRECATED_unsafeEquals(response.status, 401)
+            ? "authentication"
+            : response.status >= 500
+            ? "general"
+            : null,
           loading: false,
           messages: [],
           selectedItems: [],
@@ -169,10 +173,7 @@ class NotificationMessages extends React.Component<Props, State> {
     dataRequest.messageIds = ids;
     dataRequest.flagAsRead = flagAsRead;
 
-    return Network.post(
-      "/rhn/manager/notification-messages/update-messages-status",
-      dataRequest
-    )
+    return Network.post("/rhn/manager/notification-messages/update-messages-status", dataRequest)
       .then(data => {
         const newMessage = { severity: data.severity, text: data.text };
         this.setState((prevState, props) => ({
@@ -193,7 +194,11 @@ class NotificationMessages extends React.Component<Props, State> {
       })
       .catch(response => {
         this.setState({
-          error: DEPRECATED_unsafeEquals(response.status, 401) ? "authentication" : response.status >= 500 ? "general" : null,
+          error: DEPRECATED_unsafeEquals(response.status, 401)
+            ? "authentication"
+            : response.status >= 500
+            ? "general"
+            : null,
         });
       });
   };
@@ -214,7 +219,11 @@ class NotificationMessages extends React.Component<Props, State> {
       })
       .catch(response => {
         this.setState({
-          error: DEPRECATED_unsafeEquals(response.status, 401) ? "authentication" : response.status >= 500 ? "general" : null,
+          error: DEPRECATED_unsafeEquals(response.status, 401)
+            ? "authentication"
+            : response.status >= 500
+            ? "general"
+            : null,
         });
       });
   };
@@ -387,7 +396,13 @@ class NotificationMessages extends React.Component<Props, State> {
     const headerTabs = (
       <div className="spacewalk-content-nav">
         <ul className="nav nav-tabs">
-          <li className={DEPRECATED_unsafeEquals(dataHashTag, "#data-unread") || DEPRECATED_unsafeEquals(dataHashTag, "") ? "active" : ""}>
+          <li
+            className={
+              DEPRECATED_unsafeEquals(dataHashTag, "#data-unread") || DEPRECATED_unsafeEquals(dataHashTag, "")
+                ? "active"
+                : ""
+            }
+          >
             <a href="#data-unread" onClick={() => this.changeTabUrl("#data-unread")}>
               {t("Unread Messages")}
             </a>

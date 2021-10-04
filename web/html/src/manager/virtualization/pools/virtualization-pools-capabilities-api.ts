@@ -13,9 +13,7 @@ export function VirtualizationPoolCapsApi(props: Props) {
 
   React.useEffect(() => {
     let subscribded = true;
-    Network.get(
-      `/rhn/manager/api/systems/details/virtualization/pools/${props.hostId}/capabilities`
-    ).then(
+    Network.get(`/rhn/manager/api/systems/details/virtualization/pools/${props.hostId}/capabilities`).then(
       response => {
         if (subscribded) {
           setCapabilities(response);

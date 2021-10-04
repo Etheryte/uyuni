@@ -645,11 +645,11 @@ class ImageViewOverview extends React.Component<ImageViewOverviewProps> {
 type BuildDialogProps = {
   data: any;
   onBuild?: (...args: any[]) => any;
-}
+};
 
 type BuildDialogState = {
   model: {
-    earliest: moment.Moment,
+    earliest: moment.Moment;
   };
 };
 
@@ -712,7 +712,7 @@ class BuildDialog extends React.Component<BuildDialogProps, BuildDialogState> {
           onChange={this.onChange.bind(this)}
           divClass="col-md-12"
         >
-          <InputDateTime name="earliest" required  />
+          <InputDateTime name="earliest" required />
         </Form>
       </div>
     );
@@ -728,7 +728,7 @@ type InspectDialogProps = {
 
 type InspectDialogState = {
   model: {
-    earliest: moment.Moment,
+    earliest: moment.Moment;
   };
 };
 

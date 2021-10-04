@@ -1,6 +1,10 @@
 import * as React from "react";
 import { Utils, Formulas } from "utils/functions";
-import { ElementDefinition, generateFormulaComponent, generateFormulaComponentForId } from "./FormulaComponentGenerator";
+import {
+  ElementDefinition,
+  generateFormulaComponent,
+  generateFormulaComponentForId,
+} from "./FormulaComponentGenerator";
 import HelpIcon from "components/utils/HelpIcon";
 import "./formula-form.css";
 import SectionToggle from "./SectionToggle";
@@ -19,11 +23,11 @@ type EditGroupProps = {
   value: any;
   formulaForm: any;
   element: ElementDefinition;
-}
+};
 
 type EditGroupState = {
   visible: boolean;
-}
+};
 
 /*
  * Base class for edit-group.
@@ -106,7 +110,9 @@ class EditGroup extends React.Component<EditGroupProps, EditGroupState> {
           <i
             className="fa fa-plus"
             id={this.props.id + "#add_item"}
-            title={this.props.element.$maxItems! <= this.props.value.length ? "Max number of items reached" : "Add Item"}
+            title={
+              this.props.element.$maxItems! <= this.props.value.length ? "Max number of items reached" : "Add Item"
+            }
             onClick={this.handleAddItem}
             /* @ts-expect-error: The property `disabled` doesn't exist on the `<i>` tag, but this was here historically */
             disabled={this.props.element.$maxItems! <= this.props.value.length || this.props.disabled}
@@ -202,7 +208,7 @@ type EditPrimitiveDictionaryGroupProps = {
   formulaForm: any;
   isDisabled?: boolean;
   handleRemoveItem: (...args: any[]) => any;
-}
+};
 
 /*
  * Used for rendering edit-groups in the form of "dictionary of primitive types",

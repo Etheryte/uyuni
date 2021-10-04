@@ -177,10 +177,7 @@ class SystemChannels extends React.Component<SystemChannelsProps, SystemChannels
     return new Promise((resolve, reject) => {
       const mandatoryChannelsNotCached = channelIds.filter(channelId => !this.state.mandatoryChannelsRaw[channelId]);
       if (mandatoryChannelsNotCached.length > 0) {
-        Network.post(
-          "/rhn/manager/api/admin/mandatoryChannels",
-          mandatoryChannelsNotCached
-        )
+        Network.post("/rhn/manager/api/admin/mandatoryChannels", mandatoryChannelsNotCached)
           .then((data: JsonResult<Map<number, Array<number>>>) => {
             const allTheNewMandatoryChannelsData = Object.assign({}, this.state.mandatoryChannelsRaw, data.data);
             let { requiredChannels, requiredByChannels } = ChannelUtils.processChannelDependencies(
@@ -344,15 +341,12 @@ class SystemChannels extends React.Component<SystemChannelsProps, SystemChannels
 
   handleConfirm = () => {
     let selectedChildrenList = this.getSelectedChildren();
-    return Network.post(
-      `/rhn/manager/api/systems/${this.props.serverId}/channels`,
-      {
-        base: this.state.selectedBase,
-        children: selectedChildrenList,
-        earliest: this.state.earliest,
-        actionChain: this.state.actionChain ? this.state.actionChain.text : null,
-      }
-    )
+    return Network.post(`/rhn/manager/api/systems/${this.props.serverId}/channels`, {
+      base: this.state.selectedBase,
+      children: selectedChildrenList,
+      earliest: this.state.earliest,
+      actionChain: this.state.actionChain ? this.state.actionChain.text : null,
+    })
       .then(data => {
         if (data.success) {
           const msg = MessagesUtils.info(
@@ -406,10 +400,12 @@ class SystemChannels extends React.Component<SystemChannelsProps, SystemChannels
         .filter(Boolean)
         .map(channel => channel.name);
     };
-    return ChannelUtils.dependenciesTooltip(
-      resolveChannelNames(this.state.requiredChannels.get(channelId)),
-      resolveChannelNames(this.state.requiredByChannels.get(channelId))
-    ) ?? undefined;
+    return (
+      ChannelUtils.dependenciesTooltip(
+        resolveChannelNames(this.state.requiredChannels.get(channelId)),
+        resolveChannelNames(this.state.requiredByChannels.get(channelId))
+      ) ?? undefined
+    );
   };
 
   render() {
@@ -460,9 +456,7 @@ class SystemChannels extends React.Component<SystemChannelsProps, SystemChannels
                     disabled={!isChecked && this.state.dependencyDataAvailable !== true}
                     onChange={this.handleBaseChange}
                   />
-                  <label htmlFor={"base_" + c.id}>
-                    {c.name}
-                  </label>
+                  <label htmlFor={"base_" + c.id}>{c.name}</label>
                   <ChannelAnchorLink id={c.id} newWindow={true} />
                 </div>
               );

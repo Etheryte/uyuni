@@ -114,9 +114,18 @@ class VirtualHostManagerEdit extends React.Component<Props, State> {
         // Remove '<default>' placeholder for submit
         formData.set("module_context", "");
       }
-      request = Network.post("/rhn/manager/api/vhms/update/kubernetes", formData, "application/x-www-form-urlencoded", false);
+      request = Network.post(
+        "/rhn/manager/api/vhms/update/kubernetes",
+        formData,
+        "application/x-www-form-urlencoded",
+        false
+      );
     } else {
-      request = Network.post("/rhn/manager/api/vhms/update/" + this.state.model.id, jQuery(this.form).serialize(), "application/x-www-form-urlencoded");
+      request = Network.post(
+        "/rhn/manager/api/vhms/update/" + this.state.model.id,
+        jQuery(this.form).serialize(),
+        "application/x-www-form-urlencoded"
+      );
     }
 
     return request
@@ -137,9 +146,18 @@ class VirtualHostManagerEdit extends React.Component<Props, State> {
         // Remove '<default>' placeholder for submit
         formData.set("module_context", "");
       }
-      request = Network.post("/rhn/manager/api/vhms/create/kubernetes", formData, "application/x-www-form-urlencoded", false);
+      request = Network.post(
+        "/rhn/manager/api/vhms/create/kubernetes",
+        formData,
+        "application/x-www-form-urlencoded",
+        false
+      );
     } else {
-      request = Network.post("/rhn/manager/api/vhms/create", jQuery(this.form).serialize(), "application/x-www-form-urlencoded");
+      request = Network.post(
+        "/rhn/manager/api/vhms/create",
+        jQuery(this.form).serialize(),
+        "application/x-www-form-urlencoded"
+      );
     }
 
     return request

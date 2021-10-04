@@ -97,10 +97,7 @@ class CreateImageStore extends React.Component<Props, State> {
 
     model.label = model.label.trim();
     model.uri = model.uri.trim();
-    return Network.post(
-      "/rhn/manager/api/cm/imagestores/update/" + window.storeId,
-      model
-    ).then(data => {
+    return Network.post("/rhn/manager/api/cm/imagestores/update/" + window.storeId, model).then(data => {
       if (data.success) {
         Utils.urlBounce("/rhn/manager/cm/imagestores");
       } else {
@@ -124,10 +121,7 @@ class CreateImageStore extends React.Component<Props, State> {
 
     model.label = model.label.trim();
     model.uri = model.uri.trim();
-    return Network.post(
-      "/rhn/manager/api/cm/imagestores/create",
-      model
-    ).then(data => {
+    return Network.post("/rhn/manager/api/cm/imagestores/create", model).then(data => {
       if (data.success) {
         Utils.urlBounce("/rhn/manager/cm/imagestores");
       } else {

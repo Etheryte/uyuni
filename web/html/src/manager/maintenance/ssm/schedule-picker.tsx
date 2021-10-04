@@ -22,7 +22,10 @@ type ScheduleType = {
 type WithMaintenanceSchedulesProps = {
   systems: string[];
   onMessage: (messages: MessageType[]) => void;
-  children: (schedules: ScheduleType[], onAssign: (scheduleId: number, cancelActions: boolean) => Promise<any>) => JSX.Element;
+  children: (
+    schedules: ScheduleType[],
+    onAssign: (scheduleId: number, cancelActions: boolean) => Promise<any>
+  ) => JSX.Element;
 };
 
 export function WithMaintenanceSchedules(props: WithMaintenanceSchedulesProps) {
@@ -129,9 +132,7 @@ export function SchedulePicker(props: { schedules: ScheduleType[] }) {
         divClass="col-md-6"
         required
         defaultValue=""
-        options={options.concat(
-          props.schedules.map(s => ({ value: s.id, label: s.name }))
-        )}
+        options={options.concat(props.schedules.map(s => ({ value: s.id, label: s.name })))}
       />
       {context.model.scheduleId !== "0" && (
         <Check name="cancelActions" label={t("Cancel affected actions")} divClass="col-md-6 col-md-offset-3" />

@@ -21,9 +21,7 @@ export function VirtualizationPoolDefinitionApi(props: Props) {
   const [definition, setDefinition] = React.useState(null);
 
   React.useEffect(() => {
-    Network.get(
-      `/rhn/manager/api/systems/details/virtualization/pools/${props.hostid}/pool/${props.poolName}`
-    ).then(
+    Network.get(`/rhn/manager/api/systems/details/virtualization/pools/${props.hostid}/pool/${props.poolName}`).then(
       response => {
         setDefinition(response);
       },

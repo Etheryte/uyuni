@@ -43,12 +43,7 @@ describe("SearchField", () => {
   test("is searchable when criteria is specified", async () => {
     const TestWrapper = () => {
       const [criteria, setCriteria] = useState("initialValue");
-      return (
-        <SearchField
-          criteria={criteria}
-          onSearch={value => setCriteria(value)}
-        />
-      );
+      return <SearchField criteria={criteria} onSearch={value => setCriteria(value)} />;
     };
 
     render(<TestWrapper />);

@@ -141,7 +141,7 @@ class ConfigChannels extends React.Component<ConfigChannelsProps, ConfigChannels
   }
 
   search() {
-    return Promise.resolve().then( () => {
+    return Promise.resolve().then(() => {
       if (this.state.filter !== this.state.search.filter) {
         Network.get(this.props.matchUrl(this.state.filter)).then(data => {
           this.setState({
@@ -158,7 +158,10 @@ class ConfigChannels extends React.Component<ConfigChannelsProps, ConfigChannels
 
   addChanged(original, key, selected) {
     const currentChannel = this.state.changed.get(key);
-    if (!DEPRECATED_unsafeEquals(currentChannel, undefined) && DEPRECATED_unsafeEquals(selected, currentChannel.original.assigned)) {
+    if (
+      !DEPRECATED_unsafeEquals(currentChannel, undefined) &&
+      DEPRECATED_unsafeEquals(selected, currentChannel.original.assigned)
+    ) {
       this.state.changed.delete(key);
     } else {
       this.state.changed.set(key, {
@@ -238,9 +241,7 @@ class ConfigChannels extends React.Component<ConfigChannelsProps, ConfigChannels
         ) : (
           <tr>
             <td colSpan={3}>
-              <div>
-                {t("No states assigned. Use search to find and assign states.")}
-              </div>
+              <div>{t("No states assigned. Use search to find and assign states.")}</div>
             </td>
           </tr>
         )}
@@ -354,8 +355,7 @@ class ConfigChannels extends React.Component<ConfigChannelsProps, ConfigChannels
                 </div>
               </div>
             </div>
-          ) : null
-          }
+          ) : null}
 
           {this.state.rank ? (
             <div className="col-md-offset-2 col-md-8">

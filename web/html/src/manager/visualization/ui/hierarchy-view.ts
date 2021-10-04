@@ -170,7 +170,10 @@ function getIconDimensionByType(node) {
   let size;
   if (node.data.id === "root") {
     size = "50";
-  } else if ((window.view === "proxy-hierarchy" && node.data.type === "proxy") || ["vhm", "group"].includes(node.data.type)) {
+  } else if (
+    (window.view === "proxy-hierarchy" && node.data.type === "proxy") ||
+    ["vhm", "group"].includes(node.data.type)
+  ) {
     size = "34";
   } else if (Utils.isSystemType(node)) {
     size = "26";

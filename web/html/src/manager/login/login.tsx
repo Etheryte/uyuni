@@ -56,16 +56,32 @@ const getGlobalMessages = (validationErrors, schemaUpgradeRequired, diskspaceSev
 
   if (diskspaceSeverity !== "ok") {
     const severity_messages = {
-      "undefined": Messages.info(t("Unable to validate the disk space availability. Please contact your system admistrator if this problem persists.")),
-      "misconfiguration": Messages.warning(t("Some important directories are missing. Please contact your system administrator to review the configuration.")),
-      "alert": Messages.warning(t("The available disk space on the server is running low. Please contact your system administrator to add more disk space.")),
-      "critical": Messages.error(t("The available disk space on the server is critically low. Please contact your system administrator to add more disk space.")),
-    }
+      undefined: Messages.info(
+        t(
+          "Unable to validate the disk space availability. Please contact your system admistrator if this problem persists."
+        )
+      ),
+      misconfiguration: Messages.warning(
+        t(
+          "Some important directories are missing. Please contact your system administrator to review the configuration."
+        )
+      ),
+      alert: Messages.warning(
+        t(
+          "The available disk space on the server is running low. Please contact your system administrator to add more disk space."
+        )
+      ),
+      critical: Messages.error(
+        t(
+          "The available disk space on the server is critically low. Please contact your system administrator to add more disk space."
+        )
+      ),
+    };
 
     if (diskspaceSeverity in severity_messages) {
       messages = messages.concat(severity_messages[diskspaceSeverity]);
     } else {
-      console.warn("Unknown disk space severity level: " + diskspaceSeverity)
+      console.warn("Unknown disk space severity level: " + diskspaceSeverity);
       messages = messages.concat(severity_messages["undefined"]);
     }
   }
@@ -115,7 +131,9 @@ const Login = (props: Props) => {
         <section id="spacewalk-content">
           <div className="wrap">
             <div className="container">
-              <Messages items={getGlobalMessages(props.validationErrors, props.schemaUpgradeRequired, props.diskspaceSeverity)} />
+              <Messages
+                items={getGlobalMessages(props.validationErrors, props.schemaUpgradeRequired, props.diskspaceSeverity)}
+              />
               <React.Fragment>
                 <div className="col-sm-6">
                   <h1>{product.bodyTitle}</h1>

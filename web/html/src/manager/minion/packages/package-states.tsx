@@ -107,7 +107,9 @@ const PackageStates = ({ serverId }: PropsType) => {
 
   const handleStateChangeEvent = original => {
     return (event): void => {
-      const newPackageStateId: OptionalValue = packageHelpers.selectValue2PackageState(parseInt(event.target.value, 10));
+      const newPackageStateId: OptionalValue = packageHelpers.selectValue2PackageState(
+        parseInt(event.target.value, 10)
+      );
       const newPackageConstraintId: OptionalValue =
         newPackageStateId === packageHelpers.INSTALLED ? packageHelpers.LATEST : original.versionConstraintId;
       addChanged(original, newPackageStateId, newPackageConstraintId);

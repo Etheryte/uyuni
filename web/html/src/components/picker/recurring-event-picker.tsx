@@ -77,7 +77,7 @@ class RecurringEventPicker extends React.Component<RecurringEventPickerProps, Re
    * Quartz cron configuration without regarding time zones. To accommodate for this, we manually offset the values as
    * needed. This is a very specific use case and should **NOT** be used elsewhere where dates and times are concerned.
    */
-   private fromLegacyServerTime(value: moment.Moment, hour: number, minute: number): moment.Moment {
+  private fromLegacyServerTime(value: moment.Moment, hour: number, minute: number): moment.Moment {
     const serverTime = localizedMoment(value).tz(localizedMoment.serverTimeZone);
     if (!isNaN(hour)) {
       serverTime.hours(hour);
@@ -88,12 +88,12 @@ class RecurringEventPicker extends React.Component<RecurringEventPickerProps, Re
     return localizedMoment(serverTime);
   }
 
-  private toLegacyServerTime(value: moment.Moment): { hour: number, minute: number } {
+  private toLegacyServerTime(value: moment.Moment): { hour: number; minute: number } {
     const serverTime = localizedMoment(value).tz(localizedMoment.serverTimeZone);
     return {
       hour: serverTime.hours(),
       minute: serverTime.minutes(),
-    }
+    };
   }
 
   initialize = () => {

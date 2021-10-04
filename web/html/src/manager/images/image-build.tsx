@@ -182,10 +182,10 @@ class BuildImage extends React.Component<Props, State> {
   }
 
   onDateTimeChanged(value: moment.Moment) {
-     const model: State['model'] = Object.assign({}, this.state.model, {
+    const model: State["model"] = Object.assign({}, this.state.model, {
       earliest: value,
       actionChain: null,
-     });
+    });
     this.setState({
       actionChain: null,
       model,
@@ -193,7 +193,7 @@ class BuildImage extends React.Component<Props, State> {
   }
 
   onActionChainChanged(actionChain: ActionChain | null) {
-    const model: State['model'] = Object.assign({}, this.state.model, {
+    const model: State["model"] = Object.assign({}, this.state.model, {
       actionChain: actionChain?.text,
     });
     this.setState({
@@ -203,10 +203,7 @@ class BuildImage extends React.Component<Props, State> {
   }
 
   onBuild(model) {
-    Network.post(
-      "/rhn/manager/api/cm/build/" + this.state.model.profileId,
-      model
-    ).then(data => {
+    Network.post("/rhn/manager/api/cm/build/" + this.state.model.profileId, model).then(data => {
       if (data.success) {
         const msg = MessagesUtils.info(
           this.state.model.actionChain ? (

@@ -6,7 +6,6 @@ import { Button } from "components/buttons";
 import { ModalButton } from "components/dialog/ModalButton";
 import { DeleteDialog } from "components/dialog/DeleteDialog";
 
-
 type Props = {
   data?: any;
   onSelect: (row: any) => any;

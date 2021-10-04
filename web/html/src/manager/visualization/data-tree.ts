@@ -146,9 +146,7 @@ function appendPatchStatus(cell, patchCountsArray) {
       .append("div")
       .classed("minor-patches", true)
       .html(
-        '<i class="fa spacewalk-icon-enhancement"></i>' +
-          patchCountsArray[1] +
-          t("  product enhancement advisories")
+        '<i class="fa spacewalk-icon-enhancement"></i>' + patchCountsArray[1] + t("  product enhancement advisories")
       );
   }
 }
@@ -224,7 +222,9 @@ function updateDetailBox(d) {
 
   if (data.type === "group" && !DEPRECATED_unsafeEquals(data.groups, undefined)) {
     appendSimpleRow("Groups", cell =>
-      cell.text(data.groups.map((g, idx) => (DEPRECATED_unsafeEquals(idx, 0) ? g : " and " + g)).reduce((a, b) => a + b, ""))
+      cell.text(
+        data.groups.map((g, idx) => (DEPRECATED_unsafeEquals(idx, 0) ? g : " and " + g)).reduce((a, b) => a + b, "")
+      )
     );
   }
 
@@ -334,7 +334,10 @@ function strengthByType(node) {
   let force;
   if (node.data.id === "root") {
     force = -1800;
-  } else if ((window.view === "proxy-hierarchy" && node.data.type === "proxy") || ["vhm", "group"].includes(node.data.type)) {
+  } else if (
+    (window.view === "proxy-hierarchy" && node.data.type === "proxy") ||
+    ["vhm", "group"].includes(node.data.type)
+  ) {
     force = -900;
   } else if (Utils.isSystemType(node)) {
     force = -300;

@@ -93,7 +93,11 @@ export class ActionConfirm extends React.Component<Props, State> {
           </>
         }
         onConfirm={() =>
-          this.props.onConfirm(this.props.type, this.props.selected, this.props.canForce ? { force: this.state.force } : {})
+          this.props.onConfirm(
+            this.props.type,
+            this.props.selected,
+            this.props.canForce ? { force: this.state.force } : {}
+          )
         }
         onClose={() => this.closePopUp()}
         submitText={this.state.force && this.props.forceName ? this.props.forceName : this.props.name}

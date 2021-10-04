@@ -3,10 +3,7 @@ import { clmFilterOptions, findClmFilterByKey } from "../shared/business/filters
 import { FilterFormType, FilterServerType } from "../shared/type/filter.type";
 import { localizedMoment } from "utils";
 
-export function mapFilterFormToRequest(
-  filterForm: Partial<FilterFormType>,
-  projectLabel?: string,
-): FilterServerType {
+export function mapFilterFormToRequest(filterForm: Partial<FilterFormType>, projectLabel?: string): FilterServerType {
   const requestForm: any = {};
   requestForm.projectLabel = projectLabel;
   requestForm.name = filterForm.filter_name;
@@ -18,7 +15,7 @@ export function mapFilterFormToRequest(
     requestForm.prefix = filterForm.labelPrefix;
     requestForm.kernelEvrId = filterForm.kernelId;
     requestForm.channelId = filterForm.channelId;
-    requestForm.template = filterForm['template'];
+    requestForm.template = filterForm["template"];
   }
 
   const selectedFilterOption = findClmFilterByKey(filterForm.type);
@@ -35,9 +32,7 @@ export function mapFilterFormToRequest(
   // If this starts growing we could define mapper functions in the enum itself, for now it's enough. (ex: mapCriteriaValueToRequest())
   if (filterForm.type === clmFilterOptions.ISSUE_DATE.key) {
     const formDateValue = filterForm[clmFilterOptions.ISSUE_DATE.key];
-    requestForm.criteriaValue = formDateValue
-      ? localizedMoment(formDateValue)
-      : "";
+    requestForm.criteriaValue = formDateValue ? localizedMoment(formDateValue) : "";
   } else if (filterForm.type === clmFilterOptions.NEVRA.key) {
     // UI filter NEVRA form can map either into nevr or nevra
     const epochName = !_isEmpty(filterForm.epoch) ? `${filterForm.epoch}:` : "";

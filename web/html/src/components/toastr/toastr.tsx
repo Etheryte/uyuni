@@ -10,7 +10,7 @@ type OptionalParams = {
 
 type MessagesContainerProps = {
   containerId?: string;
-}
+};
 
 const FadeTransition = cssTransition({
   enter: "toast-enter",

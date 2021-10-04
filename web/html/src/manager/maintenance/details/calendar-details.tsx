@@ -91,21 +91,21 @@ const MaintenanceCalendarOverview = (props: OverviewProps) => {
           <Column columnKey="right" cell={row => row.right} />
         </Table>
       </BootstrapPanel>
-        <div className="panel panel-default">
-          <div className="panel-heading">
-            <h4>{props.name}</h4>
-          </div>
-          <div className="panel-body">
-              <WebCalendar
-                id={props.id}
-                type={"calendar"}
-                eventNames={props.eventNames}
-                messages={props.onMessage}
-                clearMessages={props.clearMessages}
-                responseError={props.responseError}
-              />
-          </div>
+      <div className="panel panel-default">
+        <div className="panel-heading">
+          <h4>{props.name}</h4>
         </div>
+        <div className="panel-body">
+          <WebCalendar
+            id={props.id}
+            type={"calendar"}
+            eventNames={props.eventNames}
+            messages={props.onMessage}
+            clearMessages={props.clearMessages}
+            responseError={props.responseError}
+          />
+        </div>
+      </div>
     </div>
   );
 };

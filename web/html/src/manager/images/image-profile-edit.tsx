@@ -200,10 +200,7 @@ class CreateImageProfile extends React.Component<Props, State> {
 
     model.label = model.label.trim();
     model.path = model.path.trim();
-    return Network.post(
-      "/rhn/manager/api/cm/imageprofiles/update/" + window.profileId,
-      model
-    ).then(data => {
+    return Network.post("/rhn/manager/api/cm/imageprofiles/update/" + window.profileId, model).then(data => {
       if (data.success) {
         Utils.urlBounce("/rhn/manager/cm/imageprofiles");
       } else {
@@ -229,10 +226,7 @@ class CreateImageProfile extends React.Component<Props, State> {
 
     model.label = model.label.trim();
     model.path = model.path.trim();
-    return Network.post(
-      "/rhn/manager/api/cm/imageprofiles/create",
-      model
-    ).then(data => {
+    return Network.post("/rhn/manager/api/cm/imageprofiles/create", model).then(data => {
       if (data.success) {
         Utils.urlBounce("/rhn/manager/cm/imageprofiles");
       } else {

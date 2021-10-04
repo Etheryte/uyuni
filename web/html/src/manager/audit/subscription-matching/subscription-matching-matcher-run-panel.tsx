@@ -13,7 +13,7 @@ type MatcherRunPanelState = {
   latestStart?: moment.Moment | null;
   latestEnd?: moment.Moment | null;
   error: boolean;
-}
+};
 
 class MatcherRunPanel extends React.Component<MatcherRunPanelProps, MatcherRunPanelState> {
   state = {
@@ -75,7 +75,7 @@ type MatcherRunDescriptionProps = {
   error?: any;
   latestStart?: moment.Moment | null;
   latestEnd?: moment.Moment | null;
-}
+};
 
 const MatcherRunDescription = (props: MatcherRunDescriptionProps) => {
   if (props.error) {
@@ -100,9 +100,7 @@ const MatcherRunDescription = (props: MatcherRunDescriptionProps) => {
 
   if (props.latestEnd == null) {
     return (
-      <div>
-        {t("Matching data is currently being recomputed, it was started {0}.", props.latestStart.fromNow())}
-      </div>
+      <div>{t("Matching data is currently being recomputed, it was started {0}.", props.latestStart.fromNow())}</div>
     );
   }
 
@@ -134,9 +132,7 @@ type MatcherScheduleButtonProps = {
 
 class MatcherScheduleButton extends React.Component<MatcherScheduleButtonProps> {
   onClick = () => {
-    Network.post("/rhn/manager/api/subscription-matching/schedule-matcher-run").catch(() =>
-      this.props.onError()
-    );
+    Network.post("/rhn/manager/api/subscription-matching/schedule-matcher-run").catch(() => this.props.onError());
     this.props.onScheduled();
   };
 

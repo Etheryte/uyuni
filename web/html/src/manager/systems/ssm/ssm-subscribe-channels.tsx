@@ -911,7 +911,7 @@ class SsmChannelPage extends React.Component<SsmChannelProps, SsmChannelState> {
     if (jqXHR.responseJSON.data) {
       const anySuccess = jqXHR.responseJSON.data.some(dto => dto.actionId && !dto.errorMessage);
       if (anySuccess) {
-        msg.concat(MessagesUtils.warning(t("Some changes scheduled successfully.")))
+        msg.concat(MessagesUtils.warning(t("Some changes scheduled successfully.")));
       }
     }
 
@@ -949,10 +949,7 @@ class SsmChannelPage extends React.Component<SsmChannelProps, SsmChannelState> {
   };
 
   onGotoChildChannels = () => {
-    return Network.post(
-      "/rhn/manager/systems/ssm/channels/allowed-changes",
-      this.state.baseChanges
-    )
+    return Network.post("/rhn/manager/systems/ssm/channels/allowed-changes", this.state.baseChanges)
       .then((data: JsonResult<Array<SsmAllowedChildChannelsDto>>) => {
         // group the allowed changes by the new base in order to show child channels only once
         const groupByNewBase: Map<string, SsmAllowedChildChannelsDto> = new Map();
