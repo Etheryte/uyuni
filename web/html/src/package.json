@@ -15,6 +15,7 @@
     "build": "node build",
     "build:novalidate": "BUILD_VALIDATION=false node build",
     "lint": "eslint . -f codeframe",
+    "lint:fix": "eslint . -f codeframe --fix",
     "test": "BABEL_ENV=test jest",
     "test:watch": "BABEL_ENV=test jest --watch",
     "storybook": "start-storybook -s ./.storybook/public",
