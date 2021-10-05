@@ -46,7 +46,7 @@ const ListProjects = (props: Props) => {
     const keysToSearch = ["name", "description", "environmentLifecycle"];
     if (criteria) {
       return keysToSearch
-        .map(key => row[key])
+        .map((key) => row[key])
         .join()
         .toLowerCase()
         .includes(criteria.toLowerCase());
@@ -54,7 +54,7 @@ const ListProjects = (props: Props) => {
     return true;
   };
 
-  const normalizedProjects = props.projects.map(project => ({
+  const normalizedProjects = props.projects.map((project) => ({
     label: project.properties.label,
     name: project.properties.name,
     description: project.properties.description,
@@ -79,11 +79,11 @@ const ListProjects = (props: Props) => {
 
   const renderDate = (date: Date | null) => {
     if (date === null) {
-      return <span>{t("never")}</span>
+      return <span>{t("never")}</span>;
     }
     const lmDate = localizedMoment(date);
-    return <span title={lmDate.toUserDateTimeString()}>{lmDate.fromNow()}</span>
-  }
+    return <span title={lmDate.toUserDateTimeString()}>{lmDate.fromNow()}</span>;
+  };
 
   return (
     <TopPanel
@@ -94,7 +94,7 @@ const ListProjects = (props: Props) => {
     >
       <Table
         data={normalizedProjects}
-        identifier={row => row.label}
+        identifier={(row) => row.label}
         initialSortColumnKey="name"
         initialItemsPerPage={window.userPrefPageSize}
         searchField={<SearchField filter={searchData} placeholder={t("Filter by any value")} />}
@@ -103,7 +103,7 @@ const ListProjects = (props: Props) => {
           columnKey="name"
           comparator={Utils.sortByText}
           header={t("Name")}
-          cell={row => (
+          cell={(row) => (
             <a className="js-spa" href={`/rhn/manager/contentmanagement/project/${row.label}`}>
               {row.name}
             </a>
@@ -113,18 +113,18 @@ const ListProjects = (props: Props) => {
           columnKey="description"
           comparator={Utils.sortByText}
           header={t("Description")}
-          cell={row => _truncate(row.description, { length: 120 })}
+          cell={(row) => _truncate(row.description, { length: 120 })}
         />
         <Column
           columnKey="lastBuildDate"
           comparator={Utils.sortByDate}
           header={t("Last Build")}
-          cell={row => renderDate(row.lastBuildDate)}
+          cell={(row) => renderDate(row.lastBuildDate)}
         />
         <Column
           columnKey="environmentLifecycle"
           header={t("Environment Lifecycle")}
-          cell={row => row.environmentLifecycle}
+          cell={(row) => row.environmentLifecycle}
         />
       </Table>
     </TopPanel>
