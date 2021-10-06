@@ -48,17 +48,19 @@ jobs:
       with:
         # Delete the branch after merger
         delete-branch: true
-        author: "github-actions <github-actions[bot]@users.noreply.github.com>"
+        branch: automatic-frontend-lint-fix
+        author: github-actions <github-actions[bot]@users.noreply.github.com>
         title: Automatic frontend lint fixes
         body: |
           ## What does this PR change?
 
-          Applies automatic frontend lint fixes. If this PR was made in error, please reach out to [@uyuni-project/frontend](https://github.com/orgs/uyuni-project/teams/frontend).  
+          Applies automatic frontend lint fixes.  
+          If this PR was made in error, please reach out to [@uyuni-project/frontend](https://github.com/orgs/uyuni-project/teams/frontend).  
 
           ## Changelogs
 
           The applied changes are only stylistic and do not need a changelog.
 
           - [x] No changelog needed
-        commit-message: "Automatic frontend lint fixes"
+        commit-message: Automatic frontend lint fixes
         reviewers: ${{ github.actor }}
