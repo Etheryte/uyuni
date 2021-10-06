@@ -1,15 +1,19 @@
-name: Javascript automatic lint fix PR
+name: Frontend lint
 
 on:
   push:
     branches:
-      - prettier-pr
+      - master
+    paths:
+      - 'web/html/src/**'
+      - 'susemanager-frontend/**'
+  pull_request:
     paths:
       - 'web/html/src/**'
       - 'susemanager-frontend/**'
 
 jobs:
-  javascript_lint_fix_pr:
+  frontend_lint:
     runs-on: ubuntu-latest
 
     strategy:
@@ -38,15 +42,6 @@ jobs:
     - name: Install dependencies
       run: yarn --cwd susemanager-frontend install --frozen-lockfile --prefer-offline
 
-    # Run lint with fixes
+    # Run lint without fixes so the lint fails if there are fixes to be applied
     - name: Run lint
-      run: yarn --cwd web/html/src lint
-
-    # If there's any changes, create a PR
-    - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v3
-      with:
-        title: Automatic Javascript lint fixes 
-        body: "TODO: The same-ish body as in templates"
-        # Delete the branch after merger
-        delete-branch: true
+      run: yarn --cwd web/html/src lint:nofix
