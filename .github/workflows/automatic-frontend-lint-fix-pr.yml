@@ -43,7 +43,7 @@ jobs:
       run: yarn --cwd web/html/src lint
 
     # If there's any changes, create a PR
-    - name: Create Pull Request
+    - name: Create PR
       uses: peter-evans/create-pull-request@v3
       with:
         # Delete the branch after merger
