@@ -1,0 +1,52 @@
+name: Javascript automatic lint fix PR
+
+on:
+  push:
+    branches:
+      - prettier-pr
+    paths:
+      - 'web/html/src/**'
+      - 'susemanager-frontend/**'
+
+jobs:
+  javascript_lint_fix_pr:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [10.x]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Get Yarn cache directory
+      id: yarn-cache-dir-path
+      run: echo "::set-output name=dir::$(yarn cache dir)"
+
+    - name: Use Yarn cache
+      uses: actions/cache@v2
+      id: yarn-cache
+      with:
+        path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+        key: ${{ runner.os }}-yarn-${{ matrix.node-version }}-${{ hashFiles('**/yarn.lock') }}
+
+    - name: Install dependencies
+      run: yarn --cwd susemanager-frontend install --frozen-lockfile --prefer-offline
+
+    # Run lint with fixes
+    - name: Run lint
+      run: yarn --cwd web/html/src lint
+
+    # If there's any changes, create a PR
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v3
+      with:
+        title: Automatic Javascript lint fixes 
+        body: "TODO: The same-ish body as in templates"
+        # Delete the branch after merger
+        delete-branch: true
