@@ -3,7 +3,7 @@ name: Automatic frontend lint fix PR
 on:
   push:
     branches:
-      - prettier-pr
+      - master
     paths:
       - 'web/html/src/**'
       - 'susemanager-frontend/**'
@@ -55,6 +55,7 @@ jobs:
           ## What does this PR change?
 
           Applies automatic frontend lint fixes.  
+
           If this PR was made in error, please reach out to [@uyuni-project/frontend](https://github.com/orgs/uyuni-project/teams/frontend).  
 
           ## Changelogs
@@ -64,4 +65,4 @@ jobs:
           - [x] No changelog needed
         commit-message: Automatic frontend lint fixes
         reviewers: ${{ github.actor }}
-        # team-reviewers: "@uyuni-project/frontend"
+        team-reviewers: "@uyuni-project/frontend"
