@@ -1,9 +1,9 @@
 function getObjectValue(obj: object, path: string, defaultValue?: any) {
   const value = path.split(".").reduce((target, key) => {
     if (Array.isArray(target)) {
-      return target.map((item) => item?.[key]);
+      return target.map((item) => item?.[key])
     }
-    return target?.[key];
+    	return target?.[key];
   }, obj);
   return typeof value !== "undefined" ? value : defaultValue;
 }
