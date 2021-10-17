@@ -27,10 +27,6 @@
 }
 
 /* Client-specific classes */
-
-.display_area_vnc {
-}
-
 .display_area_spice {
   display: flex;
 }

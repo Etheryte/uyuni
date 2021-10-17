@@ -41,10 +41,23 @@ function sortById(aRaw: any, bRaw: any): number {
   return aId > bId ? 1 : aId < bId ? -1 : 0;
 }
 
+// See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Collator/Collator
+const stringSorter = new Intl.Collator(undefined, {
+  ignorePunctuation: true, // Ignore punctuation when sorting
+  numeric: true, // 1, 2, 3 comes before 11, 12, 13 as opposed to the default 1, 11, 12, 13, 2, 3
+  sensitivity: "base", // Ignore case and accents when sorting
+});
+
+// TODO: Use this everywhere if others agree to this solution
+/** Locale and number aware string comparison, use this whenever you need to compare or sort strings */
+function localeCompare(a?: string | null | undefined, b?: string | null | undefined) {
+  return stringSorter.compare(a ?? "", b ?? "");
+}
+
 function sortByText(aRaw: any, bRaw: any, columnKey: string, sortDirection: number): number {
-  var a = aRaw[columnKey];
-  var b = bRaw[columnKey];
-  var result = (a == null ? "" : a).toLowerCase().localeCompare((b == null ? "" : b).toLowerCase());
+  const a = aRaw[columnKey];
+  const b = bRaw[columnKey];
+  const result = localeCompare(a, b);
   return (result || sortById(aRaw, bRaw)) * sortDirection;
 }
 
@@ -170,6 +183,7 @@ function getProductName(): string {
 
 const Utils = {
   cancelable,
+  localeCompare,
   sortById,
   sortByText,
   sortByNumber,
