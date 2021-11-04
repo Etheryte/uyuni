@@ -54,39 +54,36 @@ const FiltersProjectSelection = (props: FiltersProps) => {
 
   return (
     <React.Fragment>
-      <div className="filters-project-selection">
-        <input
-          type="text"
-          placeholder={t("Search")}
-          autoFocus
-          className="form-control"
-          onChange={(event) => setFilterText(event.target.value)}
-        />
-        <div className="spacewalk-list">
-          {filters.map((filter) => (
-            <div key={filter.id} className="checkbox">
-              <input
-                type="checkbox"
-                value={filter.id}
-                id={"child_" + filter.id}
-                name="filterSelection"
-                checked={onGoingSelectedFilters.includes(filter.id)}
-                onChange={(event) =>
-                  setOnGoingSelectedFilters(_xor(onGoingSelectedFilters, [parseInt(event.target.value, 10)]))
-                }
-              />
-              <label htmlFor={"child_" + filter.id}>{filter.description}</label>
-            </div>
-          ))}
-        </div>
-        <LinkButton
-          id={`create-new-filter-link`}
-          icon="fa-plus"
-          className="btn-link js-spa"
-          text={t("Create New Filter")}
-          href={`/rhn/manager/contentmanagement/filters?openFilterId=-1&projectLabel=${props.projectId}`}
-        />
+      <input
+        type="text"
+        placeholder={t("Search")}
+        autoFocus
+        className="form-control"
+        onChange={(event) => setFilterText(event.target.value)}
+      />
+      <div className="spacewalk-list">
+        {filters.map((filter) => (
+          <div key={filter.id} className="checkbox">
+            <input
+              type="checkbox"
+              value={filter.id}
+              id={"child_" + filter.id}
+              name="filterSelection"
+              checked={onGoingSelectedFilters.includes(filter.id)}
+              onChange={(event) =>
+                setOnGoingSelectedFilters(_xor(onGoingSelectedFilters, [parseInt(event.target.value, 10)]))
+              }
+            />
+            <label htmlFor={"child_" + filter.id}>{filter.description}</label>
+          </div>
+        ))}
       </div>
+      <LinkButton
+        icon="fa-plus"
+        className="btn-link js-spa"
+        text={t("Create New Filter")}
+        href={`/rhn/manager/contentmanagement/filters?openFilterId=-1&projectLabel=${props.projectId}`}
+      />
     </React.Fragment>
   );
 };
