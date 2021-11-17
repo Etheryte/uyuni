@@ -29,6 +29,7 @@ function mountDateTimePickerTo(mountingPoint: HTMLElement | null) {
 
   // Raw value is an ISO 8601 format date time string with timezone info intact, a-la `"2021-06-08T20:00+0100"`
   const rawValue = mountingPoint.getAttribute("data-value") || mountingPoint.innerText;
+  // TODO: We need to take the utcOffset at any given date and time since DST
   // We store the expected UTC offset separately so we can set it back before setting values for the legacy inputs
   const utcOffset = localizedMoment.parseZone(rawValue).utcOffset();
   const initialValue = localizedMoment(rawValue);
