@@ -31,9 +31,7 @@ jobs:
       run: sudo apt-get install -y osc
     
     - name: OSC setup
-      run: |
-        touch ~/.config/osc/oscrc
-        echo -e "[https://api.opensuse.org]" >> ~/.config/osc/oscrc
+      run: echo -e "[https://api.opensuse.org]" >> /tmp/oscrc
       # run: echo -e "[https://api.opensuse.org]\nuser=$OBS_USER\npass=\nemail=$OBS_EMAIL" >> ~/.config/osc/oscrc
       env:
         OBS_USER: ${{ secrets.OBS_USER }}
@@ -43,7 +41,7 @@ jobs:
 
     - name: Run build
       working-directory: ./web
-      run: osc build
+      run: osc build --config=/tmp/oscrc
       # TODO: Can we have a public account with only readonly access to enough things to make this work?
       # Alternatively, we can remove the pull_request hook and use repo secrets
       # See
@@ -52,4 +50,4 @@ jobs:
 
     - name: Cleanup
       if: always()
-      run: rm -f ~/.config/osc/oscrc
+      run: rm -f /tmp/oscrc
