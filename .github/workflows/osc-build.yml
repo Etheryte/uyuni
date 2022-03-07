@@ -51,7 +51,7 @@ jobs:
         OBS_EMAIL: ${{ secrets.OBS_EMAIL }}
 
     - name: Run build
-      working-directory: ./web
+      working-directory: ./susemanager-frontend/susemanager-nodejs-sdk-devel
       run: osc build
       # TODO: Can we have a public account with only readonly access to enough things to make this work?
       # Alternatively, we can remove the pull_request hook and use repo secrets
