@@ -31,7 +31,11 @@ jobs:
       run: sudo apt-get install -y osc
     
     - name: OSC setup
-      run: echo -e "[https://api.opensuse.org]\nuser=${{ secrets.OBS_USER }}\npass=\nemail=" >> ~/.config/osc/oscrc
+      run: echo -e "[https://api.opensuse.org]\nuser=$OBS_USER\npass=\nemail=$OBS_EMAIL" >> ~/.config/osc/oscrc
+      env:
+        OBS_USER: ${{ secrets.OBS_USER }}
+        OBS_PASS: ${{ secrets.OBS_PASS }}
+        OBS_EMAIL: ${{ secrets.OBS_EMAIL }}
       
 
     - name: Run build
