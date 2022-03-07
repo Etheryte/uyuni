@@ -32,6 +32,7 @@ jobs:
     
     - name: OSC setup
       run: |
+        mkdir -p ~/.config/osc/;
         echo "
         [general]
         apiurl = https://api.opensuse.org
@@ -43,7 +44,7 @@ jobs:
         user=$OBS_USER
         pass=$OBS_PASS
         email=$OBS_EMAIL
-        " >> /tmp/oscrc;
+        " >> ~/.config/osc/oscrc
       env:
         OBS_USER: ${{ secrets.OBS_USER }}
         OBS_PASS: ${{ secrets.OBS_PASS }}
@@ -51,7 +52,7 @@ jobs:
 
     - name: Run build
       working-directory: ./web
-      run: osc build --config=/tmp/oscrc
+      run: osc build
       # TODO: Can we have a public account with only readonly access to enough things to make this work?
       # Alternatively, we can remove the pull_request hook and use repo secrets
       # See
@@ -60,4 +61,4 @@ jobs:
 
     - name: Cleanup
       if: always()
-      run: rm -f /tmp/oscrc
+      run: rm -f ~/.config/osc/oscrc
