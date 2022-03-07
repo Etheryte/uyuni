@@ -28,9 +28,13 @@ jobs:
         node-version: ${{ matrix.node-version }}
 
     - name: Install OSC
+      run: sudo apt-get install -y osc
+    
+    - name: Test OSC
       run: |
-        sudo apt-get install -y osc
-        osc --config=/tmp/oscrc
+        echo "foo
+        bar" >> /tmp/oscrc;
+        cat /tmp/oscrc;
     
     - name: OSC setup
       run: echo -e "[https://api.opensuse.org]\nuser=$OBS_USER\npass=\nemail=$OBS_EMAIL" >> /tmp/oscrc
