@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - gh-osc
     # paths:
     #   - 'web/html/src/**'
   pull_request:
@@ -37,3 +38,7 @@ jobs:
       # See
       #  - https://github.com/Azure/actions-workflow-samples/blob/master/assets/create-secrets-for-GitHub-workflows.md
       #  - https://docs.github.com/en/actions/security-guides/encrypted-secrets
+
+    - name: Cleanup
+      if: always()
+      run: rm ~/.config/osc/oscrc
