@@ -30,19 +30,24 @@ jobs:
     - name: Install OSC
       run: sudo apt-get install -y osc
     
-    - name: Test OSC
-      run: |
-        echo "foo
-        bar" >> /tmp/oscrc;
-        cat /tmp/oscrc;
-    
     - name: OSC setup
-      run: echo -e "[https://api.opensuse.org]\nuser=$OBS_USER\npass=\nemail=$OBS_EMAIL" >> /tmp/oscrc
+      run: |
+        echo "
+        [general]
+        apiurl = https://api.opensuse.org
+        build-jobs = 2
+        extra-pkgs = gdb less mc strace tmux tree unzip vim
+        no_verify = 1
+        
+        [https://api.opensuse.org]
+        user=$OBS_USER
+        pass=$OBS_PASS
+        email=$OBS_EMAIL
+        " >> /tmp/oscrc;
       env:
         OBS_USER: ${{ secrets.OBS_USER }}
         OBS_PASS: ${{ secrets.OBS_PASS }}
         OBS_EMAIL: ${{ secrets.OBS_EMAIL }}
-      
 
     - name: Run build
       working-directory: ./web
