@@ -1,0 +1,18 @@
+.wrapper {
+  display: flex;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+  /* TODO: Fix variable usage */
+  background: url("./background.svg") #0c322c no-repeat center fixed;
+}
+
+.box {
+  box-shadow: 0 3px 30px rgb(0 0 0 / 16%);
+  display: flex;
+  margin: auto;
+  min-height: 700px;
+  width: 100%;
+  max-width: 1120px;
+  background-color: #fff;
+}
