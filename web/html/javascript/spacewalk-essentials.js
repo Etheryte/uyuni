@@ -221,7 +221,8 @@ function makeAjaxHandler(callbackFunction, errorHandlerFunction) {
 function showFatalError(message, exception) {
   console.log("DWR AJAX call failed with message: " + message);
   console.log(exception);
-  alert("Unexpected error, please reload the page and check server logs.");
+  // TODO: Revert
+  // alert("Unexpected error, please reload the page and check server logs.");
 }
 
 
