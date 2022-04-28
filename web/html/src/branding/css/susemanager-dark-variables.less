@@ -3,7 +3,6 @@
  *
  * We can't use `eos-ds` as a dependency directly since they use Sass and we use Less
  */
-/* EOS Colors guideline for products https://productbrand.suse.com/colors */
 @eos-bc-green-100:      #e4f6ee;
 @eos-bc-green-500:      #30ba78;
 @eos-bc-green-900:      #0e7e3c;
@@ -31,14 +30,6 @@
 @eos-bc-dt-gray-200:    #1f222b;
 @eos-bc-waterhole-blue: #2453ff;
 
-/* Login page */
-@login-background:      @eos-bc-gray-1000;
-@login-text:            @eos-bc-gray-50;
-@login-footer-text:     @eos-bc-gray-300;
-
-/* Special colours for SUSE Manager */
-@susemanager-link:            @eos-bc-cerulean-900;
-
 /* Main tags colours for Bootstrap */
 @green-dark:             @eos-bc-green-900;
 @green:                  @eos-bc-green-500;
@@ -61,6 +52,20 @@
 
 /* Body */
 @body-background:     @eos-bc-gray-50;
+
+@font-size-base:          14px;
+@font-size-large:         18.2px;
+@font-size-small:         12px;
+
+@font-size-h1:            24.5px;
+@font-size-h2:            21px;
+@font-size-h3:            18.2px;
+@font-size-h4:            16.1px;
+@font-size-h5:            14px;
+@font-size-h6:            14px;
+
+@line-height-base: 1.5;
+@headings-line-height: 1.5;
 
 /* Header */
 @header:          @eos-bc-pine-500;
@@ -89,9 +94,6 @@
 @footer-hover:      @eos-bc-gray-100;
 @footer-border:     @eos-bc-gray-1000;
 
-/* Buttons */
-@btn-primary-bg:     @green;
-
 /* Input */
 @input-placeholder:  @gray;
 
@@ -100,19 +102,24 @@
 @modal-backdrop-color:  fade(@black, 50%);
 
 /* Other elements */
+@border-radius-base:  0;
+@border-radius-large: 0;
+@border-radius-small: 0;
 @notification-badge:     @orange-light;
 @box-shadow:             @gray-light;
 @inactive:               @eos-bc-gray-100;
+@link-color:             @eos-bc-blue-500;
+// TODO: This should be selection green instead?
 @table-row-selected:     lighten(@eos-bc-yellow-100, 5%);
 
 /**
 * FONTS
 */
 
-/* Lato variable: font variable to be applied in different text elements*/
+/* Lato variable: font variable to be applied in different text elements */
 @lato: 'Lato', arial, helvetica, sans-serif;
 @lato-bold: 'Lato Bold', arial, helvetica, sans-serif;
 
-/* WorkSans variable: font variable to be applied in different text elements*/
+/* WorkSans variable: font variable to be applied in different text elements */
 @worksans: 'WorkSans', arial, helvetica, sans-serif;
 @worksans-bold: 'WorkSans Bold', arial, helvetica, sans-serif;

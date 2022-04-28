@@ -34,8 +34,7 @@
 
     <!-- import styles -->
     <c:set var="webTheme" value="${GlobalInstanceHolder.USER_PREFERENCE_UTILS.getCurrentWebTheme(pageContext)}"/>
-    <!-- <link rel="stylesheet" href="/css/${webTheme}.css?cb=${cb_version}" /> -->
-    <link rel="stylesheet" href="/css/susemanager-light.css?cb=${cb_version}" />
+    <link rel="stylesheet" href="/css/${webTheme}.css?cb=${cb_version}" />
 
     <!-- expose user preferred language to the application -->
     <c:set var="currentLocale" value="${GlobalInstanceHolder.USER_PREFERENCE_UTILS.getCurrentLocale(pageContext)}"/>
