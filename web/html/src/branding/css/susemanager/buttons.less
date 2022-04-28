@@ -48,7 +48,12 @@
 }
 
 .btn-link {
-  color: @eos-bc-gray-1000 !important;
+  color: @link-color !important;
+  font-weight: normal !important;
+
+  &:hover {
+    text-decoration: underline !important;
+  }
 }
 
 // TODO: Add :active states for green etc
@@ -128,10 +133,12 @@
   }
 }
 
-.panel-heading {
-  .btn, .btn-link {
+.panel-heading,
+th {
+  .btn, .btn-link, a {
     border: none !important;
     padding: 0 !important;
+    font-weight: bold !important;
     color: @eos-bc-gray-1000 !important;
   }
 }
