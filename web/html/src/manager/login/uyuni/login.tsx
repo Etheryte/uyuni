@@ -25,67 +25,63 @@ const UyuniThemeLogin = (props: ThemeProps) => {
       <div className={`spacewalk-main-column-layout ${styles.fixed_content}`}>
         <section id="spacewalk-content">
           <div className="wrap">
-            <div className="container">
-              <Messages
-                items={getGlobalMessages(props.validationErrors, props.schemaUpgradeRequired, props.diskspaceSeverity)}
-              />
-              <React.Fragment>
-                <div className="col-sm-6">
-                  <h1>{product.bodyTitle}</h1>
-                  <p className="gray-text margins-updown">
-                    {t("Discover a new way of managing your servers, packages, patches and more via one interface.")}
-                  </p>
-                  <p className="gray-text">
-                    {t("Learn more about")} {product.key}:
-                    <a href={product.url} className="btn-dark" target="_blank" rel="noopener noreferrer">
-                      {" "}
-                      View website
-                    </a>
-                  </p>
+            <Messages
+              items={getGlobalMessages(props.validationErrors, props.schemaUpgradeRequired, props.diskspaceSeverity)}
+            />
+            <div className="col-sm-6">
+              <h1>{product.bodyTitle}</h1>
+              <p className="gray-text margins-updown">
+                {t("Discover a new way of managing your servers, packages, patches and more via one interface.")}
+              </p>
+              <p className="gray-text">
+                {t("Learn more about")} {product.key}:
+                <a href={product.url} className="btn-dark" target="_blank" rel="noopener noreferrer">
+                  {" "}
+                  View website
+                </a>
+              </p>
+            </div>
+            <div className="col-sm-5 col-sm-offset-1">
+              <Messages items={getFormMessages(success, messages)} />
+              <h2 className="gray-text">{t("Sign In")}</h2>
+              <form onSubmit={(event) => event.preventDefault()} name="loginForm">
+                <div className="margins-updown">
+                  <input
+                    id="username-field"
+                    name="username"
+                    className="form-control"
+                    type="text"
+                    placeholder={t("Login")}
+                    maxLength={parseInt(props.loginLength, 10)}
+                    autoFocus={true}
+                    {...loginInput}
+                  />
+                  <input
+                    id="password-field"
+                    name="password"
+                    className="form-control"
+                    type="password"
+                    autoComplete="password"
+                    placeholder={t("Password")}
+                    maxLength={parseInt(props.passwordLength, 10)}
+                    {...passwordInput}
+                  />
+                  <AsyncButton
+                    id="login-btn"
+                    className="btn-block"
+                    defaultType="btn-success"
+                    text={t("Sign In")}
+                    action={() =>
+                      onLogin({
+                        login: loginInput.value,
+                        password: passwordInput.value,
+                      }).then((success) => success && window.location.replace(props.bounce))
+                    }
+                  />
                 </div>
-                <div className="col-sm-5 col-sm-offset-1">
-                  <Messages items={getFormMessages(success, messages)} />
-                  <h2 className="gray-text">{t("Sign In")}</h2>
-                  <form onSubmit={(event) => event.preventDefault()} name="loginForm">
-                    <div className="margins-updown">
-                      <input
-                        id="username-field"
-                        name="username"
-                        className="form-control"
-                        type="text"
-                        placeholder={t("Login")}
-                        maxLength={parseInt(props.loginLength, 10)}
-                        autoFocus={true}
-                        {...loginInput}
-                      />
-                      <input
-                        id="password-field"
-                        name="password"
-                        className="form-control"
-                        type="password"
-                        autoComplete="password"
-                        placeholder={t("Password")}
-                        maxLength={parseInt(props.passwordLength, 10)}
-                        {...passwordInput}
-                      />
-                      <AsyncButton
-                        id="login-btn"
-                        className="btn-block"
-                        defaultType="btn-success"
-                        text={t("Sign In")}
-                        action={() =>
-                          onLogin({
-                            login: loginInput.value,
-                            password: passwordInput.value,
-                          }).then((success) => success && window.location.replace(props.bounce))
-                        }
-                      />
-                    </div>
-                  </form>
-                  <hr />
-                  <p className="gray-text small-text">{props.legalNote}</p>
-                </div>
-              </React.Fragment>
+              </form>
+              <hr />
+              <p className="gray-text small-text">{props.legalNote}</p>
             </div>
           </div>
         </section>

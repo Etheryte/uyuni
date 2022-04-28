@@ -1,4 +1,4 @@
-.wrapper {
+.background {
   display: flex;
   min-height: 100vh;
   justify-content: center;
@@ -7,7 +7,7 @@
   background: url("./background.svg") #0c322c no-repeat center fixed;
 }
 
-.box {
+.wrapper {
   box-shadow: 0 3px 30px rgb(0 0 0 / 16%);
   display: flex;
   margin: auto;
@@ -15,4 +15,41 @@
   width: 100%;
   max-width: 1120px;
   background-color: #fff;
+}
+
+.brand {
+  width: 445px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #0c322c;
+  color: #fff;
+  padding: 32px;
+}
+
+@media screen and (max-width: 1119px) {
+  .brand {
+    width: 335px;
+  }
+}
+
+@media screen and (max-width: 769px) {
+  .brand {
+    display: none;
+  }
+}
+
+.title {
+  color: #30ba78;
+  font-size: 28px;
+  font-weight: 500;
+  margin: 0 0 7px 0;
+}
+
+.loginArea {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px 32px;
+  overflow: auto;
 }
