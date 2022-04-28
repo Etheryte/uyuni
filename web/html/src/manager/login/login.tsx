@@ -60,9 +60,7 @@ export type ThemeProps = Props & {
 
 const Login = (props: Props) => {
   const product = props.isUyuni ? products.uyuni : products.suma;
-  // TODO: Remove
-  const TEST = false;
-  if (TEST && props.theme === "uyuni") {
+  if (props.theme === "uyuni") {
     return <UyuniThemeLogin {...props} product={product} />;
   }
   return <SusemanagerThemeLogin {...props} product={product} />;
