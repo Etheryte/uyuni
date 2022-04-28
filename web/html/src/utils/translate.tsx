@@ -36,6 +36,8 @@ function getPoAsJson(locale?: string) {
  * with placeholder replacement like Java's MessageFormat class.
  * Accepts any number of arguments after key.
  */
+function translate(msg: string): string;
+function translate(msg: JSX.Element): JSX.Element;
 function translate(msg: string | JSX.Element) {
   let result: string;
   let isResultJsx = false;
