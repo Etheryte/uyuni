@@ -1,6 +1,7 @@
 @input-height: 35px;
 
 .form-control {
+  color: @eos-bc-gray-1000;
   height: @input-height !important;
   padding: 8px !important;
   border-radius: @border-radius-base !important;
@@ -10,6 +11,13 @@
   &:focus {
     border-color: @eos-bc-blue-500 !important;
     outline: none !important;
+  }
+
+  &.disabled,
+  &:disabled {
+    color: @eos-bc-gray-700;
+    pointer-events: auto;
+    cursor: not-allowed;
   }
 }
 
