@@ -4,8 +4,8 @@ import SpaRenderer from "core/spa/spa-renderer";
 
 import { AsyncButton, Button } from "components/buttons";
 import { CustomDiv } from "components/custom-objects";
+import { Dialog } from "components/dialog/Dialog";
 import { DangerDialog } from "components/dialog/LegacyDangerDialog";
-import { ModalLink } from "components/dialog/ModalLink";
 import { ChannelLink } from "components/links";
 import { Messages, MessageType } from "components/messages";
 import { Utils as MessagesUtils } from "components/messages";
@@ -618,7 +618,11 @@ class Products extends React.Component<ProductsProps> {
           />
         </CustomDataHandler>
         {this.state.popupItem ? (
-          <ChannelsPopUp item={this.state.popupItem} addOptionalChannels={this.props.addOptionalChannels} />
+          <ChannelsPopUp
+            item={this.state.popupItem}
+            addOptionalChannels={this.props.addOptionalChannels}
+            onClose={() => this.setState({ popupItem: null })}
+          />
         ) : null}
       </div>
     );
@@ -1057,14 +1061,13 @@ class CheckListItem extends React.Component<CheckListItemProps> {
           >
             {channelSyncContent}
             {childProductChannelSyncContent}
-            <ModalLink
-              id={"showChannelsFor-" + currentItem.identifier}
-              className="showChannels"
-              icon="fa-list"
-              title={t("Show product's channels")}
-              target="show-channels-popup"
+            <button
+              className="btn-link showChannels"
               onClick={() => this.props.bypassProps.showChannelsfor(currentItem)}
-            />
+              title={t("Show product's channels")}
+            >
+              <i className="fa fa-list" />
+            </button>
           </CustomDiv>
           <CustomDiv
             className="col text-right"
@@ -1130,9 +1133,12 @@ const ChannelsPopUp = (props) => {
   const titlePopup = t("Product Channels - ") + props.item.label;
   const contentPopup = [
     installed ? (
-      <Messages items={MessagesUtils.info(t("Select the optional channels you wish to add and confirm."))} />
+      <Messages
+        key="messages"
+        items={MessagesUtils.info(t("Select the optional channels you wish to add and confirm."))}
+      />
     ) : null,
-    <div>
+    <div key="channel-lists">
       <ChannelList title={t("Mandatory Channels")} items={mandatoryChannels} className={"product-channel-list"} />
       <ChannelList
         title={t("Optional Channels")}
@@ -1143,6 +1149,17 @@ const ChannelsPopUp = (props) => {
       />
     </div>,
   ];
+
+  // TODO: Also handle the DangerDialog case using components/dialog/DangerDialog, the current DangerDialog referenced below is the legacy one
+  return (
+    <Dialog
+      id="show-channels-popup"
+      isOpen={!!props.item}
+      onClose={() => props.onClose()}
+      content={contentPopup}
+      title={titlePopup}
+    />
+  );
 
   return installed ? (
     <DangerDialog
