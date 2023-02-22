@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useRef } from "react";
 
 import { AsyncButton } from "components/buttons";
 import { ActionConfirm } from "components/dialog/ActionConfirm";
@@ -6,7 +7,7 @@ import { IconTag } from "components/icontag";
 import { Form, Radio, Select } from "components/input";
 import { Column } from "components/table/Column";
 import { SearchField } from "components/table/SearchField";
-import { Table } from "components/table/Table";
+import { Table, TableRef } from "components/table/Table";
 import { MessagesContainer, showSuccessToastr } from "components/toastr/toastr";
 
 import { Utils } from "utils/functions";
@@ -22,6 +23,8 @@ export function PackageList(props: Props) {
   const [selectedPackages, setSelectedPackages] = React.useState<string[]>([]);
   const [formModel, setFormModel] = React.useState<object>({ binary: "binary" });
   const [channels, setChannels] = React.useState([]);
+  const tableRef = useRef<TableRef>(null);
+
   React.useEffect(() => {
     let ignore = false;
     Network.get("/rhn/manager/api/channels/owned")
@@ -50,7 +53,10 @@ export function PackageList(props: Props) {
 
   const deleteSelected = () => {
     Network.post("/rhn/manager/api/packages/delete", selectedPackages)
-      .then(() => showSuccessToastr("Selected package(s) removed"))
+      .then(() => {
+        tableRef.current?.refresh();
+        showSuccessToastr("Selected package(s) removed");
+      })
       .catch(Network.showResponseErrorToastr);
   };
 
@@ -122,6 +128,7 @@ export function PackageList(props: Props) {
 
       {formModel["channel"] != null && formModel["channel"] !== "" && (
         <Table
+          ref={tableRef}
           data={`/rhn/manager/api/packages/list/${formModel["binary"]}/${formModel["channel"]}`}
           identifier={(item) => item.id}
           initialSortColumnKey="nvrea"

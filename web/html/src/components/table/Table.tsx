@@ -1,4 +1,5 @@
 import * as React from "react";
+import { forwardRef, useImperativeHandle } from "react";
 
 import { Button } from "components/buttons";
 
@@ -85,14 +86,25 @@ function isColumn(input: any): input is React.ReactElement<React.ComponentProps<
   return input?.type === Column || input?.type?.displayName === "Column";
 }
 
-export function Table(props: TableProps) {
+export type TableRef = {
+  refresh: (...args: any[]) => any;
+};
+
+export const Table = forwardRef<TableRef, TableProps>((props, ref) => {
   const { ...allProps } = props;
   const columns = React.Children.toArray(props.children)
     .filter(isColumn)
     .map((child) => React.cloneElement(child));
+  const dataHandlerRef = React.useRef<TableDataHandler>(null);
+
+  useImperativeHandle(ref, () => ({
+    refresh: () => {
+      dataHandlerRef.current?.getData();
+    },
+  }));
 
   return (
-    <TableDataHandler columns={columns} {...allProps}>
+    <TableDataHandler ref={dataHandlerRef} columns={columns} {...allProps}>
       {({ currItems, headers, handleSelect, selectable, selectedItems, deletable, criteria }) => {
         const rows = currItems.map((datum, index) => {
           const cells: React.ReactNode[] = React.Children.toArray(props.children)
@@ -171,7 +183,7 @@ export function Table(props: TableProps) {
       }}
     </TableDataHandler>
   );
-}
+});
 
 Table.defaultProps = {
   selectable: false,
