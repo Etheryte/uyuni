@@ -8,7 +8,7 @@
 
 <div id="messages-container"></div>
 
-<div class="header-content">
+<div class="header-content container-fluid">
   <div class="navbar-header">
     <a href="#" class="navbar-toggle">
       <i class="fa fa-bars" aria-hidden="true"></i>

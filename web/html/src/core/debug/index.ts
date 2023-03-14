@@ -28,6 +28,20 @@ const debug = {
       return;
     }
   },
+  toggleUpdatedTheme() {
+    const regularTheme = document.getElementById("web-theme");
+    if (regularTheme?.getAttribute("disabled")) {
+      regularTheme.removeAttribute("disabled");
+    } else {
+      regularTheme?.setAttribute("disabled", "disabled");
+    }
+    const updatedTheme = document.getElementById("updated-web-theme");
+    if (updatedTheme?.getAttribute("disabled")) {
+      updatedTheme.removeAttribute("disabled");
+    } else {
+      updatedTheme?.setAttribute("disabled", "disabled");
+    }
+  },
   showSuccessToastr,
   showWarningToastr,
   showErrorToastr,

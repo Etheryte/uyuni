@@ -56,7 +56,7 @@
   <body onload="<decorator:getProperty property="body.onload" />">
   <c:set var="custom_header" scope="page" value="${rhn:getConfig('java.custom_header')}" />
 
-  <header class="navbar-pf">
+  <header class="navbar-pf navbar navbar-dark bg-dark">
     <div class="navbar-header">
       <div id="breadcrumb">
           <c:choose>
