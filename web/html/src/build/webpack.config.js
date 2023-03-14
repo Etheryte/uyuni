@@ -114,6 +114,9 @@ module.exports = (env, argv) => {
       "css/susemanager-fullscreen": path.resolve(__dirname, "../branding/css/susemanager-fullscreen.less"),
       "css/susemanager-light": path.resolve(__dirname, "../branding/css/susemanager-light.less"),
       "css/susemanager-dark": path.resolve(__dirname, "../branding/css/susemanager-dark.less"),
+      "css/updated-susemanager-light": path.resolve(__dirname, "../branding/css/updated/susemanager-light.scss"),
+      // "css/updated-susemanager-dark": path.resolve(__dirname, "../branding/css/updated/susemanager-dark.scss"),
+      // "css/updated-uyuni": path.resolve(__dirname, "../branding/css/updated/uyuni.scss"),
     },
     output: {
       filename: `[name].bundle.js`,
@@ -125,6 +128,10 @@ module.exports = (env, argv) => {
     devtool: isProductionMode ? "source-map" : "eval-source-map",
     module: {
       rules: [
+        {
+          test: /\.s[ac]ss$/i,
+          use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+        },
         {
           test: /\.(ts|js)x?$/,
           exclude: /node_modules/,
