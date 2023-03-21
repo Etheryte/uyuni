@@ -23,6 +23,8 @@ body {
   aside {
     overflow: auto;
     position: relative;
+    max-width: 17%;
+    min-width: 17%;
 
     footer {
       position: -webkit-sticky;
@@ -34,5 +36,11 @@ body {
   #page-body {
     flex: 1 1 auto;
     overflow: auto;
+  }
+
+  #spacewalk-content {
+    // TODO: This is 2rem for the Uyuni theme
+    // TODO: Make this uniform between both themes after all pages have been migrated
+    padding: 2rem 4rem;
   }
 }

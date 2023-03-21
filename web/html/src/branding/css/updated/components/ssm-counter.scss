@@ -1,0 +1,35 @@
+.ssm-box {
+  border: 1px solid $gray-dark;
+
+  #header_selcount {
+    .badge {
+      border-radius: 8px;
+      background: $gray-light;
+      display: inline-block;
+      padding: 2px 6px;
+      text-align: center;
+      color: darken($gray-dark, 20%);
+      vertical-align: middle;
+      margin-right: 5px;
+    }
+  }
+  a {
+    display: inline-block;
+    border-radius: 0;
+    padding: 3px 5px;
+  }
+  #clear-ssm {
+    margin-left: -4px;
+    border-left: 1px dashed $gray-dark;
+    color: $gray-light;
+    background-color: transparent;
+
+    i {
+      margin: 0;
+    }
+  }
+  #clear-ssm:hover {
+    background-color: $danger;
+    color: $gray-light;
+  }
+}

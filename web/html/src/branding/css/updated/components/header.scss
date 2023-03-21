@@ -1,3 +1,77 @@
+// TODO: Maybe move these to variables/index.scss?
+// See https://getbootstrap.com/docs/5.2/components/navbar/#sass-variables
+$navbar-dark-color: #fff;
+
 .navbar {
-  margin: 0;
+  padding: 0;
+  color: $navbar-dark-color;
+
+  a {
+    color: inherit;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  #messages-container {
+    width: 100%;
+  }
+
+  > .container-fluid {
+    justify-content: normal !important;
+    padding: 12px 10px 0;
+    gap: 8px;
+  }
+
+  .navbar-header {
+    margin-right: auto;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .navbar-utility {
+    order: 1;
+    gap: 24px;
+
+    a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  }
+
+  .navbar-primary {
+    gap: 8px;
+    align-items: center;
+
+    li {
+      display: block;
+    }
+
+    a {
+      padding: 4px 12px;
+      border-radius: 2px;
+    }
+  }
+
+  .navbar-toggle i {
+    font-size: 21px;
+    line-height: 1.5;
+  }
+
+  #breadcrumb {
+    font-size: 14px;
+
+    .navbar-brand {
+      font-size: 22.4px;
+      line-height: 1.2;
+      margin: 0;
+    }
+
+    a {
+      padding: 0 3px;
+    }
+  }
 }

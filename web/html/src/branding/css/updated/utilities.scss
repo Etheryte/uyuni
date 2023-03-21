@@ -1,5 +1,5 @@
 // Unstyle native UI components such as <button> and <select> before we restyle them
-.unstyleNative {
+.is-plain {
   appearance: none !important;
   -moz-appearance: none !important;
   -webkit-appearance: none !important;
@@ -15,16 +15,17 @@
   padding: 0;
   margin: 0;
   box-shadow: none !important;
+  color: inherit;
 
   &::-ms-expand {
     display: none;
   }
 }
 
-button.unstyleNative {
+button.is-plain {
   cursor: pointer;
 }
 
-.noWrap {
+.no-wrap {
   white-space: nowrap;
 }
