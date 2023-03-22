@@ -1,5 +1,9 @@
-@import "./variables/index.scss";
 // TODO: Swap this out for susemanager-light and generalize
+@import "./variables/index.scss";
 @import "./variables/susemanager-dark.scss";
+@import "~bootstrap5/scss/bootstrap";
 
 @import "./index.scss";
+
+@import "./components/index.scss";
+@import "./components/susemanager/index.scss";
