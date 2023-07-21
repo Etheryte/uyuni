@@ -366,6 +366,9 @@ var spacewalkContentObserver = new MutationObserver(function(mutations) {
 
 function registerSpacewalkContentObservers() {
   var target = document.getElementById('spacewalk-content');
+  if (!target) {
+    return;
+  }
   // configuration of the observer:
   var config = { childList: true, characterData: true, subtree: true };
   // pass in the target node, as well as the observer options
@@ -419,6 +422,7 @@ jQuery(document).on('keyup change', '.activationKey-check', function(e) {
   }
 });
 
+// TODO: Make this obsolete
 function addTextareaLengthNotification() {
   // Add a notification text of the remaining length for a textarea
   jQuery('textarea.with-maxlength').each(function() {

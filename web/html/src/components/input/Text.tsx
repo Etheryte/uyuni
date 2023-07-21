@@ -10,6 +10,9 @@ type Props = InputBaseProps & {
   /** Maximum number of characters of the input field */
   maxLength?: number;
 
+  /** Display a max length indicator with a counter */
+  showMaxLength?: boolean;
+
   /** Value placeholder to display when no value is entered */
   placeholder?: string;
 
@@ -23,6 +26,8 @@ type Props = InputBaseProps & {
 export const Text = (props: Props) => {
   const { type, maxLength, placeholder, inputClass, ...propsToPass } = props;
   const formContext = React.useContext(FormContext);
+  const InputTag = props.type === "textarea" ? "textarea" : "input";
+
   return (
     <InputBase {...propsToPass}>
       {({ setValue, onBlur }) => {
@@ -31,19 +36,26 @@ export const Text = (props: Props) => {
         };
         const fieldValue = (formContext.model || {})[props.name] || props.defaultValue || "";
         return (
-          <input
-            className={`form-control${inputClass ? ` ${inputClass}` : ""}`}
-            type={type || "text"}
-            name={props.name}
-            id={props.name}
-            value={fieldValue}
-            onChange={onChange}
-            disabled={props.disabled}
-            onBlur={onBlur}
-            placeholder={placeholder}
-            maxLength={maxLength}
-            title={props.title}
-          />
+          <>
+            <InputTag
+              className={`form-control ${inputClass ? `${inputClass}` : ""}`}
+              type={type || "text"}
+              name={props.name}
+              id={props.name}
+              value={fieldValue}
+              onChange={onChange}
+              disabled={props.disabled}
+              onBlur={onBlur}
+              placeholder={placeholder}
+              maxLength={maxLength}
+              title={props.title}
+            />
+            {props.maxLength && props.showMaxLength ? (
+              <div key="max-length" className="text-right">
+                {fieldValue.length}/{props.maxLength}
+              </div>
+            ) : null}
+          </>
         );
       }}
     </InputBase>

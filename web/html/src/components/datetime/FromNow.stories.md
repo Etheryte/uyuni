@@ -10,23 +10,23 @@ const [value, setValue] = useState(localizedMoment());
 
 <div>
   <p>value:</p>
-    <p>
+  <div>
     <DateTimePicker value={value} onChange={(newValue) => setValue(newValue)} />
-  </p>
+  </div>
 
   <p><code>fromNow</code> function</p>
-  <p>
+  <div>
     <pre>{fromNow(value)}</pre>
-  </p>
+  </div>
 
   <p><code>FromNow</code> component with prop value</p>
-  <p>
+  <div>
     <FromNow value={value} />
-  </p>
+  </div>
 
   <p><code>FromNow</code> component with child value</p>
-  <p>
+  <div>
     <FromNow>{value}</FromNow>
-  </p>
+  </div>
 </div>
 ```
