@@ -11,4 +11,5 @@ export default {
   "systems/list/virtual": () => import("./virtual-list.renderer"),
   "systems/list/all": () => import("./all-list.renderer"),
   "systems/details/mgr-server-info": () => import("./details/mgr-server-info.renderer"),
+  "systems/customdata/create": () => import("./custom-data/create-custom-key.renderer"),
 };
