@@ -109,7 +109,7 @@ module.exports = (env, argv) => {
 
   return {
     entry: {
-      "javascript/manager/main": "./manager/index.ts",
+      "javascript/manager/main": "./manager/index.tsx",
       "css/uyuni": path.resolve(__dirname, "../branding/css/uyuni.less"),
       "css/susemanager-fullscreen": path.resolve(__dirname, "../branding/css/susemanager-fullscreen.less"),
       "css/susemanager-light": path.resolve(__dirname, "../branding/css/susemanager-light.less"),

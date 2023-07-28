@@ -3,7 +3,7 @@ const path = require("path");
 const webpackAlias = require("../build/webpack.alias");
 
 module.exports = {
-  entry: "./manager/index.ts",
+  entry: "./manager/index.tsx",
   resolve: {
     alias: {
       ...webpackAlias,
