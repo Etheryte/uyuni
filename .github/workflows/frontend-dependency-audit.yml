@@ -45,6 +45,8 @@ jobs:
       run: echo "TITLE=Dependabot alerts for $(date +'%Y-%m-%d')" >> $GITHUB_ENV
 
     - name: Find old issues
+      env:
+        GH_TOKEN: ${{ github.token }}
       run: gh issue list --author github-actions --state open --label dependency-audit
 
     - name: Create or update issue
