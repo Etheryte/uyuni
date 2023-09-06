@@ -22,7 +22,7 @@ jobs:
     - name: Find old issues
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: echo "$(gh issue list --state open --label dependency-audit --json number --jq '.[].number')"
+      run: gh issue list --state open --label dependency-audit --json number --jq '.[].number'
 
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
