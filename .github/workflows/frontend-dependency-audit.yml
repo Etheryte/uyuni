@@ -40,10 +40,13 @@ jobs:
 
     - name: Run audit
       run: node web/html/src/build/audit.js >> /tmp/audit.md
+    
+    - name: Get current date
+      run: echo "NOW=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
 
     - name: Create or update issue
       uses: peter-evans/create-issue-from-file@v4
       with:
-        title: Test issue
+        title: Security advisories for ${{ $NOW }} $NOW trailing
         content-filepath: /tmp/audit.md
         labels: frontend-dependency-audit
