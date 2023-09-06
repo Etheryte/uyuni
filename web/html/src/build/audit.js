@@ -1,14 +1,26 @@
 const { exec } = require("child_process");
+const moment = require("moment");
 
 const ignore = require("../.auditignore.js");
 
-const inline = (message) => {
-  return (message || "").replace(/\r?\n/g, " ");
+const groupBy = (array, keyGetter) => {
+  return array.reduce((result, item) => {
+    const keyValue = keyGetter(item);
+    if (!keyValue) {
+      throw new TypeError(`Expected keyvalue to be a non-empty string, got ${keyValue}`);
+    }
+    result[keyValue] ??= [];
+    result[keyValue].push(item);
+    return result;
+  }, {});
 };
 
 // Yarn 1.x doesn't currently support muting known issues, see https://github.com/yarnpkg/yarn/issues/6669
 exec(`yarn audit --json --groups "dependencies"`, (_, stdout) => {
   try {
+    const h1 = (text) => `<h1>${text}</h2>`;
+    const collapse = (title, text) => `<details>\n<summary>${title}</summary>\n${text}\n</details>`;
+
     const lines = (stdout || "").split(/\r?\n/).filter((line) => line.trim() !== "");
     const results = lines.map((line) => JSON.parse(line));
 
@@ -16,39 +28,49 @@ exec(`yarn audit --json --groups "dependencies"`, (_, stdout) => {
       throw new TypeError("No audit result found");
     }
 
+    // eslint-disable-next-line local-rules/no-raw-date
+    console.log(h1(`Security advisories for ${moment().format("yyyy-MM-DD")}`));
+
     const advisories = results.filter((item) => item.type === "auditAdvisory");
     if (!advisories.length) {
-      process.exitCode = 0;
+      console.log("No security advisories found, nice.");
       return;
     }
 
     const validAdvisories = advisories.filter((item) => {
-      const { module_name: moduleName, id, overview, recommendation } = item.data.advisory;
+      const { module_name: moduleName } = item.data.advisory;
       if (ignore[moduleName]) {
-        console.info(
-          `Warning: Ignoring advisory ${id} for module "${moduleName}"\n\tOverview: ${inline(
-            overview
-          )}\n\tRecommendation: ${inline(recommendation)}\n\tReason for ignoring: ${ignore[moduleName]}\n`
-        );
         return false;
       }
       return true;
     });
 
-    if (validAdvisories.length) {
-      process.exitCode = 1;
-      validAdvisories.forEach((item) => {
-        const { module_name: moduleName, id, overview, recommendation } = item.data.advisory;
-        console.error(
-          `Error: Found advisory ${id} for module "${moduleName}"\n\tOverview: ${inline(
-            overview
-          )}\n\tRecommendation: ${inline(recommendation)}\n`
-        );
-      });
+    if (!validAdvisories.length) {
+      console.log(
+        "No applicable security advisories found, but some advisories were ignored. Please check `auditignore.js`."
+      );
       return;
     }
 
-    process.exitCode = 0;
+    console.log("Only advisories for production dependencies are listed.");
+    const grouped = groupBy(validAdvisories, (item) => item.data.advisory.module_name);
+    for (const [name, items] of Object.entries(grouped)) {
+      const itemList = items
+        .map((item) => {
+          // console.log(item);
+          const advisory = item.data.advisory;
+          const refs = [].concat(advisory.cves).concat(advisory.github_advisory_id);
+          return [
+            ``,
+            ` - <b>Advisory ${advisory.id}:</b> ${advisory.title}${refs.length ? ` (${refs.join(", ")})` : ""}`,
+            `   <b>Details</b>: ${advisory.url}`,
+            `   <b>Recommendation:</b> ${advisory.recommendation}`,
+          ].join("  \n");
+        })
+        .filter((value, index, array) => array.indexOf(value) === index)
+        .sort();
+      console.log(collapse(`<code>${name}</code>: ${itemList.length} advisories`, itemList.join("\n")));
+    }
     return;
   } catch (error) {
     process.exitCode = error.code || 1;
