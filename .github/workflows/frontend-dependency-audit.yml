@@ -19,11 +19,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Find old issues
-      env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: gh issue list --state open --label dependency-audit --json number --jq '.[].number' | xargs -I {} gh issue close {}
-
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
@@ -48,6 +43,11 @@ jobs:
     
     - name: Get title
       run: echo "TITLE=Dependabot alerts for $(date +'%Y-%m-%d')" >> $GITHUB_ENV
+
+    - name: Find and close old issues
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: gh issue list --state "open" --label "dependency-audit" --json "number" --jq '.[].number' | xargs -I {} gh issue close {} --reason "not planned"
 
     - name: Create or update issue
       uses: peter-evans/create-issue-from-file@v4
