@@ -47,7 +47,7 @@ jobs:
     - name: Find old issues test
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: echo "$(gh issue list --state open --label dependency-audit)"
+      run: echo "$(gh issue list --state open --label dependency-audit --template '{{number}}')"
 
     - name: Create or update issue
       uses: peter-evans/create-issue-from-file@v4
