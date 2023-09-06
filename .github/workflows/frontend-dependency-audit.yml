@@ -44,9 +44,12 @@ jobs:
     - name: Get title
       run: echo "TITLE=Dependabot alerts for $(date +'%Y-%m-%d')" >> $GITHUB_ENV
 
+    - name: Find old issues
+      run: gh issue list --author github-actions --state open --label dependency-audit
+
     - name: Create or update issue
       uses: peter-evans/create-issue-from-file@v4
       with:
         title: ${{ env.TITLE }}
         content-filepath: /tmp/audit.md
-        labels: dependabot
+        labels: dependency-audit
