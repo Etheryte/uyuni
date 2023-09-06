@@ -42,12 +42,11 @@ jobs:
       run: node web/html/src/build/audit.js >> /tmp/audit.md
     
     - name: Get title
-      id: title
-      run: echo "Security advisories for $(date +'%Y-%m-%d')"
+      run: echo "Security advisories for $(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
 
     - name: Create or update issue
       uses: peter-evans/create-issue-from-file@v4
       with:
-        title: ${{ steps.title.outputs }}
+        title: ${{ $GITHUB_OUTPUT }}
         content-filepath: /tmp/audit.md
         labels: frontend-dependency-audit
