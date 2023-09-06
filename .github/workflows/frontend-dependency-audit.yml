@@ -49,4 +49,4 @@ jobs:
       with:
         title: ${{ env.TITLE }}
         content-filepath: /tmp/audit.md
-        labels: dependabot_frontend
+        labels: dependabot

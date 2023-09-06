@@ -59,7 +59,6 @@ exec(`yarn audit --json --groups "dependencies"`, (_, stdout) => {
           return [
             ``,
             ` - <b>Advisory ${advisory.id}:</b> ${advisory.title}${refs.length ? ` (${refs.join(", ")})` : ""}`,
-            `   <b>Details</b>: ${advisory.url}`,
             `   <b>Recommendation:</b> ${advisory.recommendation}`,
           ].join("  \n");
         })
