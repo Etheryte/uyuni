@@ -47,6 +47,6 @@ jobs:
     - name: Create or update issue
       uses: peter-evans/create-issue-from-file@v4
       with:
-        title: Security advisories for ${{ $NOW }} trailing
+        title: Security advisories for $NOW foo
         content-filepath: /tmp/audit.md
         labels: frontend-dependency-audit
