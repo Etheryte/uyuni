@@ -39,4 +39,7 @@ jobs:
       run: yarn --cwd web/html/src install --frozen-lockfile --prefer-offline
 
     - name: Run audit
-      run: node web/html/src/build/audit.js
+      run: node web/html/src/build/audit.js >> /tmp/audit.md
+    
+    - name: Echo stuff
+      run: cat /tmp/audit.md

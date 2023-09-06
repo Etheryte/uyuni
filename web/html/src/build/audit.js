@@ -69,7 +69,10 @@ exec(`yarn audit --json --groups "dependencies"`, (_, stdout) => {
         })
         .filter((value, index, array) => array.indexOf(value) === index)
         .sort();
-      console.log(collapse(`<code>${name}</code>: ${itemList.length} advisories`, itemList.join("\n")));
+      const count = itemList.length;
+      console.log(
+        collapse(`<code>${name}</code>: ${count} ${count > 1 ? "advisories" : "advisory"}`, itemList.join("\n"))
+      );
     }
     return;
   } catch (error) {
