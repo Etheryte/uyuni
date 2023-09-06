@@ -42,7 +42,7 @@ jobs:
       run: node web/html/src/build/audit.js >> /tmp/audit.md
     
     - name: Get title
-      run: echo "TITLE=\"Security advisories for $(date +'%Y-%m-%d')\"" >> $GITHUB_ENV
+      run: echo "TITLE=Frontend dependency security advisories for $(date +'%Y-%m-%d')" >> $GITHUB_ENV
 
     - name: Create or update issue
       uses: peter-evans/create-issue-from-file@v4

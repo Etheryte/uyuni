@@ -18,7 +18,6 @@ const groupBy = (array, keyGetter) => {
 // Yarn 1.x doesn't currently support muting known issues, see https://github.com/yarnpkg/yarn/issues/6669
 exec(`yarn audit --json --groups "dependencies"`, (_, stdout) => {
   try {
-    const h1 = (text) => `<h1>${text}</h2>`;
     const collapse = (title, text) => `<details>\n<summary>${title}</summary>\n${text}\n</details>`;
 
     const lines = (stdout || "").split(/\r?\n/).filter((line) => line.trim() !== "");
@@ -27,9 +26,6 @@ exec(`yarn audit --json --groups "dependencies"`, (_, stdout) => {
     if (!results.some((item) => item.type === "auditSummary")) {
       throw new TypeError("No audit result found");
     }
-
-    // eslint-disable-next-line local-rules/no-raw-date
-    console.log(h1(`Security advisories for ${moment().format("yyyy-MM-DD")}`));
 
     const advisories = results.filter((item) => item.type === "auditAdvisory");
     if (!advisories.length) {
