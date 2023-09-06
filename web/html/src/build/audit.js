@@ -48,7 +48,7 @@ exec(`yarn audit --json --groups "dependencies"`, (_, stdout) => {
       return;
     }
 
-    console.log("Only advisories for production dependencies are listed.");
+    console.log("Only advisories for production dependencies are listed.  \n");
     const grouped = groupBy(validAdvisories, (item) => item.data.advisory.module_name);
     for (const [name, items] of Object.entries(grouped)) {
       const itemList = items
