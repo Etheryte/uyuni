@@ -1,12 +1,9 @@
 name: Frontend dependency audit
 
 on:
-  push:
-    branches:
-      - audit-cherry
-    paths:
-      - 'web/html/src/**'
-      - '.github/workflows/frontend-dependency-audit.yml'
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron:  '3 11 * * *'
 
 jobs:
   frontend_dependency_audit:
