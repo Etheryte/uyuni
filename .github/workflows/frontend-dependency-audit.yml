@@ -3,7 +3,7 @@ name: Frontend dependency audit
 on:
   schedule:
     # * is a special character in YAML so you have to quote this string
-    - cron: '3,13,23,33,43,53 * * * *'
+    - cron: '7 11 * * *'
 
 jobs:
   frontend_dependency_audit:
