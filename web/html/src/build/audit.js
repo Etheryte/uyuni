@@ -1,5 +1,4 @@
 const { exec } = require("child_process");
-const moment = require("moment");
 
 const ignore = require("../.auditignore.js");
 
