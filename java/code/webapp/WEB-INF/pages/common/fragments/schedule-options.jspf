@@ -62,5 +62,14 @@
                 />
             </div>
         </div>
+        <div class="form-group" id="action-chain-picker">
+            <script type="text/javascript">
+                spaImportReactPage('schedule-options/action-chain-picker').then(function(module) {
+                    module.renderer('action-chain-picker', {
+                        startsChecked: ${maintenanceWindowsMultiSchedules or maintenanceWindowsEmpty ? "true" : "false"}
+                    });
+                });
+            </script>
+        </div>
     </div>
 </div>

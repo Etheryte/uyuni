@@ -14,6 +14,12 @@ export type JsonResult<T> = {
   data: T;
 };
 
+type ApiJsonResult<T> = {
+  success: boolean;
+  messages: Array<String>;
+  result: T;
+};
+
 /**
  * There are some cases where network requests with empty data are accidentally made as follows:
  *  Network.post("url", "application/json", ...);
@@ -92,6 +98,12 @@ function get<Returns = any>(url: string, contentType: string = "application/json
   return request<Returns>(url, "GET", undefined, undefined, contentType);
 }
 
+function apiGet<Returns = any>(url: string, contentType: string = "application/json"): Promise<Returns> {
+  return request<ApiJsonResult<Returns>>(`/rhn/manager/api/${url}`, "GET", undefined, undefined, contentType).then(
+    apiUnwrap
+  );
+}
+
 function errorMessageByStatus(status: number): Array<string> {
   if (status === 401) {
     return [t("Session expired, please reload the page.")];
@@ -163,8 +175,14 @@ function unwrap<T>(response: JsonResult<T>) {
   return response.success ? response.data : Promise.reject(response);
 }
 
+/** Unwrap the data from an `ApiJsonResult` if the request is a success */
+function apiUnwrap<T>(response: ApiJsonResult<T>) {
+  return response.success ? response.result : Promise.reject(response);
+}
+
 export default {
   get,
+  apiGet,
   post,
   put,
   del,

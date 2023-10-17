@@ -1,5 +1,11 @@
 import * as d3 from "d3";
 
+declare global {
+  interface JQuery {
+    select2: (...args: any[]) => JQuery;
+  }
+}
+
 // D3 UI "components" used for visualization
 
 // Add a filter to given selection
