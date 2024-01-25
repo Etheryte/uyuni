@@ -3311,6 +3311,11 @@
   resolved "https://registry.yarnpkg.com/@virtuoso.dev/urx/-/urx-0.2.12.tgz#fa9bd1a2777cf70b19d4c9836b8d92b04f079c64"
   integrity sha512-Q9nlRqYb5Uq4Ynu8cWPSJ7LxpuZsI+MZ09IJlDAAgwuNgfWRArpVRP0VN0coYgUo2fKMjhmV69MTqaUbIBhu/g==
 
+"@vitejs/plugin-basic-ssl@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@vitejs/plugin-basic-ssl/-/plugin-basic-ssl-1.1.0.tgz#8b840305a6b48e8764803435ec0c716fa27d3802"
+  integrity sha512-wO4Dk/rm8u7RNhOf95ZzcEmC9rYOncYgvq4z3duaJrCgjN8BxAnDVyndanfcJZ0O6XZzHz6Q0hTimxTg8Y9g/A==
+
 "@vxna/mini-html-webpack-template@^2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@vxna/mini-html-webpack-template/-/mini-html-webpack-template-2.0.0.tgz#79b012b3385a6f01ae54ef50a3c99dda64d2a29a"

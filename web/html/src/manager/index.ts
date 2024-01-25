@@ -36,6 +36,8 @@ import Systems from "./systems";
 import Virtualization from "./virtualization";
 import Visualization from "./visualization";
 
+console.log("FIRE MANAGER");
+
 const pages = {
   ...Admin,
   ...Audit,

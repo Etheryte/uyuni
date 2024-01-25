@@ -1,10 +1,16 @@
+import basicSsl from "@vitejs/plugin-basic-ssl";
+// import dns from "dns";
 import path from "path";
 import { defineConfig } from "vite";
+
+// TODO: Do we need this? If anyone has DNS issues, try reenabling this.
+// dns.setDefaultResultOrder("verbatim");
 
 // TODO: We're missing manually copied files
 
 // See https://vitejs.dev/config/
 export default defineConfig({
+  plugins: [basicSsl()],
   root: path.resolve(__dirname, "src"),
   build: {
     outDir: path.resolve(__dirname, "../dist"),
@@ -27,20 +33,29 @@ export default defineConfig({
     emptyOutDir: true,
   },
   server: {
-    port: 8080,
+    port: 3000,
     proxy: {
-      "/": {
+      "^(?!/javascript/manager)": {
         // TODO: Use env variable or arg
         target: "https://server.tf.local/",
-        changeOrigin: true,
+        // If you change this to true you can unintentionally get redirected to the target url instead? Should this be true or false?
+        changeOrigin: false,
+        followRedirects: false,
         secure: false,
+        // bypass(req) {
+        //   if (req.url.startsWith("/javascript/manager")) {
+        //     console.log(req.url);
+        //     // return false;
+        //   }
+        //   return req;
+        // },
 
         // TODO: Do we need this?
-        ws: true,
+        // ws: true,
       },
     },
     // Allow any CORS
-    // cors: true,
+    cors: true,
   },
   resolve: {
     alias: {
