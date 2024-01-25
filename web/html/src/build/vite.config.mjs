@@ -36,7 +36,7 @@ export default defineConfig({
         secure: false,
 
         // TODO: Do we need this?
-        // ws: true,
+        ws: true,
       },
     },
     // Allow any CORS
