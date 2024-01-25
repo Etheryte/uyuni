@@ -13,7 +13,7 @@
     "build": "yarn -s check-package && NODE_OPTIONS=\"--trace-warnings --trace-deprecation --unhandled-rejections=strict\" node build",
     "build:novalidate": "yarn -s check-package && NODE_OPTIONS=\"--trace-warnings --trace-deprecation --unhandled-rejections=strict\" BUILD_VALIDATION=false node build",
     "build:measure": "yarn -s check-package && NODE_OPTIONS=\"--trace-warnings --trace-deprecation --unhandled-rejections=strict\" MEASURE_PERFORMANCE=true node build",
-    "vite": "vite --config build/vite.config.mjs",
+    "vite": "vite --config build/vite.config.mjs --debug",
     "build:vite": "vite --config build/vite.config.mjs build",
     "lint": "eslint . -f codeframe --fix",
     "lint:production": "NODE_ENV=production eslint . -f codeframe",

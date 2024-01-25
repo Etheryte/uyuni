@@ -6,11 +6,15 @@ import { defineConfig } from "vite";
 // TODO: Do we need this? If anyone has DNS issues, try reenabling this.
 // dns.setDefaultResultOrder("verbatim");
 
-// TODO: We're missing manually copied files
+// TODO: We're missing manually copied files, see https://www.npmjs.com/package/vite-plugin-static-copy
+// TODO: Maybe assetsInclude?
 
 // See https://vitejs.dev/config/
 export default defineConfig({
   plugins: [basicSsl()],
+  // TODO: Do we want and/or need this? Check https://vitejs.dev/config/shared-options.html#apptype
+  // appType: "custom",
+  // TODO: Configure publicDir etc https://vitejs.dev/guide/assets#the-public-directory
   root: path.resolve(__dirname, "src"),
   build: {
     outDir: path.resolve(__dirname, "../dist"),
@@ -28,34 +32,35 @@ export default defineConfig({
         entryFileNames: "[name].bundle.js",
         chunkFileNames: "[name].js",
         assetFileNames: "[name].[ext]",
+        // preserveModules: true,
       },
     },
     emptyOutDir: true,
   },
   server: {
     port: 3000,
-    proxy: {
-      "^(?!/javascript/manager)": {
-        // TODO: Use env variable or arg
-        target: "https://server.tf.local/",
-        // If you change this to true you can unintentionally get redirected to the target url instead? Should this be true or false?
-        changeOrigin: false,
-        followRedirects: false,
-        secure: false,
-        // bypass(req) {
-        //   if (req.url.startsWith("/javascript/manager")) {
-        //     console.log(req.url);
-        //     // return false;
-        //   }
-        //   return req;
-        // },
+    // proxy: {
+    //   "^(?!/javascript/manager)": {
+    //     // TODO: Use env variable or arg
+    //     target: "https://server.tf.local/",
+    //     // If you change this to true you can unintentionally get redirected to the target url instead? Should this be true or false?
+    //     changeOrigin: false,
+    //     followRedirects: false,
+    //     secure: false,
+    //     // bypass(req) {
+    //     //   if (req.url.startsWith("/javascript/manager")) {
+    //     //     console.log(req.url);
+    //     //     // return false;
+    //     //   }
+    //     //   return req;
+    //     // },
 
-        // TODO: Do we need this?
-        // ws: true,
-      },
-    },
-    // Allow any CORS
-    cors: true,
+    //     // TODO: Do we need this?
+    //     // ws: true,
+    //   },
+    // },
+    // // Allow any CORS
+    // cors: true,
   },
   resolve: {
     alias: {
