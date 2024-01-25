@@ -1,11 +1,13 @@
 import path from "path";
 import { defineConfig } from "vite";
 
+// TODO: We're missing manually copied files
+
 // See https://vitejs.dev/config/
 export default defineConfig({
   root: path.resolve(__dirname, "src"),
   build: {
-    outDir: "../dist",
+    outDir: path.resolve(__dirname, "../dist"),
     rollupOptions: {
       input: {
         "javascript/manager/main": path.resolve(__dirname, "../manager/index.ts"),
@@ -14,6 +16,12 @@ export default defineConfig({
         "css/susemanager-light": path.resolve(__dirname, "../branding/css/susemanager-light.less"),
         // TODO: We're removing the dark theme for now
         "css/susemanager-dark": path.resolve(__dirname, "../branding/css/susemanager-light.less"),
+      },
+      // TODO: These differ from the old directory structure, do we need to update anything in the spec etc?
+      output: {
+        entryFileNames: "[name].bundle.js",
+        chunkFileNames: "[name].js",
+        assetFileNames: "[name].[ext]",
       },
     },
     emptyOutDir: true,
