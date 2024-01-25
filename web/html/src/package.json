@@ -13,6 +13,7 @@
     "build": "yarn -s check-package && NODE_OPTIONS=\"--trace-warnings --trace-deprecation --unhandled-rejections=strict\" node build",
     "build:novalidate": "yarn -s check-package && NODE_OPTIONS=\"--trace-warnings --trace-deprecation --unhandled-rejections=strict\" BUILD_VALIDATION=false node build",
     "build:measure": "yarn -s check-package && NODE_OPTIONS=\"--trace-warnings --trace-deprecation --unhandled-rejections=strict\" MEASURE_PERFORMANCE=true node build",
+    "vite": "vite --config build/vite.config.js",
     "build:vite": "vite --config build/vite.config.js build",
     "lint": "eslint . -f codeframe --fix",
     "lint:production": "NODE_ENV=production eslint . -f codeframe",
@@ -161,7 +162,7 @@
     "webpack-dev-server": "4.7.3"
   },
   "engines": {
-    "node": ">=18",
+    "node": ">=20",
     "yarn": ">=1.0.0"
   }
 }

@@ -28,6 +28,19 @@ export default defineConfig({
   },
   server: {
     port: 8080,
+    proxy: {
+      "/": {
+        // TODO: Use env variable or arg
+        target: "https://server.tf.local/",
+        changeOrigin: true,
+        secure: false,
+
+        // TODO: Do we need this?
+        // ws: true,
+      },
+    },
+    // Allow any CORS
+    // cors: true,
   },
   resolve: {
     alias: {
