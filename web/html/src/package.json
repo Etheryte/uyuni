@@ -156,6 +156,7 @@
     "webpack-dev-server": "4.7.3"
   },
   "engines": {
-    "yarn": ">=1.0.0"
+    "yarn": ">=1.0.0",
+    "node": ">=18"
   }
 }
