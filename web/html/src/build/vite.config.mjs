@@ -1,4 +1,5 @@
 import basicSsl from "@vitejs/plugin-basic-ssl";
+import react from "@vitejs/plugin-react";
 // import dns from "dns";
 import path from "path";
 import { defineConfig } from "vite";
@@ -11,15 +12,19 @@ import { defineConfig } from "vite";
 
 // See https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [basicSsl()],
+  plugins: [basicSsl(), react()],
   // TODO: Do we want and/or need this? Check https://vitejs.dev/config/shared-options.html#apptype
-  // appType: "custom",
+  // appType: "mpa",
+  appType: "mpa",
   // TODO: Configure publicDir etc https://vitejs.dev/guide/assets#the-public-directory
-  root: path.resolve(__dirname, "src"),
+  root: path.resolve(__dirname, ".."),
   build: {
+    // TODO: Follow https://vitejs.dev/guide/backend-integration
+    manifest: true,
     outDir: path.resolve(__dirname, "../dist"),
     rollupOptions: {
       input: {
+        index: path.resolve(__dirname, "../debug.html"),
         "javascript/manager/main": path.resolve(__dirname, "../manager/index.ts"),
         "css/uyuni": path.resolve(__dirname, "../branding/css/uyuni.less"),
         "css/susemanager-fullscreen": path.resolve(__dirname, "../branding/css/susemanager-fullscreen.less"),
@@ -38,29 +43,37 @@ export default defineConfig({
     emptyOutDir: true,
   },
   server: {
-    port: 3000,
-    // proxy: {
-    //   "^(?!/javascript/manager)": {
-    //     // TODO: Use env variable or arg
-    //     target: "https://server.tf.local/",
-    //     // If you change this to true you can unintentionally get redirected to the target url instead? Should this be true or false?
-    //     changeOrigin: false,
-    //     followRedirects: false,
-    //     secure: false,
-    //     // bypass(req) {
-    //     //   if (req.url.startsWith("/javascript/manager")) {
-    //     //     console.log(req.url);
-    //     //     // return false;
-    //     //   }
-    //     //   return req;
-    //     // },
+    // TODO: Use env variable or arg
+    origin: "https://server.tf.local/",
+    fs: {
+      strict: false,
+    },
+    port: 5173,
+    proxy: {
+      "^(?!(/manager/index.ts))": {
+        // "/": {
+        // TODO: Use env variable or arg
+        target: "https://server.tf.local/",
+        // If you change this to true you can unintentionally get redirected to the target url instead? Should this be true or false?
+        changeOrigin: false,
+        followRedirects: false,
+        secure: false,
+        bypass(req, res, proxy) {
+          if (req.url.startsWith("/javascript/manager/main")) {
+            console.log(`bypass:`, req.url);
+            console.log(Object.keys(proxy));
+            return "https://localhost:5173/manager/index.ts";
+            // return false;
+          }
+          return req;
+        },
 
-    //     // TODO: Do we need this?
-    //     // ws: true,
-    //   },
-    // },
-    // // Allow any CORS
-    // cors: true,
+        // TODO: Do we need this?
+        // ws: true,
+      },
+    },
+    // Allow any CORS
+    cors: true,
   },
   resolve: {
     alias: {

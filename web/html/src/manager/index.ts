@@ -1,9 +1,17 @@
+/* eslint-disable simple-import-sort/imports */
+/* eslint-disable import/first */
+console.log(123);
+// TODO: Only in dev
+import "http://localhost:5173/@vite/client";
+
+// TODO: Do we need this?
+// TODO: Only for Vite?
+import "vite/modulepreload-polyfill";
 /*
 How to add a new route:
-All the routes exported on the files '<*folder_name*>/index.js' will be automatically registered.
+All the routes exported on the files '<*folder_name*>/index.ts' will be automatically registered.
 Check the file content-management/index.js for an example
 */
-
 import "./polyfills";
 import "react-hot-loader";
 import "core/spa/spa-engine";
@@ -36,7 +44,9 @@ import Systems from "./systems";
 import Virtualization from "./virtualization";
 import Visualization from "./visualization";
 
-console.log("FIRE MANAGER");
+// TODO: Remove this
+const testString: string = "fire";
+console.log(testString);
 
 const pages = {
   ...Admin,
