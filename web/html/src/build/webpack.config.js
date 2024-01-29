@@ -102,12 +102,13 @@ module.exports = (env, argv) => {
 
   return {
     entry: {
-      "javascript/manager/main": "./manager/index.ts",
-      "css/uyuni": path.resolve(__dirname, "../branding/css/uyuni.less"),
-      "css/susemanager-fullscreen": path.resolve(__dirname, "../branding/css/susemanager-fullscreen.less"),
-      "css/susemanager-light": path.resolve(__dirname, "../branding/css/susemanager-light.less"),
-      // TODO: We're removing the dark theme for now
-      "css/susemanager-dark": path.resolve(__dirname, "../branding/css/susemanager-light.less"),
+      // "javascript/manager/main": "./manager/index.ts",
+      // "css/uyuni": path.resolve(__dirname, "../branding/css/uyuni.less"),
+      // "css/susemanager-fullscreen": path.resolve(__dirname, "../branding/css/susemanager-fullscreen.less"),
+      // // TODO: We're removing the dark theme for now
+      // "css/susemanager-dark": path.resolve(__dirname, "../branding/css/susemanager-light.less"),
+      // "css/susemanager-light": path.resolve(__dirname, "../branding/css/susemanager-light.less"),
+      "css/susemanager-light": path.resolve(__dirname, "../branding/css/susemanager-light.scss"),
     },
     output: {
       filename: `[name].bundle.js`,
@@ -185,13 +186,15 @@ module.exports = (env, argv) => {
             filename: "fonts/[hash][ext][query]",
           },
         },
+        // See https://getbootstrap.com/docs/5.3/getting-started/webpack/
         {
           test: /\.(scss)$/,
           use: [
-            {
-              // Adds CSS to the DOM by injecting a `<style>` tag
-              loader: "style-loader",
-            },
+            MiniCssExtractPlugin.loader,
+            // {
+            //   // Adds CSS to the DOM by injecting a `<style>` tag
+            //   loader: "style-loader",
+            // },
             {
               // Interprets `@import` and `url()` like `import/require()` and will resolve them
               loader: "css-loader",

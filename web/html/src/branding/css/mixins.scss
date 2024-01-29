@@ -1,0 +1,14 @@
+@mixin onSuma {
+  @if $theme == "susemanager-light" {
+    @content;
+  }
+  @if $theme == "susemanager-dark" {
+    @content;
+  }
+}
+
+@mixin onUyuni {
+  @if $theme == "uyuni" {
+    @content;
+  }
+}
