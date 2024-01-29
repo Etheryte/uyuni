@@ -5,6 +5,7 @@ const LicenseCheckerWebpackPlugin = require("license-checker-webpack-plugin");
 const webpackAlias = require("./webpack.alias");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
+const autoprefixer = require("autoprefixer");
 
 const DEVSERVER_WEBSOCKET_PATHNAME = "/ws";
 
@@ -183,6 +184,32 @@ module.exports = (env, argv) => {
           generator: {
             filename: "fonts/[hash][ext][query]",
           },
+        },
+        {
+          test: /\.(scss)$/,
+          use: [
+            {
+              // Adds CSS to the DOM by injecting a `<style>` tag
+              loader: "style-loader",
+            },
+            {
+              // Interprets `@import` and `url()` like `import/require()` and will resolve them
+              loader: "css-loader",
+            },
+            {
+              // Loader for webpack to process CSS with PostCSS
+              loader: "postcss-loader",
+              options: {
+                postcssOptions: {
+                  plugins: [autoprefixer],
+                },
+              },
+            },
+            {
+              // Loads a SASS/SCSS file and compiles it to CSS
+              loader: "sass-loader",
+            },
+          ],
         },
       ],
     },
