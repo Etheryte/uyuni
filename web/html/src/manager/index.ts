@@ -1,12 +1,12 @@
 /* eslint-disable simple-import-sort/imports */
 /* eslint-disable import/first */
-console.log(123);
 // TODO: Only in dev
-import "http://localhost:5173/@vite/client";
+// import "http://localhost:5173/@vite/client";
 
 // TODO: Do we need this?
 // TODO: Only for Vite?
-import "vite/modulepreload-polyfill";
+// import "vite/modulepreload-polyfill";
+
 /*
 How to add a new route:
 All the routes exported on the files '<*folder_name*>/index.ts' will be automatically registered.
