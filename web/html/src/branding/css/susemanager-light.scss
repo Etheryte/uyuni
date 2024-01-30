@@ -1,8 +1,10 @@
 $theme: "susemanager-light";
 
-@import "bootstrap5/scss/bootstrap";
+.updated-theme {
+  @import "bootstrap5/scss/bootstrap";
 
-@import "mixins.scss";
-@import "susemanager/variables.scss";
-@import "susemanager-light-variables.scss";
-@import "susemanager/index.scss";
+  @import "mixins.scss";
+  @import "susemanager/variables.scss";
+  @import "susemanager-light-variables.scss";
+  @import "susemanager/index.scss";  
+}

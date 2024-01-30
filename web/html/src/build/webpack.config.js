@@ -102,13 +102,13 @@ module.exports = (env, argv) => {
 
   return {
     entry: {
-      // "javascript/manager/main": "./manager/index.ts",
-      // "css/uyuni": path.resolve(__dirname, "../branding/css/uyuni.less"),
-      // "css/susemanager-fullscreen": path.resolve(__dirname, "../branding/css/susemanager-fullscreen.less"),
-      // // TODO: We're removing the dark theme for now
-      // "css/susemanager-dark": path.resolve(__dirname, "../branding/css/susemanager-light.less"),
-      // "css/susemanager-light": path.resolve(__dirname, "../branding/css/susemanager-light.less"),
-      "css/susemanager-light": path.resolve(__dirname, "../branding/css/susemanager-light.scss"),
+      "javascript/manager/main": "./manager/index.ts",
+      "css/uyuni": path.resolve(__dirname, "../branding/css/uyuni.less"),
+      "css/susemanager-fullscreen": path.resolve(__dirname, "../branding/css/susemanager-fullscreen.less"),
+      // TODO: We're removing the dark theme for now
+      "css/susemanager-dark": path.resolve(__dirname, "../branding/css/susemanager-light.less"),
+      "css/susemanager-light": path.resolve(__dirname, "../branding/css/susemanager-light.less"),
+      "css/updated-susemanager-light": path.resolve(__dirname, "../branding/css/susemanager-light.scss"),
     },
     output: {
       filename: `[name].bundle.js`,
