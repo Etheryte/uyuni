@@ -1,0 +1,10 @@
+.spacewalk-section-toolbar {
+  background: transparent;
+  padding: 0;
+  border: none;
+
+  &.fixed {
+    background: $eos-bc-white;
+    border-bottom: 1px solid $eos-bc-gray-300;
+  }
+}
