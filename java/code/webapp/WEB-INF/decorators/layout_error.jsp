@@ -34,7 +34,7 @@
     <c:set var="webTheme" value="${ConfigDefaults.get().getDefaultWebTheme()}"/>
     <!-- import styles -->
     <link rel="stylesheet" href="/css/${webTheme}.css?cb=${cb_version}" id="web-theme" />
-    <link rel="stylesheet" href="/css/updated-${webTheme}.css?cb=${cb_version}" id="updated-web-theme" disabled="disabled" />
+    <link rel="stylesheet" href="/css/updated-${webTheme}.css?cb=${cb_version}" id="updated-web-theme" />
 
     <!-- expose user preferred language to the application -->
     <c:set var="currentLocale" value="${ConfigDefaults.get().getDefaultLocale()}"/>
@@ -54,7 +54,8 @@
     <decorator:head />
   </head>
   <c:set var="webTheme" value="${GlobalInstanceHolder.USER_PREFERENCE_UTILS.getCurrentWebTheme(pageContext)}"/>
-  <body class="theme-${webTheme}" onload="<decorator:getProperty property="body.onload" />">
+  <c:set var="isUpdatedPage" value="${GlobalInstanceHolder.VIEW_HELPER.isBootstrapReady(pageContext.request.requestURI)}"/>
+  <body class="theme-${webTheme} ${isUpdatedPage ? 'updated-theme' : 'old-theme'}" onload="<decorator:getProperty property="body.onload" />">
   <c:set var="custom_header" scope="page" value="${rhn:getConfig('java.custom_header')}" />
 
   <header class="navbar-pf navbar navbar-dark bg-dark">
