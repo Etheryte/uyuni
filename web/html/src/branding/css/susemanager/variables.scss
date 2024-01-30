@@ -41,6 +41,8 @@ $green: $eos-bc-green-500;
 $green-light: $eos-bc-green-100;
 // This variable set controls the body color
 $body-color: #000;
+// There's a bunch of old Bootstrap 3 variables set here, we might not need most of these anymore?
+$gray-lighter: #eeeeee;
 $gray-dark: $body-color;
 $gray-dark-1: $eos-bc-gray-700;
 $gray: $eos-bc-gray-500;

@@ -144,7 +144,8 @@ section {
   margin-right: 0;
   margin-left: 0;
   aside {
-    //  .make-xs-column(2);
+    // TODO: Fix
+    // .make-xs-column(2);
     min-width: 16.66667%;
     max-width: 16.66667%;
     background: $aside-background;
@@ -171,12 +172,14 @@ section {
 
   /* fixing margins in the 1st and last columns */
   section {
-    //  .make-xs-column(10);
+    // TODO: Fix
+    // .make-xs-column(10);
     padding: $content-area-padding;
     float: right;
   }
 }
 
+// TODO: Reenable rest of the core theme
 //  #breadcrumb {
 //    color: $header-text;
 //    display: inline-block;
@@ -823,7 +826,8 @@ section {
 //      line-height: 1.4;
 //    }
 
-//    @media screen and (min-width: $screen-tablet) {
+// // min-width: $screen-tablet
+//    @include media-breakpoint-up(md) {
 //      padding-top: ($jumbotron-padding * 1);
 //      padding-bottom: ($jumbotron-padding * 1);
 
