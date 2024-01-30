@@ -24,8 +24,10 @@
 @import "./components/tables.scss";
 @import "./components/toolbar.scss";
 // @import "./components/legend-box.scss";
-// @import "./components/date-time-picker.scss";
+@import "./components/date-time-picker.scss";
 @import "./components/header.scss";
+
+@import "./bootstrap-fixes.scss";
 
 // // Responsive overrides
 // @import "../base/responsive-rules.scss";
