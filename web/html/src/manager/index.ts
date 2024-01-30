@@ -44,10 +44,6 @@ import Systems from "./systems";
 import Virtualization from "./virtualization";
 import Visualization from "./visualization";
 
-// TODO: Remove this
-const testString: string = "fire";
-console.log(testString);
-
 const pages = {
   ...Admin,
   ...Audit,

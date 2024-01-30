@@ -34,6 +34,20 @@ const debugUtils = {
       return `the theme is now: ${to}`;
     }
   },
+  toggleUpdatedTheme() {
+    const oldTheme = document.querySelector(".old-theme");
+    if (oldTheme) {
+      oldTheme.classList.remove("old-theme");
+      oldTheme.classList.add("updated-theme");
+      return;
+    }
+    const updatedTheme = document.querySelector(".updated-theme");
+    if (updatedTheme) {
+      updatedTheme.classList.add("old-theme");
+      updatedTheme.classList.remove("updated-theme");
+      return;
+    }
+  },
   showSuccessToastr,
   showWarningToastr,
   showErrorToastr,

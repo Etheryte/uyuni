@@ -1,8 +1,28 @@
-@theme: "uyuni";
+@theme: "susemanager-light";
 
-@import url(bootstrap/less/bootstrap.less);
+// TODO: Update Uyuni theme to match this spec
+@import "./body.less";
+@import "./susemanager/fonts.less";
 
-@import "mixins.less";
-@import "susemanager/variables.less";
-@import "uyuni-variables.less";
-@import "susemanager/index.less";
+.old-theme {
+  @import url(bootstrap/less/bootstrap.less);
+
+  @import "clearfix.less";
+  @import "mixins.less";
+  @import "susemanager/variables.less";
+  @import "uyuni-variables.less";
+
+  body& {
+    display: flex;
+    flex-direction: column;
+    background: @body-background;
+    font-family: @body-font;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    font-size: @font-size-base;
+    line-height: 1.5;
+    color: @body-color;
+  }
+
+  @import "susemanager/index.less";
+}

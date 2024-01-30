@@ -1,5 +1,7 @@
 $theme: "susemanager-light";
 
+@import "./body.scss";
+
 .updated-theme {
   @import "bootstrap5/scss/bootstrap";
 
