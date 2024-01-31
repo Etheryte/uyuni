@@ -28,6 +28,7 @@ a {
 }
 
 header {
+  min-height: fit-content !important;
   height: auto;
   width: 100%;
   border: none;
@@ -35,7 +36,7 @@ header {
   border-width: 0 !important;
   border-bottom: 2px solid $header-border !important;
   margin-bottom: 0;
-  background: $header;
+  background: $header !important;
 
   .header-content {
     padding: 12px 10px;
@@ -233,6 +234,8 @@ section {
 
 header,
 nav.navbar-pf {
+  padding: 0 !important;
+
   .navbar-toggle {
     display: inline-block;
     float: none;

@@ -4,7 +4,8 @@ $theme: "susemanager-light";
 @import "./body.scss";
 @import "./susemanager/fonts.scss";
 
-.updated-theme {
+// TODO: This works a bit meh with Bootstrap
+.new-theme {
   @import "bootstrap5/scss/bootstrap";
 
   @import "mixins.scss";

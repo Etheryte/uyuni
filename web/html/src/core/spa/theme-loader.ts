@@ -9,8 +9,8 @@ const BOOTSTRAP_READY_PAGES: string[] = [
 export const onEndNavigate = () => {
   const pathname = window.location.pathname;
   if (BOOTSTRAP_READY_PAGES.includes(pathname)) {
-    document.body.className = document.body.className.replace("old-theme", "updated-theme");
+    document.body.className = document.body.className.replace("old-theme", "new-theme");
   } else {
-    document.body.className = document.body.className.replace("updated-theme", "old-theme");
+    document.body.className = document.body.className.replace("new-theme", "old-theme");
   }
 };

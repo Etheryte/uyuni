@@ -38,13 +38,13 @@ const debugUtils = {
     const oldTheme = document.querySelector(".old-theme");
     if (oldTheme) {
       oldTheme.classList.remove("old-theme");
-      oldTheme.classList.add("updated-theme");
+      oldTheme.classList.add("new-theme");
       return;
     }
-    const updatedTheme = document.querySelector(".updated-theme");
+    const updatedTheme = document.querySelector(".new-theme");
     if (updatedTheme) {
       updatedTheme.classList.add("old-theme");
-      updatedTheme.classList.remove("updated-theme");
+      updatedTheme.classList.remove("new-theme");
       return;
     }
   },

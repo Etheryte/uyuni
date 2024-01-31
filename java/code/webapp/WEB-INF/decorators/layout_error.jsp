@@ -55,10 +55,10 @@
   </head>
   <c:set var="webTheme" value="${GlobalInstanceHolder.USER_PREFERENCE_UTILS.getCurrentWebTheme(pageContext)}"/>
   <c:set var="isUpdatedPage" value="${GlobalInstanceHolder.VIEW_HELPER.isBootstrapReady(pageContext.request.requestURI)}"/>
-  <body class="theme-${webTheme} ${isUpdatedPage ? 'updated-theme' : 'old-theme'}" onload="<decorator:getProperty property="body.onload" />">
+  <body class="theme-${webTheme} ${isUpdatedPage ? 'new-theme' : 'old-theme'}" onload="<decorator:getProperty property="body.onload" />">
   <c:set var="custom_header" scope="page" value="${rhn:getConfig('java.custom_header')}" />
 
-  <header class="navbar-pf navbar navbar-dark bg-dark">
+  <header class="navbar-pf navbar">
     <div class="navbar-header d-flex flex-row">
       <div id="breadcrumb">
           <c:choose>
