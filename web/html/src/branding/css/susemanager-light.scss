@@ -1,6 +1,8 @@
 $theme: "susemanager-light";
 
+// TODO: Update Uyuni theme to match this spec
 @import "./body.scss";
+@import "./susemanager/fonts.scss";
 
 .updated-theme {
   @import "bootstrap5/scss/bootstrap";
@@ -8,5 +10,16 @@ $theme: "susemanager-light";
   @import "mixins.scss";
   @import "susemanager/variables.scss";
   @import "susemanager-light-variables.scss";
+
+  display: flex;
+  flex-direction: column;
+  background: $body-background;
+  font-family: $body-font;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-size: $font-size-base;
+  line-height: 1.5;
+  color: $body-color;
+
   @import "susemanager/index.scss";  
 }
