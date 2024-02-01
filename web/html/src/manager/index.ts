@@ -16,7 +16,7 @@ import "./polyfills";
 import "react-hot-loader";
 import "core/spa/spa-engine";
 import "core/log";
-import "core/debug";
+import "core/debugUtils";
 import "./legacy";
 
 import SpaRenderer from "core/spa/spa-renderer";
