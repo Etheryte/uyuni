@@ -368,8 +368,8 @@ nav.navbar-pf {
 
     input {
       background-color: $aside-background;
-      border-color: $aside-search-border !important;
-      border-style: solid;
+      border: none !important;
+      border-bottom: 1px solid $aside-search-border !important;
       border-radius: 0 !important;
       border-width: 0 0 1px 0;
       padding-right: 3em;
