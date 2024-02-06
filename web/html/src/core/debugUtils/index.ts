@@ -16,12 +16,12 @@ const debugUtils = {
     return `the theme is: ${oldTheme.getAttribute("href")} ${newTheme.getAttribute("href")}`;
   },
   toggleTheme() {
-    const oldWrapper = document.querySelector(".old-theme");
-    const newWrapper = document.querySelector(".new-theme");
-    oldWrapper?.classList.remove("old-theme");
-    oldWrapper?.classList.add("new-theme");
-    newWrapper?.classList.remove("new-theme");
-    newWrapper?.classList.add("old-theme");
+    // const oldWrapper = document.querySelector(".old-theme");
+    // const newWrapper = document.querySelector(".new-theme");
+    // oldWrapper?.classList.remove("old-theme");
+    // oldWrapper?.classList.add("new-theme");
+    // newWrapper?.classList.remove("new-theme");
+    // newWrapper?.classList.add("old-theme");
 
     const oldLightTheme = document.querySelector('link[href^="/css/susemanager-light"]');
     const newLightTheme = document.querySelector('link[href^="/css/updated-susemanager-light"]');
