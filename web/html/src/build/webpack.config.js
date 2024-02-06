@@ -109,10 +109,8 @@ module.exports = (env, argv) => {
       "css/susemanager-dark": path.resolve(__dirname, "../branding/css/susemanager-light.less"),
       "css/susemanager-light": path.resolve(__dirname, "../branding/css/susemanager-light.less"),
       "css/updated-susemanager-light": path.resolve(__dirname, "../branding/css/susemanager-light.scss"),
-      // TODO: Implement
       "css/updated-susemanager-dark": path.resolve(__dirname, "../branding/css/susemanager-light.scss"),
-      // TODO: Implement
-      "css/updated-uyuni": path.resolve(__dirname, "../branding/css/uyuni.less"),
+      "css/updated-uyuni": path.resolve(__dirname, "../branding/css/uyuni.scss"),
     },
     output: {
       filename: `[name].bundle.js`,

@@ -1,3 +1,16 @@
+.table {
+  border-color: $eos-bc-gray-100;
+
+  > :not(caption) > * > * {
+    padding: 8px;
+    border-bottom-width: 1px;
+  }
+
+  > tbody > tr:last-child > * {
+    border-bottom-width: 0;
+  }
+}
+
 .table > thead > tr.active > th {
   background: $gray-lighter;
 }

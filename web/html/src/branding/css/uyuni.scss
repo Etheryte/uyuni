@@ -1,4 +1,4 @@
-$theme: "susemanager-light";
+$theme: "uyuni";
 
 @import "./body.scss";
 @import "./fonts.scss";
@@ -8,7 +8,7 @@ $theme: "susemanager-light";
 
   @import "mixins.scss";
   @import "susemanager/variables.scss";
-  @import "susemanager-light-variables.scss";
+  @import "uyuni-variables.scss";
 
   display: flex;
   flex-direction: column;

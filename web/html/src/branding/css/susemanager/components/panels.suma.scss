@@ -40,7 +40,8 @@
 
     .list-group-item {
       background: transparent;
-      border-color: $eos-bc-gray-100;
+      padding: 10px 15px;
+      border-bottom: 1px solid $eos-bc-gray-100;
     }
   }
 }
