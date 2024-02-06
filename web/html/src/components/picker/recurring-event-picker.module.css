@@ -1,12 +1,15 @@
-.center {
-  display: flex;
-  align-items: center;
-}
+:global(.old-theme)
+:global(.new-theme) {
+  .center {
+    display: flex;
+    align-items: center;
+  }
 
-.radio {
-  padding-left: 5px;
-}
+  .radio {
+    padding-left: 5px;
+  }
 
-.helpIcon {
-  padding: 0px;
+  .helpIcon {
+    padding: 0px;
+  }
 }

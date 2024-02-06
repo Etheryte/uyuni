@@ -1,15 +1,18 @@
-.wrapper {
-  position: relative;
-  padding: 10px
-}
+:global(.old-theme)
+:global(.new-theme) {
+  .wrapper {
+    position: relative;
+    padding: 10px
+  }
 
-.icon_wrapper_vertical_center {
-  position: absolute;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-}
+  .icon_wrapper_vertical_center {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 
-.dettached {
-  text-decoration: line-through;
+  .dettached {
+    text-decoration: line-through;
+  }
 }

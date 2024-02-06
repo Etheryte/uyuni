@@ -1,12 +1,15 @@
-.attached {
-    padding: 2px 2px 2px 0px;
-}
+:global(.old-theme)
+:global(.new-theme) {
+    .attached {
+        padding: 2px 2px 2px 0px;
+    }
 
-.dettached {
-    padding: 2px 2px 2px 0px;
-    text-decoration: line-through;
-}
+    .dettached {
+        padding: 2px 2px 2px 0px;
+        text-decoration: line-through;
+    }
 
-.built {
-    padding: 2px 2px 2px 0px;
+    .built {
+        padding: 2px 2px 2px 0px;
+    }
 }
