@@ -299,6 +299,15 @@ nav.navbar-pf {
     select.form-control {
       width: 100%;
     }
+    button {
+      text-align: center;
+      background: transparent;
+
+      &,
+      &:hover {
+        color: $header-text;
+      }
+    }
   }
 
   /* Header Logo bar */
