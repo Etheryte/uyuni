@@ -12,6 +12,14 @@ a {
   }
 }
 
+input,
+button,
+select,
+optgroup,
+textarea {
+  color: inherit;
+}
+
 header {
   min-height: fit-content !important;
   height: auto;
@@ -600,10 +608,13 @@ nav.navbar-pf {
   }
 }
 .display-number {
-  // TODO: Fix
-  //  @extend .input-sm;
+  width: fit-content;
+  height: 30px;
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: $border-radius;
   display: inline-block;
-  width: 5.2em;
   border: 1px solid #dddddd;
   background-color: $eos-bc-gray-100;
 }
