@@ -41,3 +41,8 @@
   background: #d9534f;
   border-color: #d43f3a;
 }
+
+.btn-link {
+  @extend .is-plain;
+  color: $link-color;
+}
