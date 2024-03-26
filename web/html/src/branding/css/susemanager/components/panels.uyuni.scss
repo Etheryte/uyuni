@@ -21,4 +21,11 @@
       }
     }
   }
+
+  .panel-footer {
+    background-color: #f5f5f5 !important;
+    border-top: 1px solid $eos-bc-gray-100;
+    border-bottom-right-radius: $border-radius;
+    border-bottom-left-radius: $border-radius;
+  }
 }
