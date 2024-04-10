@@ -76,24 +76,6 @@
   }
 }
 
-.btn-link {
-  &,
-  &:active,
-  &:focus,
-  &:disabled,
-  &.disabled {
-    &,
-    &:hover {
-      color: $link-color;
-      font-weight: normal;
-    }
-
-    &:not(:disabled):not(.disabled):not(.text-muted):hover {
-      text-decoration: underline;
-    }
-  }
-}
-
 // TODO: Add :active and :focus states for green etc
 // NB! Here and below, these are not nested because they're not used consistently along with .btn
 .btn-default {
