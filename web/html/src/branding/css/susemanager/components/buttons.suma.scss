@@ -4,11 +4,6 @@
 .btn-success,
 .btn-warning,
 .btn-danger {
-  // We use flex to ensure icons etc are correctly aligned in buttons
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5em;
-
   color: inherit;
   font-weight: bold;
   padding: 8px 16px;

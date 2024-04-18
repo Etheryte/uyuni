@@ -4,7 +4,15 @@
 .btn-success,
 .btn-warning,
 .btn-danger {
+  // We use flex to ensure icons etc are correctly aligned in buttons
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
   font-size: $font-size-base;
+
+  i.fa:first-child:last-child {
+    margin: 0;
+  }
 }
 
 button.is-plain,
