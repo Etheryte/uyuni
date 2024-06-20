@@ -167,6 +167,10 @@ section {
     .make-xs-column(10);
     padding: @content-area-padding;
     float: right;
+
+    @media (max-width: @screen-tablet) {
+      padding: @content-area-padding-mobile;
+    }
   }
 }
 

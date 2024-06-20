@@ -160,6 +160,10 @@ section {
   section {
     padding: $content-area-padding;
     float: right;
+
+    @media (max-width: $screen-tablet) {
+      padding: $content-area-padding-mobile;
+    }
   }
 }
 

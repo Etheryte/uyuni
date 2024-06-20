@@ -8,7 +8,7 @@ function onDocumentReadyGeneral(){
   create_checkall_checkbox();
 
   // Wrapping the tables in a div which will make them responsive
-  jQuery(".table").wrap("<div class='table-responsive'>");
+  jQuery(":not(.table-responsive) > .table").wrap("<div class='table-responsive'>");
 
   // Set up the behavior and the event function
   // for the spacewalk section toolbar [sst]
