@@ -215,6 +215,7 @@ function showFatalError(message, exception) {
   }
 }
 
+// TODO: Obsolete
 /**
  * Checks if the provided string is a valid URL.
  *

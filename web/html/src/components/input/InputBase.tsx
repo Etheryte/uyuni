@@ -70,6 +70,8 @@ export type InputBaseProps<ValueType = string> = {
    *  Takes a name and a value parameter.
    */
   onChange?: (name: string | undefined, value: ValueType) => void;
+
+  autoComplete?: string;
 };
 
 type State = {
