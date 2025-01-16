@@ -5,8 +5,7 @@ export const SetupHeader = () => {
     {
       id: "wizard-step-proxy",
       label: t("HTTP Proxy"),
-      // TODO: Here and elsewhere, use "/rhn/manager/admin/setup/proxy"
-      url: "/rhn/admin/setup/ProxySettings.do",
+      url: "/rhn/manager/admin/setup/proxy",
     },
     {
       id: "wizard-step-credentials",

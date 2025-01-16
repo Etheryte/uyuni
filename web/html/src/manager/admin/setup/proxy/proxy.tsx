@@ -157,7 +157,10 @@ export default (props: Props) => {
           <h4>{t("HTTP Proxy")}</h4>
           <p>
             {t(
-              "If this server uses an HTTP proxy to access the outside network, you can use this form to configure it. If that is not the case, move on to Organization Credentials."
+              "If this server uses an HTTP proxy to access the outside network, you can use this form to configure it. If that is not the case, move on to <link>Organization Credentials</link>.",
+              {
+                link: (text: string) => <a href="https://server.local/rhn/admin/setup/MirrorCredentials.do">{text}</a>,
+              }
             )}
           </p>
         </div>

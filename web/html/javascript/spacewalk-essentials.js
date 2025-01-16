@@ -215,22 +215,6 @@ function showFatalError(message, exception) {
   }
 }
 
-// TODO: Obsolete
-/**
- * Checks if the provided string is a valid URL.
- *
- * @param {string} url - The URL string to validate.
- * @returns {boolean} - `true` if the string is a valid URL, otherwise `false`.
- */
-function isValidUrl(url) {
-  try {
-      new URL(url);
-      return true;
-  } catch (_) {
-      return false;
-  }
-}
-
 /**
  * Escapes special HTML characters in a string.
  * @param {string} original - The string that may contain special HTML characters.
