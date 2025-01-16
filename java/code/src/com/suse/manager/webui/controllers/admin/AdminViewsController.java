@@ -24,6 +24,8 @@ import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.domain.cloudpayg.PaygSshData;
 import com.redhat.rhn.domain.cloudpayg.PaygSshDataFactory;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.manager.setup.ProxySettingsDto;
+import com.redhat.rhn.manager.setup.ProxySettingsManager;
 import com.redhat.rhn.taskomatic.TaskomaticApi;
 
 import com.suse.manager.admin.PaygAdminManager;
@@ -147,6 +149,9 @@ public class AdminViewsController {
      * @return the view to show
      */
     public static ModelAndView showProxy(Request request, Response response, User user) {
-        return new ModelAndView(new HashMap<>(), "controllers/admin/templates/proxy.jade");
+        Map<String, Object> data = new HashMap<>();
+        ProxySettingsDto proxySettings = ProxySettingsManager.getProxySettings();
+        data.put("proxySettings", GSON.toJson(proxySettings));
+        return new ModelAndView(data, "controllers/admin/templates/proxy.jade");
     }
 }

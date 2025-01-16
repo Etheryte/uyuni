@@ -6,6 +6,8 @@ import { Panel } from "components/panels/Panel";
 import Network from "utils/network";
 
 import { SetupHeader } from "../setup-header";
+import img from "./http-proxy.png";
+import { ProxySettings } from "./proxy-settings";
 
 enum Verification {
   Unknown,
@@ -14,81 +16,92 @@ enum Verification {
   Invalid,
 }
 
-export default () => {
-  const [settings, _setSettings] = useState({
-    hostname: "",
-    username: "",
-    password: "",
+type Props = {
+  proxySettings: Readonly<ProxySettings>;
+};
+
+export default (props: Props) => {
+  const hasSavedSettings = Boolean(
+    props.proxySettings.hostname || props.proxySettings.username || props.proxySettings.password
+  );
+  const [isEditing, setIsEditing] = useState(!hasSavedSettings);
+
+  const [settings, setSettings] = useState<ProxySettings>({
+    ...props.proxySettings,
   });
-  const setSettings = (newSettings: Partial<typeof settings>) => {
-    _setSettings({
-      // Ensure all fields are always present
-      hostname: "",
-      username: "",
-      password: "",
-      ...newSettings,
-    });
-  };
 
-  const [verification, setVerification] = useState(Verification.Unknown);
+  const [verification, setVerification] = useState(hasSavedSettings ? Verification.Checking : Verification.Unknown);
 
-  const verifySettings = (forceRefresh: boolean) => {
-    Network.post("/rhn/ajax/verify-proxy-settings", {
-      forceRefresh,
-    })
-      .then((result) => {
-        const valid = JSON.parse(result);
-        if (valid) {
-          setVerification(Verification.Valid);
-        } else {
-          setVerification(Verification.Invalid);
-        }
-      })
-      .catch((error) => {
-        setVerification(Verification.Invalid);
-        Loggerhead.error(error);
+  const verifySettings = async (forceRefresh: boolean) => {
+    try {
+      const result = await Network.post("/rhn/ajax/verify-proxy-settings", {
+        forceRefresh,
       });
+      const valid = JSON.parse(result);
+      if (valid) {
+        setVerification(Verification.Valid);
+      } else {
+        setVerification(Verification.Invalid);
+      }
+    } catch (error) {
+      setVerification(Verification.Invalid);
+      Loggerhead.error(error);
+    }
   };
 
-  const saveSettings = (newSettings: typeof settings) => {
+  const saveSettings = async (newSettings: typeof settings) => {
     if (verification !== Verification.Unknown) {
       setVerification(Verification.Checking);
     }
 
-    Network.post("/rhn/ajax/save-proxy-settings", newSettings).then((savedProxySettings) => {
-      setSettings({ ...settings, ...savedProxySettings });
+    try {
+      const savedProxySettings = await Network.post("/rhn/ajax/save-proxy-settings", newSettings);
+      setSettings((prevSettings) => ({ ...prevSettings, ...savedProxySettings }));
       verifySettings(true);
-    });
-  };
-
-  const loadSettings = () => {
-    Network.post("/rhn/ajax/retrieve-proxy-settings").then((savedProxySettings) => {
-      setSettings(savedProxySettings);
-
-      if (savedProxySettings.hostname) {
-        verifySettings(false);
-      }
-    });
+    } catch (error) {
+      setVerification(Verification.Invalid);
+      Loggerhead.error(error);
+    }
   };
 
   useEffect(() => {
-    loadSettings();
+    if (hasSavedSettings) {
+      verifySettings(false);
+    }
   }, []);
 
   const footer = (
-    <>
-      <div className="text-right">
+    <div className="d-flex flex-row justify-content-between">
+      <div>
         <button
-          id="http-proxy-save"
-          type="submit"
-          className="btn btn-primary"
-          disabled={verification === Verification.Checking}
+          type="button"
+          className="btn btn-default"
+          onClick={() => {
+            if (isEditing) {
+              setSettings({ ...props.proxySettings });
+            }
+            setIsEditing(!isEditing);
+          }}
         >
-          {t("Save and Verify")}
+          {isEditing ? t("Cancel") : t("Edit")}
         </button>
       </div>
-    </>
+      <div>
+        {isEditing ? (
+          <button
+            id="http-proxy-save"
+            type="submit"
+            className="btn btn-primary"
+            disabled={verification === Verification.Checking}
+          >
+            {t("Save and Verify")}
+          </button>
+        ) : null}
+      </div>
+    </div>
   );
+
+  const passwordPlaceholder = hasSavedSettings && !isEditing ? "●".repeat(8) : t("Password");
 
   return (
     <div className="responsive-wizard">
@@ -111,9 +124,12 @@ export default () => {
                 name="hostname"
                 label={t("HTTP Proxy Hostname")}
                 placeholder={t("hostname:port")}
-                // invalidHint={t("Can not contain the following characters: /\\")}
+                hint={t("For example: <code>example.com:8080</code> or <code>192.0.2.0:8080</code>", {
+                  code: (text: string) => <code key={text}>{text}</code>,
+                })}
                 labelClass="col-md-4"
                 divClass="col-md-8"
+                disabled={!isEditing}
               />
               <Text
                 name="username"
@@ -122,17 +138,28 @@ export default () => {
                 labelClass="col-md-4"
                 divClass="col-md-8"
                 autoComplete="off"
+                disabled={!isEditing}
               />
               <Password
                 name="password"
                 label={t("HTTP Proxy Password")}
-                placeholder={t("Password")}
+                placeholder={passwordPlaceholder}
                 labelClass="col-md-4"
                 divClass="col-md-8"
                 autoComplete="off"
+                disabled={!isEditing}
               />
             </Panel>
           </Form>
+        </div>
+        <div className="col-sm-3 hidden-xs" id="wizard-faq">
+          <img src={img} alt={t("Illustration of a proxy server")} />
+          <h4>{t("HTTP Proxy")}</h4>
+          <p>
+            {t(
+              "If this server uses an HTTP proxy to access the outside network, you can use this form to configure it. If that is not the case, move on to Organization Credentials."
+            )}
+          </p>
         </div>
       </div>
     </div>

@@ -6,12 +6,17 @@ import SpaRenderer from "core/spa/spa-renderer";
 import { MessagesContainer } from "components/toastr";
 
 import Proxy from "./proxy";
+import { ProxySettings } from "./proxy-settings";
 
-export const renderer = (id: string) => {
+type Props = {
+  proxySettings: ProxySettings;
+};
+
+export const renderer = (id: string, props: Props) => {
   SpaRenderer.renderNavigationReact(
     <RolesProvider>
       <MessagesContainer />
-      <Proxy />
+      <Proxy proxySettings={props.proxySettings} />
     </RolesProvider>,
     document.getElementById(id)
   );

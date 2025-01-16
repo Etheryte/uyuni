@@ -8,5 +8,7 @@ script(type='text/javascript').
 script(type='text/javascript').
     spaImportReactPage('admin/setup/proxy')
         .then(function(module) {
-            module.renderer('proxy');
+            module.renderer('proxy', {
+                proxySettings: !{proxySettings}
+            });
         });
