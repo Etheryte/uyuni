@@ -35,11 +35,10 @@ jobs:
 
     - name: Resolve dependencies
       if: steps.cache-dependencies.outputs.cache-hit != 'true'
-      run: |
-        ant -f search-server/spacewalk-search/build.xml resolve
+      run: ant -f search-server/spacewalk-search/build.xml resolve
 
-    # - name: Run checkstyle
-    #   run: ant -f java/manager-build.xml checkstyle
+    - name: Run checkstyle
+      run: ant -f search-server/spacewalk-search/build.xml compile
 
     # - name: Compress build results
     #   run: tar cf java-build.tar.gz java/build java/lib
