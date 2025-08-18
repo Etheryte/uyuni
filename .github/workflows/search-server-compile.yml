@@ -19,7 +19,7 @@ on:
       - '.github/workflows/search-server-compile.yml'
 
 jobs:
-  checkstyle:
+  compile:
     runs-on: ubuntu-latest
     container: registry.opensuse.org/systemsmanagement/uyuni/master/docker/containers/uyuni-master-pgsql:latest
 
