@@ -8,6 +8,8 @@ on:
       - 'java/**.java'
       - 'java/**.xml'
       - '.github/workflows/java-checkstyle.yml'
+      # TODO: Remove once done
+      - '.github/workflows/search-server-compile.yml'
   pull_request:
     types:
       - opened
@@ -21,6 +23,8 @@ on:
       - 'java/**.java'
       - 'java/**.xml'
       - '.github/workflows/java-checkstyle.yml'
+      # TODO: Remove once done
+      - '.github/workflows/search-server-compile.yml'
 
 jobs:
   checkstyle:

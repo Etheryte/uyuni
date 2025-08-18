@@ -105,7 +105,7 @@
         <property name="ivy.ivyrep.default.ivy.root" value="${ivyserver}/ivy/" />
         <property name="ivy.ivyrep.default.artifact.root" value="${ivyserver}/ivy/" />
         <property name="ivy.ivyrep.default.artifact.pattern" value="[artifact]-[revision].[ext]" />
-        <ivy-retrieve/>
+        <ivy-retrieve sync="true" type="jar,bundle"/>
     </target>
 
     <target name="resolve" depends="resolve-ivy,resolve-local" />
