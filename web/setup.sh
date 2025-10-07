@@ -1,9 +1,6 @@
 set -euxo pipefail
 
-cd web/html/src;
-rm -rf node_modules;
-yarn install --force --ignore-optional --production=true --frozen-lockfile;
-yarn autoclean --force;
-yarn zip;
-mv node-modules.tar.gz ../../node-modules.tar.gz;
+rm -rf web/html/src/node_modules;
+npm ci --ignore-scripts --save=false --omit=dev;
+npm run zip;
 echo "node-modules.tar.gz"

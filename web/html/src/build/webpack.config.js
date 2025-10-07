@@ -4,10 +4,9 @@ import CleanWebpackPlugin from "clean-webpack-plugin";
 import CopyWebpackPlugin from "copy-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import { createRequire } from "node:module";
-import path from "node:path";
-import { dirname } from "path";
+import path, { dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 import SpeedMeasurePlugin from "speed-measure-webpack-plugin";
-import { fileURLToPath } from "url";
 const require = createRequire(import.meta.url);
 
 const __filename = fileURLToPath(import.meta.url);
@@ -255,7 +254,7 @@ export default (env, opts) => {
         },
         logging: "error",
       },
-      // Override CORS headers for `yarn storybook`, these are not required otherwise
+      // Override CORS headers for `npm run storybook`, these are not required otherwise
       headers: {
         "Access-Control-Allow-Origin": "*",
       },
