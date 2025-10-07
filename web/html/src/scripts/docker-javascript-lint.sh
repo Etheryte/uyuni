@@ -13,4 +13,4 @@ npm run build --check-spec=false
 npm run lint:production
 npm run test
 npm run tsc
-echo "Javascript linting ran successfully"
+echo "All frontend checks completed successfully"
