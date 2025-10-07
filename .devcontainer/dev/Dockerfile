@@ -21,7 +21,6 @@ RUN zypper ref && \
     maven \
     neovim \
     nodejs22 \
-    npm22 \
     obs-to-maven \
     openssh \
     python3-PyYAML \
