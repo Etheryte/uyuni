@@ -2,6 +2,10 @@
 set -xe
 sudo -i podman exec server bash -c "cp /testsuite/podman_runner/debug_logging.properties /etc/tomcat/logging.properties"
 
+sudo -i podman exec server bash -c "rpm -ql nodejs-default || true"
+sudo -i podman exec server bash -c "/usr/bin/npm || true"
+sudo -i podman exec server bash -c "set -xe;npm ci --ignore-scripts --save=false --omit=dev;npm run build --check-spec=false; rsync -a web/html/src/dist/ /usr/share/susemanager/www/htdocs/"
+
 # Create missing directories that will be created by the new RPM https://github.com/uyuni-project/uyuni/pull/7651
 sudo -i podman exec server bash -c "[ -d /usr/share/susemanager/www ] || mkdir -p /usr/share/susemanager/www"
 sudo -i podman exec server bash -c "[ -d /usr/share/susemanager/www/htdocs ] || mkdir -p /usr/share/susemanager/www/htdocs"
@@ -33,9 +37,7 @@ sudo -i podman exec server bash -c "cd /java && ant -f manager-build.xml ivy || 
 sudo -i podman exec server bash -c "cd /java && ant -f manager-build.xml -Ddeploy.mode=local refresh-branding-jar deploy"
 sudo -i podman exec server bash -c "cd /java && ant -f manager-build.xml apidoc-jsp"
 sudo -i podman exec server bash -c "mkdir /usr/share/susemanager/www/tomcat/webapps/rhn/apidoc/ && rsync -av /java/build/reports/apidocs/jsp/ /usr/share/susemanager/www/tomcat/webapps/rhn/apidoc/"
-sudo -i podman exec server bash -c "rpm -ql nodejs-default || true"
-sudo -i podman exec server bash -c "/usr/bin/npm || true"
-sudo -i podman exec server bash -c "set -xe;npm ci --ignore-scripts --save=false --omit=dev;npm run build --check-spec=false; rsync -a web/html/src/dist/ /usr/share/susemanager/www/htdocs/"
+# TODO: Here
 sudo -i podman exec server bash -c "rctomcat restart"
 sudo -i podman exec server bash -c "rctaskomatic restart"
 
