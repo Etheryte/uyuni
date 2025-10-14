@@ -15,7 +15,7 @@ export default async (opts) => {
 
   const dirname = path.dirname(__filename);
   const projectRoot = path.resolve(dirname, "../../../..");
-  const pkg = JSON.parse(await fs.promises.readFile(path.resolve(projectRoot, "package.json"), "utf8"));
+  const pkg = JSON.parse(await fs.promises.readFile(path.resolve(projectRoot, "./web/package.json"), "utf8"));
 
   // Currently we only check production dependencies
   const dependencies = pkg.dependencies;

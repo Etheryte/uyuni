@@ -20,6 +20,11 @@ import webpackAlias from "./webpack.alias.js";
 
 const DEVSERVER_WEBSOCKET_PATHNAME = "/ws";
 
+const nodeModules = path.resolve(require.resolve("jquery/package.json"), "../..");
+
+// console.log(path.resolve(nodeModules, "./font-awesome"));
+console.log(nodeModules);
+
 export default (env, opts) => {
   let pluginsInUse = [];
   const isProductionMode = opts.mode === "production";
@@ -59,29 +64,29 @@ export default (env, opts) => {
         to: path.resolve(dist, "./css"),
       },
       {
-        from: path.resolve(projectRoot, "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"),
+        from: path.resolve(nodeModules, "./bootstrap/dist/js/bootstrap.bundle.min.js"),
         to: path.resolve(dist, "./javascript/legacy/bootstrap-webpack.js"),
       },
       {
-        from: path.resolve(projectRoot, "./node_modules/jquery/dist/jquery.min.js"),
+        from: path.resolve(nodeModules, "./jquery/dist/jquery.min.js"),
         to: path.resolve(dist, "./javascript/legacy"),
       },
       {
-        from: path.resolve(projectRoot, "./node_modules/jquery-ui/dist/jquery-ui.js"),
+        from: path.resolve(nodeModules, "./jquery-ui/dist/jquery-ui.js"),
         to: path.resolve(dist, "./javascript/legacy"),
       },
       // TODO: In the future it would be nice to bundle this instead of copying it
       {
-        from: path.resolve(projectRoot, "./node_modules/font-awesome"),
+        from: path.resolve(nodeModules, "./font-awesome"),
         to: path.resolve(dist, "./fonts/font-awesome"),
       },
       {
-        from: path.resolve(projectRoot, "./node_modules/pwstrength-bootstrap/dist/pwstrength-bootstrap-1.0.2.js"),
+        from: path.resolve(nodeModules, "./pwstrength-bootstrap/dist/pwstrength-bootstrap-1.0.2.js"),
         to: path.resolve(dist, "./javascript/legacy"),
       },
       // TODO: Take only what we need after we've confirmed it works fine, otherwise there's a lot of fluff in this
       {
-        from: path.resolve(projectRoot, "./node_modules/ace-builds/src-min-noconflict"),
+        from: path.resolve(nodeModules, "./ace-builds/src-min-noconflict"),
         to: path.resolve(dist, "./javascript/legacy/ace-editor"),
       },
     ]),
@@ -137,7 +142,7 @@ export default (env, opts) => {
               exclude: /node_modules/,
               use: [
                 {
-                  loader: require.resolve("babel-loader"),
+                  loader: path.resolve(nodeModules, "./babel-loader"),
                   options: {
                     configFile: path.resolve(webHtmlSrc, "./.babelrc"),
                     plugins: isProductionMode ? undefined : [require.resolve("react-refresh/babel")],
@@ -154,7 +159,7 @@ export default (env, opts) => {
           use: [
             MiniCssExtractPlugin.loader,
             {
-              loader: require.resolve("css-loader"),
+              loader: path.resolve(nodeModules, "./css-loader"),
               options: {
                 modules: true,
               },
@@ -165,7 +170,10 @@ export default (env, opts) => {
           // Stylesheets of third party dependencies
           test: /\.css$/,
           include: /node_modules/,
-          use: [{ loader: require.resolve("style-loader") }, { loader: require.resolve("css-loader") }],
+          use: [
+            { loader: path.resolve(nodeModules, "./style-loader") },
+            { loader: path.resolve(nodeModules, "./css-loader") },
+          ],
         },
         {
           test: /\.po$/,
@@ -200,7 +208,7 @@ export default (env, opts) => {
             // },
             {
               // Interprets `@import` and `url()` like `import/require()` and will resolve them
-              loader: require.resolve("css-loader"),
+              loader: path.resolve(nodeModules, "./css-loader"),
               options: {
                 modules: {
                   auto: true,
@@ -212,7 +220,7 @@ export default (env, opts) => {
             },
             {
               // Loader for webpack to process CSS with PostCSS
-              loader: require.resolve("postcss-loader"),
+              loader: path.resolve(nodeModules, "./postcss-loader"),
               options: {
                 postcssOptions: {
                   plugins: [autoprefixer],
@@ -221,7 +229,7 @@ export default (env, opts) => {
             },
             {
               // Loads a SASS/SCSS file and compiles it to CSS
-              loader: require.resolve("sass-loader"),
+              loader: path.resolve(nodeModules, "./sass-loader"),
               options: {
                 sassOptions: {
                   loadPaths: [webHtmlSrc],
